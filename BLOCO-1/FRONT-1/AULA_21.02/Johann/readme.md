@@ -4,4 +4,4 @@ Commit realizado por Johann !
 
 <p>Meu paragrafo legal. Com um conteúdo legal </p>
 
-<img src="" alt="" />
+<img src="" alt="entendendo git" />
