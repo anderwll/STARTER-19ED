@@ -3,6 +3,6 @@
 # Pamella Namie Nomura
 
 
-** Um pequeno teste de commit, push, pull **
+** Um pequeno teste de commit, pull, push **
 
 ![imagem](./toothless-dancing.gif)
