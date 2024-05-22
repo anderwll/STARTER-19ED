@@ -1,0 +1,4 @@
+É uma interface que representa como os documentos HTML e XML são lidos pelo navegador.
+
+Permite acessar atributos, bem como alterar seus valores de forma simples sem necessidade de “refresh”
+Considere o HTML ao lado 
