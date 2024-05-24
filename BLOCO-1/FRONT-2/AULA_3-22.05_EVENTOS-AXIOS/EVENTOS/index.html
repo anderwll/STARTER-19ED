@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./css/styless.css" />
+    <title>Eventos DOM</title>
+  </head>
+  <body>
+    <main>
+      <h1>Eventos DOM</h1>
+      <p>
+        Os eventos DOM são um sinal de que algo ocorreu ou está ocorrendo e
+        podem ser acionados por interações do usuário ou pelo navegador.
+      </p>
+      <hr />
+
+      <h4>ON CLICK</h4>
+      <div>
+        <button onclick="funcaoNaTag()">Função na Tag</button>
+        <button onclick="funcaoNaTagComParamentro(event)">
+          Função c/ param..
+        </button>
+      </div>
+      <hr />
+
+      <h4>ADD EVENT LISTENER</h4>
+      <button id="btnAddEventListener">Add event listener</button>
+      <hr />
+
+      <h4>ON MOUSE OVER / ON MOUSE OUT</h4>
+      <div class="my-div" onmouseover="funcaoMostraLog()"></div>
+      <hr />
+
+      <h4>KEY UP</h4>
+      <input id="keyUp" type="text" onkeyup="funcaoKeyUp()" />
+      <p id="keyUp-info">Tecla Solta:</p>
+      <hr />
+
+      <h4>KEY DOWN</h4>
+      <input id="keyDown" type="text" />
+      <p id="keyDown-info">Tecla Pressionada:</p>
+    </main>
+    <script src="./js/index.js"></script>
+  </body>
+</html>
