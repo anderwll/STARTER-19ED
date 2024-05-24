@@ -1,14 +1,19 @@
 
 /*
-    Axios utiliza verbos HTTP
+    Axios é uma ferramenta que nos permite fazer requisições HTTP (Hypertext Transfer Protocol).
+
+    Usa "promessas" (promises), que ajudam a lidar com operações assíncronas.
+
+    Utiliza verbos HTTP
     - get
     - post
     - delete
     - put
 
-    Axios retorna:
-    - Status Code: 1xx, 2xx, 3xx, 4xx, 5xx
-    - Data: Contem o conteúdo da api de fato. => [], {}, "", 0
+    Retorna:
+    - status Code: 1xx, 2xx, 3xx, 4xx, 5xx
+    - sata: Contem o conteúdo da api de fato. => [], {}, "", 0
+    - ...outros dados (documentação)
 
 */
 
@@ -23,10 +28,10 @@ function buscarUsuarios() {
             // Requisição foi bem-sucedida
             console.log(resposta);
         })
-        .catch(function (error) {
+        .catch(function (erro) {
 
             // Requisão falhar.
-            console.error(error);
+            console.error(erro);
         })
         .finally(function () {
 
@@ -40,7 +45,7 @@ function buscarUsuarios() {
 /* 
     ---- PROMISE ----
     ASYNC: Requisição assíncrona, temos que esperar
-    AWAIT: Aguarando enquanto até responder
+    AWAIT: Aguarando até a api responder
 
 */
 
@@ -50,29 +55,34 @@ async function listaUsuarios() {
 
         // Requisição bem-sucedida
         console.log(resposta)
-    } catch (error) {
+    } catch (erro) {
 
         // Requisão falhar.
-        console.log(error)
+        console.log(erro)
     } finally {
+
         // Independente se for sucesso ou não
         console.log('Finalizou a requisição...')
     }
 }
 
+// -------------- CHAMADA DAS FUNCÕES --------------------
+// window.onload = buscarUsuarios()
+window.onload = listaUsuarios()
+
+
 // EXEMPLO DE COMO FUNCIONA THEN/CATCH E TRY/CATCH
 /*
+    - THEN / TRY
     if(sucesso) {
         faz algo
     }
 
+    - CATH
     if(erro) {
         faz algo
     }
 
+    - FINALLY
     faz algo
 */
-
-
-// window.onload = buscarUsuarios()
-window.onload = listaUsuarios()
