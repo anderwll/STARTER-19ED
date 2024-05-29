@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styless.css" />
+    <title>Formulários HTML /JS</title>
+  </head>
+  <body>
+    <header>
+      <h1>Formulários HTML</h1>
+      <p>Os formulários HTML são utilizado para coletar dados do usuário.</p>
+    </header>
+    <main>
+      <!-- 
+          <form> => tag de formulário  
+            action: para onde nossos dados serão enviados
+            method: qual o verbo HTTP (get, post) que ele deve submeter o form.
+
+          <input  /> => tag de entrada de dados
+            type: define o tipo da tag, ex: texto, numero...
+            placeholder: texto auxíliar por usuário
+        -->
+
+      <form action="http://localhost:3333" method="post">
+        <h2>LOGIN</h2>
+        <p>Insira suas informações!</p>
+
+        <input type="email" placeholder="E-mail" />
+
+        <input type="password" placeholder="Senha" />
+
+        <input type="submit" class="btn-submit" />
+
+        <span>Não possui conta? <a href="./cadastro.html">Registre-se</a></span>
+      </form>
+    </main>
+  </body>
+</html>

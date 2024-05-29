@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styless.css" />
+    <title>Formulário HTML / JS</title>
+  </head>
+  <body>
+    <main>
+      <!-- 
+            text => textos curtos
+            textarea => textos longos
+            password => para senhas
+            email => usado para e-mail
+            number => números
+            date => datas
+            
+            submit => usado para submeter o formulário
+            button => botão simples
+            reset => utilizado para resetar o nosso formulário
+
+            <label> => rótulo ou descrição da tag input
+                for: diz a que input pertence, mesmo nome do id
+
+
+            <input>
+                value: é onde teremos o nosso valor
+                maxlength: defino o tamanho minimo de caracteres 
+                maxlength: define o tamanho máximo de caracteres
+                min: valor minimo (number)
+                max: valor máximo (number)
+                rows: define quantas linhas visiveis (textarea)
+                cols: efine quantas colunas visiveis (textarea)
+                required: obrigátorio
+        -->
+
+      <form id="form-cadastro">
+        <h2>Cadastro de desenvolvedores</h2>
+        <p>Adicione as suas informações!!</p>
+
+        <div>
+          <label for="nome">Nome:</label>
+          <input
+            class="input"
+            type="text"
+            id="nome"
+            name="nome"
+            placeholder="Digite sem nome..."
+            minlength="3"
+            maxlength="20"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="email">E-mail:</label>
+          <input
+            class="input"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Digite sem e-mail..."
+            required
+          />
+        </div>
+
+        <div>
+          <label for="nascimento">Data de nascimento:</label>
+          <input
+            class="input"
+            type="date"
+            id="nascimento"
+            name="nascimento"
+            placeholder="Digite sua data de nascimento..."
+            required
+          />
+        </div>
+
+        <div>
+          <label for="telefone">Telefone:</label>
+          <input
+            class="input"
+            type="tel"
+            id="telefone"
+            name="telefone"
+            placeholder="Digite seu telefone..."
+            required
+          />
+        </div>
+
+        <div>
+          <label for="idade">Idade em anos:</label>
+          <input
+            class="input"
+            type="number"
+            id="idade"
+            name="idade"
+            placeholder="Digite sua idade em anos..."
+            min="16"
+            max="18"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="sobre">Conte sobre voce:</label>
+          <textarea
+            class="input"
+            id="sobre"
+            name="sobre"
+            placeholder="Conte um pouco sobre vc..."
+            rows="6"
+            cols="10"
+            maxlength="500"
+          ></textarea>
+        </div>
+
+        <div class="radio">
+          <input
+            type="radio"
+            name="sexo"
+            id="masculino"
+            checked
+            value="masculino"
+          />
+          <label for="masculino">Masculino</label>
+
+          <input type="radio" name="sexo" id="feminino" value="masculino" />
+          <label for="feminino">Feminino</label>
+        </div>
+
+        <!-- 
+          <fieldset> => utilizado para criar agrupamentos
+            ex: agrupar todas as inputs relacionadas a endereço
+
+          <legend> => título ou descrição do agrupamento
+           ex: Informações pessoais, profissionais...
+
+         -->
+        <fieldset>
+          <legend>Informações Complementares</legend>
+
+          <div>
+            <label for="endereco">Endereço:</label>
+            <input
+              class="input"
+              type="text"
+              id="endereco"
+              name="endereco"
+              placeholder="Rua Fulano de tal..."
+              required
+            />
+          </div>
+
+          <br />
+          <div>
+            <label for="estado">Estado:</label>
+            <select name="estado" id="estado" class="input">
+              <option value="">Selecione um estado...</option>
+              <option value="RS">RS</option>
+              <option value="SP">SP</option>
+              <option value="MG">MG</option>
+              <option value="RJ">RJ</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset class="stacks">
+          <legend>Informações Profissionais</legend>
+          <span style="text-align: start"
+            >Stacks favoritas e de destaque...</span
+          >
+
+          <div>
+            <input type="checkbox" name="stacks" id="HTML" value="HTML" />
+            <label for="HTML">HTML</label>
+          </div>
+
+          <div>
+            <input type="checkbox" name="stacks" id="css" value="css" />
+            <label for="css">CSS</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              name="stacks"
+              id="javascript"
+              value="javascript"
+            />
+            <label for="javascript">Javascript</label>
+          </div>
+
+          <div>
+            <input type="checkbox" name="stacks" id="react" value="react" />
+            <label for="react">ReactJS</label>
+          </div>
+
+          <div>
+            <input type="checkbox" name="stacks" id="outros" value="outros" />
+            <label for="outros">Outros...</label>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <!-- Por default já reseta todo o form -->
+          <input type="reset" class="btn-reset" />
+          <input type="submit" class="btn-submit" />
+        </div>
+      </form>
+    </main>
+
+    <script src="./js/scripts.js"></script>
+  </body>
+</html>

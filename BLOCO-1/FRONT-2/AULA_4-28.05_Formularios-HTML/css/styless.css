@@ -1,0 +1,103 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main,
+header {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+form {
+  background-color: rgb(207, 233, 248);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+}
+
+form > div,
+form > fieldset > div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-weight: bold;
+  gap: 5px;
+}
+
+fieldset {
+  padding: 12px;
+  width: 100%;
+}
+
+.input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  width: 100%;
+  min-width: 320px;
+  font-style: italic;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.btn-submit {
+  background-color: blue;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
+
+.btn-reset {
+  background-color: gray;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
+
+.radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stacks {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.stacks > div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
