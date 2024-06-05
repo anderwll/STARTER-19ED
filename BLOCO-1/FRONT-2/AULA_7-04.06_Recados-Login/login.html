@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/styless.css" />
+    <title>Recados - Login</title>
+  </head>
+  <body>
+    <main class="container">
+      <form id="form-login">
+        <h1>Login</h1>
+
+        <label for="email">E-mail:</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Digite sua e-mail..."
+          required
+        />
+
+        <label for="password">Senha:</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Digite sua senha..."
+          required
+        />
+
+        <button type="submit" class="btn-submit">Logar</button>
+        <button type="button" class="btn-register">Cadastre-se</button>
+      </form>
+    </main>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/login.js"></script>
+  </body>
+</html>

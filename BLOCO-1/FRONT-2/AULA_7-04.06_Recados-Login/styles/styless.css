@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#form-login {
+  width: 250px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #9f9f9f33;
+  border-radius: 10px;
+}
+
+.btn-submit {
+  background-color: green;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+.btn-register {
+  background-color: blue;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+input {
+  padding: 5px;
+}
