@@ -12,7 +12,7 @@
 
     Retorna:
     - status Code: 1xx, 2xx, 3xx, 4xx, 5xx
-    - sata: Contem o conteúdo da api de fato. => [], {}, "", 0
+    - data: Contem o conteúdo da api de fato. => [], {}, "", 0
     - ...outros dados (documentação)
 
 */
