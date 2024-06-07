@@ -94,6 +94,8 @@ btnAzul.toggleAttribute('disabled', false)
 
 /// --------------------  tema dark || EXEMPLO
 const btnTema = document.getElementById('tema-btn')
+
+
 btnTema.addEventListener('click', () => {
     const body = document.querySelector('body')
     const temaAtual = body.getAttribute('class')

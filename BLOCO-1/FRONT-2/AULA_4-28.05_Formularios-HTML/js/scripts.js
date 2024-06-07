@@ -3,8 +3,18 @@
 // 1 - Buscamos o nosso form
 const formCadastro = document.getElementById('form-cadastro')
 
+
+
 // 2 - Adicionamos um ouvinte com o evento submit
 formCadastro.addEventListener('submit', function (evento) {
+
+    console.log('-------------- evento form ----------------------');
+    console.log(evento);
+
+    console.log('-------------- tag form ----------------------');
+    console.log(formCadastro.nome.value);
+
+    const nomeById = document.getElementById('nome').value
 
     // Previnir o comportamento padrão do form, 
     // ex: recarregar a pagina e tentar fazer um GET
@@ -15,7 +25,11 @@ formCadastro.addEventListener('submit', function (evento) {
     // console.log(evento.target.nome.value)
     // console.log(formCadastro.nome.value)
 
+    const nome = evento.target.nome.value
+    const email = evento.target.nome.value
+
     const dados = {
+        //  propriedade: valor
         nome: evento.target.nome.value,
         email: evento.target.email.value,
         nascimento: Date(evento.target.nascimento.value),
@@ -24,11 +38,11 @@ formCadastro.addEventListener('submit', function (evento) {
         sobre: evento.target.sobre.value
     }
 
-    if (dados.nome) {
+    if (nome) {
         /// validrrr...
     }
 
-    console.log(dados)
+    // console.log(dados)
 })
 
 

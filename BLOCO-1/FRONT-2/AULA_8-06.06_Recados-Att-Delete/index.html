@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>Recados</title>
+  </head>
+  <body>
+    <header>
+      <a href="./index.html">
+        <img src="./assets/logo.png" alt="logo_growdev" />
+      </a>
+      <nav>
+        <ul>
+          <li><a href="./login.html">Sair</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div class="div-title">
+        <h1>Meus recados</h1>
+        <a href="./cadastro.html" class="add-recado"> Adicionar recado </a>
+      </div>
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th align="left">Índice</th>
+              <th align="left">Título</th>
+              <th align="left">Descrição</th>
+              <th align="center">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-recados"></tbody>
+        </table>
+    </main>
+
+    <footer>
+      <p>Growdev - Desenvolvido por: <strong>19ª edição</strong></p>
+    </footer>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
+</html>

@@ -1,5 +1,3 @@
-
-
 // 6 - SE FOR CRIADO COM SUCESSO, limpar o form, navegar p/ index.html
 
 // 1 - Buscar o elemento => form
@@ -62,6 +60,7 @@ form.addEventListener("submit", function (e) {
      */
     // enviarDados(titulo, descricao)
 
+    // http://localhost:3333/recados
     api.post('/recados', {
         title: titulo,
         description: descricao
@@ -69,8 +68,12 @@ form.addEventListener("submit", function (e) {
         .then(function (response) {
             console.log(response.data);
             // alert("Recado enviado com sucesso!");
-            alert(response.data.message);
 
+            alert(response.data.message);
+            form.reset()
+
+            // const titulo = document.getElementById('ftitle')
+            // titulo.value = ''
         })
         .catch(function (error) {
             console.error(error.response.data.message);

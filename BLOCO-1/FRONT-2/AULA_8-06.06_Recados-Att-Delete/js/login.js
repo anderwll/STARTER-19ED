@@ -10,7 +10,7 @@ async function login(email, password) {
 
         // -------- requeried - requeried - opcional
         // api.post('enpoint', dadosBody, configs)
-        const resposta = await api.post('/login', dadosBody)
+        const resposta = await api.post('/login', dadosBody,)
 
 
         // SUCESSO
@@ -28,7 +28,7 @@ async function login(email, password) {
             href = Temos acesso a qual página HTML estamos,
                 e podemos navegar para outra.
         */
-        window.location.href = 'listagem.html'
+        window.location.href = 'index.html'
         formLogin.reset()
 
     } catch (meuErro) {
