@@ -1,3 +1,23 @@
+const usuarioLogadoComoString = localStorage.getItem('usuarioLogado')
+/* 
+  {
+    id: 123123,
+    name: "sei la o nome"
+    email....
+  }
+*/
+const usuarioLogado = JSON.parse(usuarioLogadoComoString)
+console.log(usuarioLogado);
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (!usuarioLogado) {
+        alert('DEU RUIMMM, FAZ O LOGIN AI')
+        window.location.href = '/login.html';
+        return;
+    }
+})
+
+
 // 6 - SE FOR CRIADO COM SUCESSO, limpar o form, navegar p/ index.html
 
 // 1 - Buscar o elemento => form

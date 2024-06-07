@@ -28,8 +28,13 @@ async function login(email, password) {
             href = Temos acesso a qual página HTML estamos,
                 e podemos navegar para outra.
         */
-        window.location.href = 'index.html'
+
+        // Salva os dados do usuário logado com sucesso, no localStorage
+        const dadosUsuario = resposta.data.data // => {id: 128312, name: "asdas", em...}
+        localStorage.setItem('usuarioLogado', JSON.stringify(dadosUsuario))
+
         formLogin.reset()
+        window.location.href = 'index.html'
 
     } catch (meuErro) {
         // ERROR

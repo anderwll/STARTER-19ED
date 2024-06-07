@@ -1,4 +1,33 @@
 
+// {"id": 123123, "name": "sei la o nome", email...}
+const usuarioLogadoComoString = localStorage.getItem('usuarioLogado')
+/* 
+  {
+    id: 123123,
+    name: "sei la o nome"
+    email....
+  }
+*/
+const usuarioLogado = JSON.parse(usuarioLogadoComoString)
+console.log(usuarioLogado);
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (!usuarioLogado) {
+    alert('DEU RUIMMM, FAZ O LOGIN AI')
+    window.location.href = '/login.html';
+    return
+  }
+
+  if (oouasd) {
+
+    return
+  }
+
+
+
+  ///
+})
+
 // Lista os recados
 const tableBody = document.getElementById("tbody-recados");
 const buttonEditar = document.getElementById("buttonEditar")
@@ -31,7 +60,6 @@ async function listarRecados() {
             <button class="btn btn-delete">Excluir</button>
           </td>
         </tr>
-        <br>
       `
     }
   } catch (error) {
