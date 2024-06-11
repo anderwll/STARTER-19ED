@@ -1,0 +1,50 @@
+/*
+    Sempre começa em uma nova linha, e tenta ocupar
+    todos o espaço disponivel.
+
+    PADRÃO
+*/
+.block {
+  background-color: blueviolet;
+  margin: 5px;
+  width: 50%;
+
+  display: block;
+}
+
+/*
+    Ele fica em linha, ou seja não começa em uma nova linha
+    e, ocupado apenas a largura do conteudo dentro dele.
+    Não consigo mudar a largura...
+
+*/
+.inline {
+  background-color: chartreuse;
+  margin: 5px;
+  width: 100%;
+
+  display: inline;
+}
+
+/*
+    Por padrão ele também fica em linha, ou seja não começa 
+    em uma nova linha, e a grande diferença entre o inline
+    e que, eu consigo modificar a largura...
+*/
+.inline-block {
+  background-color: red;
+  color: white;
+  margin: 5px;
+  width: 50%;
+
+  display: inline-block;
+}
+
+/*
+    Ele remove o elemento do fluxo HTML e não ocupa nenhum espaço.
+*/
+.none {
+  display: none;
+
+  /* visibility: hidden; */
+}
