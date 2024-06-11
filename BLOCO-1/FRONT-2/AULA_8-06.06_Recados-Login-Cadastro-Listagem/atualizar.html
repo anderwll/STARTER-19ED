@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atualizar Recados</title>
+    <link rel="stylesheet" href="./css/arquivo.css" />
+  </head>
+  <body>
+    <header>
+      <a href="./index.html">
+        <img src="./assets/logo.png" alt="logo_growdev" />
+      </a>
+      <nav>
+        <a href="./index.html">Home</a>
+        <a href="./login.html">Sair</a>
+      </nav>
+    </header>
+    <main>
+      <form class="form-recado">
+        <h2>Atualizar Recado</h2>
+
+        <div>
+          <label for="ftitle">Título:</label>
+          <input type="text" name="titulo" id="ftitle" required />
+        </div>
+
+        <div>
+          <label for="fdescription">Descrição:</label>
+          <textarea
+            name="descricao"
+            id="fdescription"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+
+        <input type="submit" value="Atualizar" />
+        <input type="reset" value="Cancelar" />
+      </form>
+    </main>
+
+    <footer>
+      <small>Growdev - Desenvolvido por: <b>19ª edição</b></small>
+    </footer>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/update.js"></script>
+  </body>
+</html>
