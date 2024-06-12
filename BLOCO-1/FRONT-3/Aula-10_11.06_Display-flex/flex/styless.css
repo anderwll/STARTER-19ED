@@ -25,6 +25,9 @@
 }
 
 .align {
+  /* align-self: flex-start; */
+  /* align-self: flex-end; */
+  /* align-self: center; */
   align-self: stretch;
 }
 
