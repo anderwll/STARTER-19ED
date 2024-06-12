@@ -2,14 +2,10 @@ flex
 
 flex-direction
 
-align-items
-
 justify-content
 
-flex-wrap
+align-items
 
-flex-grow, 
 
-flex-shrink 
+align-self (filho)
 
-flex-basis
