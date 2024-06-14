@@ -4,9 +4,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ANIMATIONS 3</title>
 </head>
+<style>
+  .ball {
+    width: 120px;
+    height: 120px;
+    background-color: aquamarine;
+    border-radius: 50%;
+    position: relative;
+
+    /* animation: slide-pixel 5s linear alternate infinite; */
+  }
+
+  .container-animate {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    animation: slide-flex 3s linear alternate infinite;
+  }
+
+  @keyframes slide-flex {
+    0% {
+      justify-content: flex-start;
+    }
+
+    25% {
+      justify-content: center;
+    }
+
+    50% {
+      justify-content: flex-end;
+    }
+
+    75% {
+      justify-content: center;
+    }
+
+    100% {
+      justify-content: flex-start;
+    }
+  }
+
+  @keyframes slide-pixel {
+    from {
+      left: 0px;
+    }
+
+    to {
+      left: 200px;
+    }
+  }
+</style>
 <html>
   <body>
-    <div class="ball"></div>
+    <div class="container-animate">
+      <div class="ball"></div>
+    </div>
     <p>
       Se não adicionar repetição, ele para a animação e retorna ao estado
       inicial

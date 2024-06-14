@@ -4,10 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Focus - transitions</title>
+    <style>
+      #input {
+        width: 100px;
+        transition: width 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+        &:focus {
+          width: 200px;
+        }
+      }
+    </style>
   </head>
   <body>
     <h1>Focus na input</h1>
 
-    <input type="text" id="input" />
+    <input type="text" id="input" placeholder="Comece a buscar...." />
   </body>
 </html>

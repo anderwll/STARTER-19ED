@@ -5,8 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ANIMATIONS 2</title>
   </head>
+  <style>
+    .quadrado {
+      width: 150px;
+      height: 150px;
+      background-color: blueviolet;
+      position: relative;
 
+      /*
+        animation: name duration timing-function delay iteration-count direction
+        fill-mode play-state;
+      */
+
+      animation: slide-inline 5s linear infinite;
+    }
+
+    @keyframes slide-inline {
+      0% {
+        left: 0px;
+        background-color: blue;
+      }
+
+      50% {
+        left: 300px;
+        background-color: red;
+      }
+
+      100% {
+        left: 0px;
+        background-color: red;
+      }
+    }
+  </style>
   <body>
+    <div class="quadrado"></div>
     <h3>Sintaxe:</h3>
     <h3>
       animation: name duration timing-function delay iteration-count direction
@@ -18,6 +50,5 @@
       segundos e recomeça o ciclo assim que termina.
     </p>
     <p>Sempre adicione o tempo da animação, senão ela não executará</p>
-    <div></div>
   </body>
 </html>

@@ -5,11 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ANIMATIONS 1</title>
   </head>
+  <style>
+    .quadrado {
+      width: 150px;
+      height: 150px;
+      background-color: blue;
+      position: relative;
 
+      animation-name: slide;
+      animation-duration: 4s;
+
+      /* animation-timing-function: linear; */
+      animation-timing-function: ease;
+      /* animation-timing-function: ease-in; */
+      /* animation-timing-function: ease-out; */
+      /* animation-timing-function: ease-in-out; */
+
+      animation-iteration-count: 2;
+      /* animation-iteration-count: unset; */
+      /* animation-iteration-count: infinite; */
+
+      /* animation-play-state: paused; */
+    }
+
+    /*
+      @keyframes - Vai dizer que haverá regra de animação
+      slide - Nome da animação
+
+      keyframes nomeDaAnimacao {
+        ... ciclo da animacao
+      }
+
+    */
+
+    @keyframes slide {
+      /*
+        from - Inicio da animação
+      */
+      from {
+        left: 0px;
+        background-color: blue;
+      }
+
+      /*
+        to - Fim da animação
+      */
+      to {
+        left: 300px;
+        background-color: red;
+      }
+    }
+  </style>
   <body>
     <h1>ANIMATIONS</h1>
 
-    <div></div>
+    <div class="quadrado"></div>
 
     <h3>Propriedades:</h3>
     <p><b>animation-name: </b>Nome da animação.</p>

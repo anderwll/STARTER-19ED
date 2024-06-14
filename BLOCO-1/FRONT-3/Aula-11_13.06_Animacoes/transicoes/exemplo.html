@@ -4,10 +4,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Transitions</title>
+    <style>
+      .container-flex {
+        width: 100%;
+        height: auto;
+
+        display: flex;
+        /* flex-direction: column; */
+        /* align-items: center; */
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      #box {
+        width: 200px;
+        height: 250px;
+        border: 2px solid #333;
+        border-radius: 10px;
+        background-color: #eaeaea;
+
+        /* transition-property: transform;
+        transition-duration: 2s;
+        transition-timing-function: ease; */
+
+        /* transition: transform 3s, background-color 3s ease; */
+
+        transition: all 3s ease;
+
+        &:hover {
+          transform: scale(1.15);
+          background-color: #333;
+        }
+      }
+
+      /*#box:hover {
+        width: 220px;
+        height: 270px;
+
+        transform: scale(1.1);
+      } */
+    </style>
   </head>
   <body>
     <div>
-      <div id="box"></div>
+      <div class="container-flex">
+        <div id="box"></div>
+      </div>
 
       <h2>Transitions</h2>
       <p>
