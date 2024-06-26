@@ -5,7 +5,7 @@ const api = axios.create({
 async function postSignup(nome, email, senha) {
     try {
         const dadosUsuario = {
-            // name: nome,
+            name: nome,
             email: email,
             password: senha
         }
