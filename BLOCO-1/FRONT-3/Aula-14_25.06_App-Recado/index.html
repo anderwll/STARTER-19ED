@@ -86,19 +86,138 @@
               <div class="col-12 text-center">
                 <small>
                   Não possui conta?
-                  <a href="#" class="text-decoration-none"> Cadastre-se </a>
+                  <a
+                    href="#"
+                    class="text-decoration-none"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalCadastro"
+                  >
+                    Cadastre-se
+                  </a>
                 </small>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <div
+        class="modal fade"
+        id="modalCadastro"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Cadastrar usuário
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <form id="form-cadastro" class="needs-validation" novalidate>
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div class="row gap-0 row-gap-3">
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="nome-cadastro"
+                          placeholder="Nome"
+                          required
+                        />
+                        <label for="nome-cadastro">Nome</label>
+                        <div class="invalid-feedback">Campo obrigatório.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email-cadastro"
+                          placeholder="E-mail"
+                          required
+                        />
+                        <label for="email-cadastro">E-mail</label>
+                        <div class="invalid-feedback">Campo obrigatório.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="form-floating">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="senha-cadastro"
+                          placeholder="Senha"
+                          required
+                        />
+                        <label for="senha-cadastro">Senha</label>
+                        <div class="invalid-feedback">Campo obrigatório.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="form-floating">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="reSenha-cadastro"
+                          placeholder="Repetir senha"
+                          required
+                        />
+                        <label for="reSenha-cadastro">Repetir senha</label>
+                        <div class="invalid-feedback">Campo obrigatório.</div>
+                      </div>
+                    </div>
+
+                    <div id="feedback-cadastro" class="col-12">
+                      <!-- VAI SER MOSTRADO PELO JS  -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="reset"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="btn-cadastro-usuario"
+                >
+                  Confirmar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- JS - Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JS - Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <!-- Meu JS -->
+    <script src="./js/interactions.js"></script>
+
+    <script src="./js/utils.js"></script>
     <script src="./js/index.js"></script>
   </body>
 </html>
