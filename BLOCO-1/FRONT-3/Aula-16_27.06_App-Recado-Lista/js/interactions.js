@@ -1,5 +1,6 @@
 const api = axios.create({
-  baseURL: "https://api-recados-xs31.onrender.com",
+  // baseURL: "https://api-recados-xs31.onrender.com",
+  baseURL: "http://localhost:3333",
 });
 
 async function postSignup(nome, email, senha) {
@@ -9,6 +10,7 @@ async function postSignup(nome, email, senha) {
       email: email,
       password: senha,
     };
+
     const resposta = await api.post("/signup", dadosUsuario);
 
     return resposta.data; // {succes, message, data}
@@ -48,5 +50,27 @@ async function postMessage(token, titulo, descricao) {
     };
 
     const resposta = await api.post("/recados", objetoMensagem, config);
-  } catch (error) {}
+
+
+
+  } catch (error) { }
 }
+
+// BUSCAR RECADOS
+async function getRecados(userId, pagina, limite) {
+  try {
+    const config = {
+      headers: {
+        Authorization: userId
+      }
+    }
+
+    const resposta = await api.get(`/recados?page=${pagina}&limit=${limite}`, config)
+
+    return resposta.data // { success, message, data: { recados, total  }  }
+
+  } catch (error) {
+    return error.response.data
+  }
+}
+

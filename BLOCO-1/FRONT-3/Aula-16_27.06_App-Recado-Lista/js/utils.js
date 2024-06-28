@@ -43,7 +43,6 @@ function showLoading(mostrar) {
 }
 
 // TOAST
-
 function alertToast(mensagem, tipo) {
   const container = document.getElementById("containerToast");
 
@@ -59,3 +58,33 @@ function alertToast(mensagem, tipo) {
   const toastNotificacao = new bootstrap.Toast("#toast");
   toastNotificacao.show();
 }
+
+// SPINNER BUSCANDO SEUS RECADOS 
+
+function showLoadingRecados(mostrar) {
+  const listaRecados = document.getElementById('lista-recados')
+
+  if (mostrar) {
+    listaRecados.innerHTML = `
+      <div class="d-flex align-items-center text-center justify-content-center gap-1">
+        <h5 class="fst-italic fs-4 text-secondary me-2">
+          Buscando seus recados
+        </h5>
+        <div class="spinner-grow spinner-grow-sm" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow spinner-grow-sm" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow spinner-grow-sm" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    `
+  } else {
+    listaRecados.innerHTML = ''
+  }
+}
+
+
+
