@@ -22,29 +22,26 @@
     <header class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
+          <div class="collapse" id="navbarToggleExternalContent">
+            <div class="p-4">
               <a class="navbar-brand"
-                >Recados - Bem-vindo(a) <span id="user-login"></span
-              ></a>
+              >Recados - Bem-vindo(a) <span id="user-login"></span>
+              </a>
+              <ul>
+                <li><a href="./profile.html" class="text-black text-decoration-none">Perfil</a></li>
+                <li><a id="btn-logout" class="text-black text-decoration-none">Sair</a></li>
+              </ul>
+            </div>
+          </div>
+          <nav class="navbar">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
               <form class="d-flex" role="search">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success" type="submit">
-                  Busca
-                </button>
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
-              <button
-                type="button"
-                class="btn-close"
-                placeholder="Sair"
-                aria-label="Close"
-                id="btn-logout"
-              ></button>
             </div>
           </nav>
         </div>
