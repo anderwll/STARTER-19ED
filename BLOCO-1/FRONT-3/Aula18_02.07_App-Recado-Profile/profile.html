@@ -58,7 +58,7 @@
       </div>
       <div class="row">
         <div class="col-8 offset-2">
-          <div class="card mb-3 bg-secondary">
+          <div class="card mb-3">
             <div class="row g-0">
               <div class="col-md-4">
                 <img src="./assets/perfil.jpg" class="img-fluid rounded-start" alt="imagemPerfil">
@@ -73,6 +73,33 @@
                   <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="email" placeholder="Email" disabled>
                     <label for="email">Email</label>
+                  </div>
+
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                          Trocar senha
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <form>
+                            <div class="form-floating mb-3">
+                              <input type="password" class="form-control" id="password" placeholder="Password">
+                              <label for="password">Senha</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                              <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirmar senha">
+                              <label for="passwordConfirm">Confirmar senha</label>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                              <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
