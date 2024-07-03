@@ -1,3 +1,5 @@
+const profile = document.getElementById("profile")
+
 let idNote = null
 const modalNote = new bootstrap.Modal('#modal-note')
 const modalDelete = new bootstrap.Modal('#modal-delete')
@@ -15,6 +17,18 @@ window.addEventListener("DOMContentLoaded", () => {
     alert('Faça login!')
     return window.location.href = 'index.html'
   }
+})
+
+profile.addEventListener('click', function() {
+  const userId = JSON.parse(localStorage.getItem("user")).id
+
+  if (!userId) {
+    alertToast('Usuário não logado', 'danger')
+  } else {
+    alertToast('Bem vindo ao seu perfil', 'success')
+  }
+
+  
 })
 
 let page = 1

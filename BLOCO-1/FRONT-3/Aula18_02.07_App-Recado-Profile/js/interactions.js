@@ -110,3 +110,24 @@ async function updateNote(userId, noteId, title, description) {
     }
 
 }
+
+async function getUser(userId) {
+    try {
+        const config = {
+            headers: {
+                Authorization: userId
+            }
+        }
+        const response = await api.get(`/users/${userId}`, config)
+
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}
+
+/* 
+    Rota: users/:id 
+	Verbo: GET
+	Autenticação: Sim
+*/
