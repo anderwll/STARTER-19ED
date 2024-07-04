@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
     return window.location.href = 'index.html'
   }
 })
-
+/*
 profile.addEventListener('click', function() {
   const userId = JSON.parse(localStorage.getItem("user")).id
 
@@ -27,10 +27,9 @@ profile.addEventListener('click', function() {
   } else {
     alertToast('Bem vindo ao seu perfil', 'success')
   }
-
   
 })
-
+*/
 let page = 1
 let limit = 8
 
