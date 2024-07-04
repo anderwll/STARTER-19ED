@@ -2,3 +2,19 @@
     width: 180px;
     height: auto;
 }
+
+.form-control {
+    position: relative;
+}
+.form-control input {
+    padding-right: 2.5rem;
+}
+
+.form-control .input-group-text {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+}
