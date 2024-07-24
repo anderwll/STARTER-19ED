@@ -53,10 +53,10 @@ const maria: Pessoa = {
 };
 
 const lucas: Pessoa = {
-  nome: "asodkasodk",
+  nome: "Lucas",
   cpf: "12039120312",
 };
 
 const usuarios = [joao, maria, lucas];
 
-usuarios.find((pessoa) => pessoa.cpf === "");
+// usuarios.find((pessoa) => pessoa.cpf === "");
