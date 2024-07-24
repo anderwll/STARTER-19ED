@@ -1,15 +1,62 @@
-let seila: string = "Anderson";
+import { Pessoa } from "./interface";
+import { somar, printar, maioridade } from "./funcoes";
 
-seila = "Troquei";
+// STRING
+const nome: string = "Anderson";
 
-console.log("Olá, ", seila);
+// NUMBERS
+const soma: number = 12;
 
-function soma(a: number, b: number) {
-  return a + b;
-}
+// BOOLEANS
+const ativo: boolean = true;
 
-const resultado = soma(1, 1);
+// NULL
+const souNull: null = null;
 
-console.log(resultado);
+// UNDEFINED
+const naoDefinido: undefined = undefined;
 
-console.log("Alterei");
+// ARRAYS
+const numeros: number[] = [2, 34, 1, 0];
+const listaMercado: Array<string> = ["Tomate", "Cebola"];
+const arrayDinamico: (string | number | boolean)[] = ["Sou string", 1, true, 1];
+
+// OBJECT
+const objetoVazio: object = {};
+
+const pessoa: object = {
+  nome: "Anderson",
+  cpf: "1232130-1203",
+};
+
+const pessoaDois: object = {
+  cpf: "1232130-1203",
+};
+
+// CHAMADAS DE FUNÇÕES
+console.log(somar(1, 2));
+console.log(maioridade(17));
+printar();
+
+// Criando minhas variaveis do tipo da interface
+const joao: Pessoa = {
+  nome: "Anderson",
+  cpf: "12312312",
+  passaporte: "",
+  skills: ["HTML", "CSS"],
+};
+
+const maria: Pessoa = {
+  nome: "Maria",
+  cpf: "12012032103",
+  skills: ["Javascript"],
+};
+
+const lucas: Pessoa = {
+  nome: "asodkasodk",
+  cpf: "12039120312",
+};
+
+const usuarios = [joao, maria, lucas];
+
+usuarios.find((pessoa) => pessoa.cpf === "");
