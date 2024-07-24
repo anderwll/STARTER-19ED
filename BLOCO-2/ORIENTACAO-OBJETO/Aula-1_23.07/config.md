@@ -18,19 +18,21 @@ npm i -D typescript
 npm i -D @types/node
 ```
 
-- Instalar o `ts-node-dev` para conseguirmos executar o ts.
+- Instalar o `ts-node-dev` para conseguirmos executar o typescript.
 
 ```bash
 npm i -D ts-node-dev
 ```
 
-- Inicializar o nosso arquivo `tsconfing.json`, responsável pelas opções do compilador Typescript.
+- Inicializar o nosso arquivo `tsconfing.json`, responsável pelas opções do transpilador typescript.
 
 ```bash
 npx tsc --init
 ```
 
-- `"target"`: Alterar para uma versão mais recente do ECMASCRIPT `"ES2022"`
-- `"rootDir"`: Apontar o caminho onde vão estar os arquivos typescript `"./src"`
-- `"outDir"`: Apontar o caminho onde os arquivo transpilados javascript vão ser destinados. `"./dist"`
-- `"exclude": ["node_modules"]`: Garante que não vai transpilar a node modules.
+- Dentro do arquivo `tsconfing.json`, ajustar as seguintes propriedades:
+
+  - `"target"`: Alterar para uma versão mais recente do ECMASCRIPT `"ES2022"`
+  - `"rootDir"`: Apontar o caminho onde vão estar os arquivos typescript `"./src"`
+  - `"outDir"`: Apontar o caminho onde os arquivo transpilados javascript vão ser destinados. `"./dist"`
+  - `"exclude": ["node_modules"]`: Garante que não vai transpilar a node modules.
