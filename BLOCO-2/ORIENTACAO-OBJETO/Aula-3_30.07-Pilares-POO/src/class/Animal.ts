@@ -7,7 +7,7 @@
  *
  */
 
-export class Animal {
+export abstract class Animal {
   protected nome: string;
   protected especie: string;
   protected cor: string;
@@ -31,13 +31,13 @@ export class Animal {
     this.altura = altura;
   }
 
-  public emitirSom(): void {
+  emitirSom(): void {
     console.log("Emitindo som...");
   }
 
-  public comer(): string {
-    console.log("Comendo...");
-    return "";
+  public comer(tipoDeAlimento: string): string {
+    console.log("Comendo...", tipoDeAlimento);
+    return tipoDeAlimento;
   }
 
   public dormir(): void {

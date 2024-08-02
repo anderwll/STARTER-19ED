@@ -1,6 +1,7 @@
 import { Animal } from "./Animal";
 
 export class Leao extends Animal {
+  ///....
   private _pelagem: string;
 
   constructor(
@@ -11,7 +12,6 @@ export class Leao extends Animal {
     altura: number,
     pelagem: string
   ) {
-    // Ele é responsavel por chamar o contrutor da classe pai
     super(nome, especie, cor, "N/A", peso, altura);
     this._pelagem = pelagem;
   }
@@ -27,8 +27,8 @@ export class Leao extends Animal {
     console.log("Rugidooooooo..........");
   }
 
-  public comer(): string {
-    console.log("Comendo macarrão....");
-    return "Comendo macarrão....";
+  public comer(tipoDeAlimento: string): string {
+    console.log("Leão comendo ....", tipoDeAlimento);
+    return `Leão comendo.... ${tipoDeAlimento}`;
   }
 }
