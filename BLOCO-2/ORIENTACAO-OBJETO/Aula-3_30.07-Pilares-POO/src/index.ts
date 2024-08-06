@@ -1,6 +1,7 @@
 import { Animal } from "./class/Animal";
 import { ContaBancaria, CriarConta } from "./class/ContaBancaria";
 import { Leao } from "./class/Leao";
+import { Pessoa, PessoaInterface } from "./class/Pessoa";
 
 console.log("SISTEMA BANCARIO");
 
@@ -9,6 +10,14 @@ const dados: CriarConta = {
   cpf: "102913213",
   tipoConta: "CORRENTE",
 };
+
+const dt: PessoaInterface = {
+  nome: "Emanoel",
+  _cpf: "11113135310",
+  endereco: "Rua do nunca",
+};
+
+const pessoa1 = new Pessoa(dt);
 
 const contaUm = new ContaBancaria(dados);
 
