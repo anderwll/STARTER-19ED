@@ -1,5 +1,7 @@
 # E-commerce Growdev
 
+Um sistema de e-commerce, que possue produtos e usuários, onde é possível o usuário inserir produtos em seu carrinho tal como avaliar os produtos através de comentários.
+
 - Aplicar todos os pilares da POO.
 - Classes devem estar separadas (arquivos).
 - Banco de dados em memória (array).
