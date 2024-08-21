@@ -19,3 +19,8 @@ npm install
 ```bash
 npm run dev
 ```
+
+- Excluirmos os arquivos que não são necessários.
+  - Remover arquivos css (index.css, app.css).
+  - Remover os imports dos arquivos css.
+  - Remover os HTML que estão sendo retornados no App.tsx
