@@ -1,3 +1,4 @@
+import ButtonDefault from "./components/ButtonDefault";
 /**
  *  FUNCTION
  *
@@ -5,8 +6,6 @@
  *
  *  nomeDaFuncao()
  */
-
-import ButtonDefault from "./components/ButtonDefault";
 
 /**
  *  FUNCTION COMPONENT (TSX || JSX)
@@ -16,8 +15,6 @@ import ButtonDefault from "./components/ButtonDefault";
  * }
  *
  * <NomeDaFuncao />
- *
- *
  */
 
 function App() {
@@ -25,7 +22,8 @@ function App() {
     <>
       <h1>Olá mundo</h1>
 
-      <ButtonDefault />
+      <ButtonDefault title="Login" />
+      <ButtonDefault title="Cadastre-se" />
     </>
   );
 }
