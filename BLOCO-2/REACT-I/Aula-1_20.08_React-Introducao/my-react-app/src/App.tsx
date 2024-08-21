@@ -1,4 +1,4 @@
-import ButtonDefault from "./components/ButtonDefault";
+import AppRoutes from "./configs/routes/AppRoutes";
 /**
  *  FUNCTION
  *
@@ -18,14 +18,14 @@ import ButtonDefault from "./components/ButtonDefault";
  */
 
 function App() {
-  return (
-    <>
-      <h1>Olá mundo</h1>
-
-      <ButtonDefault title="Login" />
-      <ButtonDefault title="Cadastre-se" />
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
+
+// <>
+//   <h1>Olá mundo</h1>
+
+//   <ButtonDefault title="Login" />
+//   <ButtonDefault title="Cadastre-se" />
+// </>
