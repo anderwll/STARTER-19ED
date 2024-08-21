@@ -1,50 +1,35 @@
-# React + TypeScript + Vite
+## Passo a passo criação projeto ReactJS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Rodar o comando para criar o projeto ReactJS
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm create vite@latest my-react-app -- --template react-ts
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Entrar na pasta do projeto criado.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Rodar o comando para instalar as dependencias
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm install
 ```
+
+- Rodar o srcip de dev, para subir o frontend.
+
+```bash
+npm run dev
+```
+
+- Excluirmos os arquivos que não são necessários.
+
+  - Remover arquivos css (index.css, app.css).
+  - Remover os imports dos arquivos css.
+  - Remover os HTML que estão sendo retornados no App.tsx
+
+- Rodar o comando para instalar o `react-router-dom`
+
+```bash
+npm i react-router-dom
+```
+
+OBS: Seguir doc para configuração: [React Router Dom | Overview](https://reactrouter.com/en/main/start/overview)
