@@ -1,3 +1,9 @@
+import { Title } from "../components/styleds/Title";
+
 export function Home() {
-  return <h1>Home Page</h1>;
+  return (
+    <>
+      <Title>Home Page</Title>
+    </>
+  );
 }

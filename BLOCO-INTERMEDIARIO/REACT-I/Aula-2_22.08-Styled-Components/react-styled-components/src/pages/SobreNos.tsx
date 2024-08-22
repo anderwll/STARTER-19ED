@@ -1,3 +1,5 @@
+import { Title } from "../components/styleds/Title";
+
 export function SobreNos() {
-  return <h1>Sobre nós, hehe</h1>;
+  return <Title>Sobre nós, hehe</Title>;
 }
