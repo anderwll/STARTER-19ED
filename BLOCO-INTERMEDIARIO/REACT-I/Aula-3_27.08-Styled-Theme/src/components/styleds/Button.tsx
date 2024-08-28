@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Button = styled.button`
   color: #ffff;
-  background-color: #0d6efd;
-  border: 1px #0d6efd solid;
+  background-color: ${(props) => props.theme.primaryColor};
+  border: 1px ${(props) => props.theme.primaryColor} solid;
   border-radius: 8px;
   padding: 18px 28px;
   cursor: pointer;
@@ -12,8 +12,9 @@ export const Button = styled.button`
   font-weight: 600;
 
   &:hover {
-    background-color: #0262f3;
-    border: 1px #0064fb solid;
+    background-color: ${(props) => props.theme.primaryColor};
+    border: 1px ${(props) => props.theme.primaryColor} solid;
+    opacity: 80%;
     box-shadow: 0 0 0 2px rgb(49, 132, 253, 0.5);
   }
 
