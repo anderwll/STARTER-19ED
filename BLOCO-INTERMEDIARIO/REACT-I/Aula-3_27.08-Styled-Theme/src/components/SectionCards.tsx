@@ -12,19 +12,19 @@ type CardContent = {
 
 const cardsContent: CardContent[] = [
   {
-    imgSrc: "https://picsum.photos/200",
+    imgSrc: "https://avatar.iran.liara.run/public",
     imgAlt: "Imagem 1",
     title: "Titulo 1",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
   },
   {
-    imgSrc: "https://picsum.photos/200",
+    imgSrc: "https://avatar.iran.liara.run/public",
     imgAlt: "Imagem 2",
     title: "Titulo 2",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
   },
   {
-    imgSrc: "https://picsum.photos/200",
+    imgSrc: "https://avatar.iran.liara.run/public",
     imgAlt: "Imagem 3",
     title: "Titulo 3",
     description: "Consectetur adipisicing elit. Excepturi quaerat. hehe",

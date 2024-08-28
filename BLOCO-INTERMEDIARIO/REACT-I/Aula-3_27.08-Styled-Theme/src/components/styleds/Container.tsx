@@ -1,11 +1,17 @@
 import styled from "styled-components";
 
-export const Container = styled.section`
+interface ContainerProps {
+  flexDirection?: "row" | "column";
+  gap?: string;
+}
+
+export const Container = styled.section<ContainerProps>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${(props) => props.flexDirection ?? "row"};
   justify-content: space-around;
   align-items: center;
   text-align: center;
+  gap: ${(props) => props.gap ?? 0};
   width: 100%;
   height: auto;
   margin: auto;

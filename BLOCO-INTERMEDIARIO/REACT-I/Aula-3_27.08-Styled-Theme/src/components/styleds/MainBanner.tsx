@@ -18,6 +18,7 @@ export const MainBanner = styled.section`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 
   p {
     color: #ffff;

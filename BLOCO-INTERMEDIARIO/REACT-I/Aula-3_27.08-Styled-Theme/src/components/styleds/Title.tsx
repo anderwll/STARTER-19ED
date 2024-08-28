@@ -12,5 +12,6 @@ export const Title = styled.h1<TitleProps>`
   letter-spacing: 2px;
 
   /* ------------------ condicao           ? se for true : se for false */
-  color: ${(props) => (props.color === "white" ? "#ffff" : "#000")};
+  color: ${(props) =>
+    props.color === "white" ? "#ffff" : props.theme.textColor};
 `;
