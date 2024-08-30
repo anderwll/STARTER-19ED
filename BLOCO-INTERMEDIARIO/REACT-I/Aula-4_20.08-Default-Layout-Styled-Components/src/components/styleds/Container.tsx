@@ -1,13 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface ContainerProps {
-  flexDirection?: "row" | "column";
+  flexDirection?: 'row' | 'column';
+  notPadding?: boolean;
   gap?: string;
 }
 
 export const Container = styled.section<ContainerProps>`
   display: flex;
-  flex-direction: ${(props) => props.flexDirection ?? "row"};
+  flex-direction: ${(props) => props.flexDirection ?? 'row'};
   justify-content: space-around;
   align-items: center;
   text-align: center;
@@ -15,7 +16,7 @@ export const Container = styled.section<ContainerProps>`
   width: 100%;
   height: auto;
   margin: auto;
-  padding: 70px 0;
+  padding: ${(props) => (props.notPadding ? '0' : '70px 0')};
 
   max-width: 1444px;
 

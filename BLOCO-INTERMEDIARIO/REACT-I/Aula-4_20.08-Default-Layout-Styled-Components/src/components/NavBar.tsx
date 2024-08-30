@@ -12,7 +12,9 @@ interface NavBarProps {
 export function NavBar({ navigations }: NavBarProps) {
   return (
     <Header>
-      <Avatar src={logo} alt="Logo" size="sm" />
+      <Link to="/">
+        <Avatar src={logo} alt="Logo" size="sm" />
+      </Link>
       <nav>
         {navigations.map((nav) => {
           return <Link to={nav.to}>{nav.title}</Link>;

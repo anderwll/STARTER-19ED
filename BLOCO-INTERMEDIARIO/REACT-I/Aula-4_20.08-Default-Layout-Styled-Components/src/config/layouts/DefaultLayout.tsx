@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { NavBar } from '../../components/NavBar';
 import { navigations } from '../navigations/navigation';
 import { Main } from '../../components/styleds/Main';
+import { Footer } from '../../components/Footer';
 
 // ReactNode = 'string' | number | boolean | HTML
 // Element = HTML
@@ -15,7 +16,7 @@ export function DefaultLayout({ children }: DefaultLayoutProps) {
     <>
       <NavBar navigations={navigations} />
       <Main>{children}</Main>
-      <footer>Meu footer</footer>
+      <Footer />
     </>
   );
 }

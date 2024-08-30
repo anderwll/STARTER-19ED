@@ -11,7 +11,6 @@ export function Home() {
       <SectionCards />
       <Divider />
       <Gallery />
-      <Divider />
     </DefaultLayout>
   );
 }
