@@ -1,11 +1,16 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const Button = styled.button`
+type TSize = 'small' | 'medium' | 'large';
+
+interface ButtonProps {
+  size?: TSize;
+}
+
+export const Button = styled.button<ButtonProps>`
   color: #ffff;
   background-color: ${(props) => props.theme.primaryColor};
   border: 1px ${(props) => props.theme.primaryColor} solid;
   border-radius: 8px;
-  padding: 18px 28px;
   cursor: pointer;
 
   font-size: 1rem;
@@ -24,4 +29,28 @@ export const Button = styled.button`
     box-shadow: none;
     cursor: auto;
   }
+
+  ${(props) => {
+    switch (props.size) {
+      case 'small':
+        return `
+          padding: 12px 17px;
+        `;
+
+      case 'medium':
+        return `
+          padding: 14px 22px;
+        `;
+
+      case 'large':
+        return `
+          padding: 18px 28px;
+        `;
+
+      default:
+        return `
+         padding: 18px 28px;
+        `;
+    }
+  }}
 `;
