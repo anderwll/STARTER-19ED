@@ -12,7 +12,7 @@ export const Header = styled.header`
   align-items: center;
   padding: 0 30px;
   background-color: ${(props) => props.theme.backgroundColor};
-  box-shadow: 1px 14px 22px -5px rgba(49, 49, 49, 0.68);
+  box-shadow: 1px 8px 14px -5px rgba(49, 49, 49, 0.68);
 
   @media screen and (max-width: 480px) {
     padding: 0 14px;
