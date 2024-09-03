@@ -1,5 +1,13 @@
+import { GlobalStyles } from "./config/global/GlobalStyle";
+import { AppRoutes } from "./config/routes/AppRoutes";
+
 function App() {
-  return <h1>Ola</h1>;
+  return (
+    <>
+      <GlobalStyles />
+      <AppRoutes />
+    </>
+  );
 }
 
 export default App;
