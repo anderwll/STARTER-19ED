@@ -4,14 +4,14 @@ export const Header = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 999 !important;
   width: 100%;
   height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
-  background-color: ${(props) => props.theme.backgroundColor};
+  background-color: #ffff;
   box-shadow: 1px 8px 14px -5px rgba(49, 49, 49, 0.68);
 
   @media screen and (max-width: 480px) {

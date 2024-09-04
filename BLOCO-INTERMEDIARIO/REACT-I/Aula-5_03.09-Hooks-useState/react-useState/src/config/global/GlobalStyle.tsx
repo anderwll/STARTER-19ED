@@ -6,5 +6,10 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
     }
+    
+
+    table {
+        font-size: 1.4rem;
+    }
 
 `;

@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
 type TSize = "small" | "medium" | "large";
-
+type TVariant = "default" | "error";
 interface ButtonProps {
   size?: TSize;
+  variant?: TVariant;
 }
 
 export const Button = styled.button<ButtonProps>`
   color: #ffff;
-  background-color: blue;
+  background-color: ${(props) => (props.variant === "error" ? "red" : "blue")};
   border: none;
   border-radius: 8px;
   cursor: pointer;
