@@ -20,17 +20,26 @@ import { DefaultLayout } from "../config/layouts/DefaultLayout";
  *
  * SINTAXE - useState
  * const [meuEstado, setMeuEstado] = useState(valorInial)
+ * 
+ *  string, number, boolean, undefined, null
+   Array, Object - Array<Object>
+ 
+    {
+     valor: 0
+     funcao: () =>
+    }
+   
  */
 
 export function Home() {
   const [contador, setContador] = useState<number>(0);
 
-  function incrementar() {
-    setContador(contador + 1);
+  function incrementar(): void {
+    setContador(Number(contador) + 1);
     console.log("Incrementando....", contador);
   }
 
-  function decrementar() {
+  function decrementar(): void {
     setContador((prevState) => {
       console.log("PREV -->", prevState);
 
