@@ -5,15 +5,17 @@ import { Button } from "../components/styleds/Button";
 import { Container } from "../components/styleds/Container";
 import { DefaultLayout } from "../config/layouts/DefaultLayout";
 import { Title } from "../components/styleds/Title";
+import { ModalExclude } from "../components/ModalExclude";
 
 /**
  *  1 - Adicionar estilos a nossa tabela
+ *
  *  2 - Criar um modal para confirmar a exclusão de uma presença
  *      2.1 - Passar functions por props
+ *
  *  3 - Adicionar a funcionalidade de excluir uma presença
  *  4 - Adicionar a funcionalidade de editar uma presença
  *  5 - Adicionar um texto caso não tenha nenhuma presença cadastrada
- *
  */
 
 interface Presenca {
@@ -23,6 +25,9 @@ interface Presenca {
 }
 
 export function Presence() {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [idSelected, setIdSelected] = useState<string>("");
+
   const [listaPresenca, setListaPresenca] = useState<Presenca[]>([]);
 
   function submitForm(evento: React.FormEvent<HTMLFormElement>) {
@@ -46,7 +51,49 @@ export function Presence() {
     evento.currentTarget.reset();
   }
 
-  console.log(listaPresenca);
+  function openModalExclude(id: string): void {
+    setIsOpenModal(true);
+    setIdSelected(id);
+  }
+
+  function closeModalExclude(): void {
+    setIsOpenModal(false);
+    setIdSelected("");
+  }
+
+  function confirmExclude(): void {
+    /// findIndex + splice
+    /// filter
+
+    // --------------------------------- Excluir com FILTER
+    setListaPresenca((prevState) =>
+      prevState.filter((p) => p.id !== idSelected)
+    );
+
+    // const index = listaPresenca.findIndex((p) => p.id === idSelected);
+    // if (index === -1) {
+    //   alert("Id não encontrado!");
+    //   closeModalExclude();
+    //   return;
+    // }
+
+    // --------------------------------- Excluir com SPLICE
+    // setListaPresenca((prevState) => {
+    //   const temp = [...prevState];
+    //   temp.splice(index, 1);
+    //   return temp;
+    // });
+
+    // ---------------------------------- Excluir com SLICE
+    // setListaPresenca((prevState) => {
+    //   return [...prevState.slice(0, index), ...prevState.slice(index + 1)];
+    // });
+
+    // Reseta o id selecionado
+    // setIdSelected("");
+    // setIsOpenModal(false);
+    closeModalExclude();
+  }
 
   return (
     <DefaultLayout>
@@ -75,7 +122,11 @@ export function Presence() {
                   <td>{presenca.nome}</td>
                   <td>{presenca.criadoEm.toLocaleDateString()}</td>
                   <td>
-                    <Button variant="error" size="small">
+                    <Button
+                      size="small"
+                      variant="error"
+                      onClick={() => openModalExclude(presenca.id)}
+                    >
                       Excluir
                     </Button>
                   </td>
@@ -85,6 +136,12 @@ export function Presence() {
           </tbody>
         </table>
       </Container>
+
+      <ModalExclude
+        isOpen={isOpenModal}
+        onCancel={closeModalExclude}
+        onConfirm={confirmExclude}
+      />
     </DefaultLayout>
   );
 }
