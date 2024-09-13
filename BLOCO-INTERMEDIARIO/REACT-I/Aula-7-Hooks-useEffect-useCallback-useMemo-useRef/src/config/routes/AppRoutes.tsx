@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "../../pages/Home";
 import { Presence } from "../../pages/Presence";
+import UseEffect from "../../pages/UseEffect";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: "/presenca",
     element: <Presence />,
+  },
+  {
+    path: "/use-effect",
+    element: <UseEffect />,
   },
 ]);
 
