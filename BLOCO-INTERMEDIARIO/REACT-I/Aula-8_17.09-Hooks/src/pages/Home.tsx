@@ -24,35 +24,47 @@ import { Title } from "../components/styleds/Title";
  */
 
 export function Home() {
-  const [contador, setContador] = useState<number>(0);
+  const [indefinido, setIndefinido] = useState();
 
-  function incrementar() {
-    setContador(contador + 1);
-    console.log("Incrementando....", contador);
-  }
+  const [count, setCount] = useState(0);
 
-  function decrementar() {
-    setContador((prevState) => {
-      console.log("PREV -->", prevState);
+  const [nome, setNome] = useState("");
 
-      if (prevState === 0) {
-        return 0;
-      }
+  const [pessoa, setPessoa] = useState({
+    id: "id",
+    nome: "Anderson",
+    idade: 18,
+  });
 
-      return prevState - 1;
-    });
+  const [open, setOpen] = useState(false);
 
-    console.log("Decrementando....");
-  }
+  const [lista, setLista] = useState([]);
+
+  const [estadoTipado, setEstadoTipado] = useState<number>(0);
+
+  console.log(open);
+
+  const toggleModal = () => {
+    setOpen((prevState) => !prevState);
+  };
 
   return (
     <DefaultLayout>
       <Container>
-        <Button onClick={() => decrementar()}>-</Button>
+        <h1>{pessoa.nome}</h1>
 
-        <Title>Contador: {contador}</Title>
+        <Button
+          onClick={() => {
+            // setOpen(!open);
+            // setOpen((prevState) => !prevState);
 
-        <Button onClick={incrementar}>+</Button>
+            toggleModal();
+          }}
+        >
+          ABRIR
+        </Button>
+
+        {open && <h1>Aqui é o meu modal</h1>}
       </Container>
     </DefaultLayout>
   );
