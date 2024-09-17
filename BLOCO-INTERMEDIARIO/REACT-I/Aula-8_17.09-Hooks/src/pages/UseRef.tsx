@@ -22,9 +22,10 @@ export default function UseRef() {
    *
    */
 
-  const refInput = useRef<HTMLInputElement | null>(null);
-
   const [nome, setNome] = useState("");
+
+  const refInput = useRef<HTMLInputElement | null>(null);
+  const renderCount = useRef<number>(0);
 
   function enviarDados() {
     if (nome.length < 3) {
@@ -50,10 +51,25 @@ export default function UseRef() {
     console.log(refInput);
   }, []);
 
+  useEffect(() => {
+    // renderCount.current = renderCount.current + 1;
+    console.log(renderCount.current);
+  });
+
   return (
     <DefaultLayout>
       <Container flexDirection="column" gap="10px">
         <Title>useRef - Example</Title>
+
+        <h1>Render: {renderCount.current}</h1>
+
+        <Button
+          onClick={() => {
+            renderCount.current = renderCount.current + 1;
+          }}
+        >
+          Mudar
+        </Button>
 
         <Input
           ref={refInput}
