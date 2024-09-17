@@ -8,7 +8,7 @@ interface ContainerProps {
 
 export const Container = styled.section<ContainerProps>`
   display: flex;
-  flex-direction: ${(props) => props.flexDirection ?? "row"};
+  flex-direction: ${(props) => props.flexDirection ?? "column"};
   justify-content: center;
   align-items: center;
   text-align: center;
