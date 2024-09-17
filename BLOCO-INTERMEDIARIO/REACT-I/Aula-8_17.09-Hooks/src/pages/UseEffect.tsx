@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container } from "../components/styleds/Container";
-import { Title } from "../components/styleds/Title";
 import { DefaultLayout } from "../config/layouts/DefaultLayout";
-import { Button } from "../components/styleds/Button";
+import { Input } from "../components/styleds/Input";
 
 export default function UseEffect() {
   /**
@@ -30,44 +29,57 @@ export default function UseEffect() {
    * Se o array de dependências tiver valores, o useEffect será executado quando esses valores mudarem (didUpdate).
    *
    */
-
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    console.log("Executou.... S/ ARRAY", open);
-  }, [open]);
+  const [id, setId] = useState<string>("");
+  const [dados, setDados] = useState<any[]>([]);
+  const [render, setRender] = useState(0);
 
   useEffect(() => {
-    document.title = "useEffect";
-    console.log("Montou o componete");
+    console.log("Componente foi renderizado...");
+    // setRender((prev) => prev + 1);
+  });
 
-    return () => {
-      document.title = "Titulo original";
-      console.log("Desmontou o componete");
+  useEffect(() => {
+    console.log("Renderizou a primeira vez....");
+    document.title = `Mudei o title - ${id}`;
+
+    const getTodos = async () => {
+      console.log("ID --->", id);
+      await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          setDados(json);
+        });
     };
-  }, []);
 
-  useEffect(() => {
-    async function buscarDados() {
-      console.log("Buscando dados");
-      // logica para busca da api com o meu await
-    }
-
-    buscarDados();
-  }, []);
+    getTodos();
+  }, [id]);
 
   return (
     <DefaultLayout>
       <Container>
-        <Title>useEffect - Exemplo</Title>
+        <p>{render}</p>
 
-        <Button
-          onClick={() => {
-            setOpen(!open); // se true => false || se false => true
-          }}
-        >
-          Abrir
-        </Button>
+        <Input
+          placeholder="Buscar por id..."
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+
+        {dados.length ? (
+          dados.map((dado) => (
+            <>
+              <p>{dado.id}</p>
+              <p>{dado.title}</p>
+              <br />
+            </>
+          ))
+        ) : (
+          <>
+            <p>{id}</p>
+            <br />
+          </>
+        )}
       </Container>
     </DefaultLayout>
   );
