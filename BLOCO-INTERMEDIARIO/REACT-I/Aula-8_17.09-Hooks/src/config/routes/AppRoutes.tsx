@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "../../pages/Home";
 import UseEffect from "../../pages/UseEffect";
 import UseRef from "../../pages/UseRef";
+import UseMemo from "../../pages/UseMemo";
+import UseCallback from "../../pages/UseCallback";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
   {
     path: "/use-ref",
     element: <UseRef />,
+  },
+  {
+    path: "/use-memo",
+    element: <UseMemo />,
+  },
+  {
+    path: "/use-callback",
+    element: <UseCallback />,
   },
 ]);
 
