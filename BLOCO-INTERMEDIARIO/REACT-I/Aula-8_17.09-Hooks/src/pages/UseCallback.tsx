@@ -1,4 +1,10 @@
-import React from "react";
+import { useCallback, useState } from "react";
+import { DefaultLayout } from "../config/layouts/DefaultLayout";
+import { Container } from "../components/styleds/Container";
+import { Title } from "../components/styleds/Title";
+import { Input } from "../components/styleds/Input";
+import { Button } from "../components/styleds/Button";
+import ListData from "../components/ListData";
 
 /**
  * useCallback
@@ -18,5 +24,37 @@ import React from "react";
  * - passar funções para useEffect;
  */
 export default function UseCallback() {
-  return <div></div>;
+  const [input, setInput] = useState("");
+  const [type, setType] = useState("posts");
+
+  const getData = useCallback(async () => {
+    console.log("Buscando dados.....", type);
+
+    const results = await fetch(`https://jsonplaceholder.typicode.com/${type}`)
+      .then((response) => response.json())
+      .then((json) => json);
+
+    return results;
+  }, [type]);
+
+  return (
+    <DefaultLayout>
+      <Container>
+        <Title>useCallback</Title>
+
+        <Input
+          placeholder="Buscar..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+
+        <div>
+          <Button onClick={() => setType("posts")}>Posts</Button>
+          <Button onClick={() => setType("comments")}>Comments</Button>
+        </div>
+
+        <ListData getData={getData} />
+      </Container>
+    </DefaultLayout>
+  );
 }
