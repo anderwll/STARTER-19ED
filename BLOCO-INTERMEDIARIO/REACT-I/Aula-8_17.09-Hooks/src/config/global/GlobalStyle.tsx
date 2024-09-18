@@ -9,8 +9,8 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         font-family: "Poppins", sans-serif;
-        background-color: #ffff;
-        color: #000;
+        background-color: ${({ theme }) => theme.backgroundColor};
+        color: ${({ theme }) => theme.textColor};
     }
 
     a {

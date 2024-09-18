@@ -9,7 +9,7 @@ interface ButtonProps {
 
 export const Button = styled.button<ButtonProps>`
   color: #ffff;
-  background-color: ${(props) => (props.variant === "error" ? "red" : "blue")};
+  background-color: ${(props) => props.theme.primaryColor};
   border: none;
   border-radius: 8px;
   cursor: pointer;
