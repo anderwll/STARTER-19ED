@@ -5,11 +5,12 @@ import { DefaultLayout } from "../config/layouts/DefaultLayout";
 import { List } from "../components/styleds/List";
 import { FloatButton } from "../components/styleds/FloatButton";
 import { Select } from "../components/styleds/Select";
-import { generateId, Transactions } from "../config/types";
+import { generateId, Toast, Transactions } from "../config/types";
 import { ModalTransactions } from "../components/ModalTransactions";
 import { ModalDoEma } from "../components/Modal";
 import { Input } from "../components/styleds/Input";
 import { SelectModal } from "../components/SelectModal";
+import { ToastResposta } from "../config/hooks/ToastRespostas";
 
 export function Home() {
   const [transactions, setTransactions] = useState<Transactions[]>([
@@ -24,6 +25,8 @@ export function Home() {
   const [transationObject, setTransactionObject] = useState<Transactions>();
   const [selected, setSelected] = useState<string | number>();
   const [openAdd, setOpenAdd] = useState(false);
+  const [toastProps, setToastProps] = useState<Toast>();
+  const [showToast, setShowToast] = useState(false);
 
   function formatDate(date: string | Date) {
     if (date instanceof Date) {
@@ -60,7 +63,20 @@ export function Home() {
 
     transactions.push(objectForm);
 
-    console.log(transactions);
+    setToastProps({
+      message: "Transação criada com sucesso",
+      duration: 3000,
+      type: "success",
+    });
+
+    setShowToast(!showToast);
+    setOpenAdd(!openAdd);
+
+    console.log(toastProps);
+  };
+
+  const handleCloseToast = () => {
+    setShowToast(false);
   };
 
   return (
@@ -123,6 +139,15 @@ export function Home() {
           setOpen(!open);
         }}
       /> */}
+
+      {showToast && (
+        <ToastResposta
+          message={toastProps?.message}
+          duration={toastProps?.duration}
+          type={toastProps?.type}
+          onClose={handleCloseToast}
+        />
+      )}
       <ModalDoEma
         tipo="Criar"
         isOpen={openAdd}
