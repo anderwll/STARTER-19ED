@@ -1,18 +1,28 @@
+import { useState } from "react";
 import { Select } from "./styleds/Select";
 
-interface SelectModalProps {
-  onChange?: React.ChangeEventHandler<HTMLSelectElement> | undefined;
-  value: string | number;
-}
+export function SelectModal() {
+  const [ selected, setSelected ] = useState<string>("")
+  
+  function handleSelected(e: React.ChangeEvent<HTMLSelectElement>) {
+		setSelected(e.target.value);
+	}
 
-export function SelectModal({ onChange, value }: SelectModalProps) {
   return (
-    <Select marginTop="20px" value={value} onChange={onChange}>
-      <option value="" selected disabled>
-        Selecione um tipo
-      </option>
-      <option value="Entrada">Entrada</option>
-      <option value="Saída">Saída</option>
-    </Select>
-  );
+		<Select
+			width='95%'
+			padding='20px'
+      marginTop='10px'
+      value={selected}
+			onChange={handleSelected}>
+			<option
+				value=''
+				selected
+				disabled>
+				Selecione um tipo
+			</option>
+			<option value='Entrada'>Entrada</option>
+			<option value='Saída'>Saída</option>
+		</Select>
+	);
 }

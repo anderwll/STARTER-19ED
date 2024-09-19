@@ -1,5 +1,5 @@
-import { Button } from "./styleds/Button";
-import { ModalRoot } from "./styleds/ModalRoot";
+import { Button } from './styleds/Button';
+import { ModalRoot } from './styleds/ModalRoot';
 
 /**
  *  Rederização condicional
@@ -12,39 +12,41 @@ import { ModalRoot } from "./styleds/ModalRoot";
  */
 
 interface ModalUpdatProps {
-  isOpen: boolean;
-  onCancel: () => void;
-  children: React.ReactNode;
-  title: string;
+	isOpen: boolean;
+	onCancel: () => void;
+	children: React.ReactNode;
+	title: string;
 }
 
 export function ModalForm({
-  isOpen,
-  onCancel,
-  children,
-  title,
+	isOpen,
+	onCancel,
+	children,
+	title,
 }: ModalUpdatProps) {
-  return (
-    <>
-      {isOpen && (
-        <ModalRoot onClick={onCancel}>
-          <div
-            onClick={(e) => {
-              e.stopPropagation(); // Não propaga a ação de click para o a div filho
-            }}
-          >
-            <h3>{title}</h3>
+	return (
+		<>
+			{isOpen && (
+				<ModalRoot onClick={onCancel}>
+					<div
+						onClick={(e) => {
+							e.stopPropagation(); // Não propaga a ação de click para o a div filho
+						}}>
+						<h3>{title}</h3>
 
-            {children}
+						{children}
 
-            <div>
-              <Button size="small" variant="error" onClick={onCancel}>
-                Cancelar
-              </Button>
-            </div>
-          </div>
-        </ModalRoot>
-      )}
-    </>
-  );
+						<div>
+							<Button
+								size='small'
+								variant='error'
+								onClick={onCancel}>
+								Cancelar
+							</Button>
+						</div>
+					</div>
+				</ModalRoot>
+			)}
+		</>
+	);
 }

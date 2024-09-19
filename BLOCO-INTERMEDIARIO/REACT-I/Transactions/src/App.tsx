@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./config/global/GlobalStyle";
 import { AppRoutes } from "./config/routes/AppRoutes";
