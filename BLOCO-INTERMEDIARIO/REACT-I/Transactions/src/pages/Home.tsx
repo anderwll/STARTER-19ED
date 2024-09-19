@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactHTMLElement, useState } from "react";
 import { Button } from "../components/styleds/Button";
 import { Container } from "../components/styleds/Container";
 import { DefaultLayout } from "../config/layouts/DefaultLayout";
@@ -6,17 +6,25 @@ import { Title } from "../components/styleds/Title";
 import { List } from "../components/styleds/List";
 import { FloatButton } from "../components/styleds/FloatButton";
 import { Select } from "../components/styleds/Select";
+import { Transactions } from "../config/types";
+import { ModalTransactions } from "../components/ModalTransactions";
 
-type Transactions = {
-  id: string;
-  tipo: string;
-  valor: number;
-  descricao: string;
-};
+// type Transactions = {
+//   id: string;
+//   tipo: string;
+//   valor: number;
+//   descricao: string;
+// };
 
 export function Home() {
   const [transactions, setTransactions] = useState<Transactions[]>([
-    { id: "1", tipo: "Entrada", descricao: "Salário", valor: 1600 },
+    {
+      id: "1",
+      tipo: "Entrada",
+      descricao: "Salário",
+      valor: 1600,
+      criadoEm: new Date(),
+    },
   ]);
   const [selected, setSelected] = useState<string | number>();
   const [open, setOpen] = useState(false);
@@ -25,6 +33,10 @@ export function Home() {
     setSelected(e.target.value);
     console.log(selected);
   };
+
+  function openModal() {
+    setOpen(!open);
+  }
 
   return (
     <DefaultLayout>
@@ -76,7 +88,14 @@ export function Home() {
           </tbody>
         </List>
       </Container>
-      <FloatButton>+</FloatButton>
+      <FloatButton onClick={openModal}>+</FloatButton>
+      <ModalTransactions
+        tipo="entrada"
+        isOpen={open}
+        onClose={() => {
+          setOpen(!open);
+        }}
+      />
     </DefaultLayout>
   );
 }
