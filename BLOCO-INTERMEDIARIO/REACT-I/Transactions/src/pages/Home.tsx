@@ -175,10 +175,10 @@ export function Home() {
             onChange={(e) => e.target.value}
           />
           <div>
-            <Button type="submit">Salvar</Button>
             <Button variant="error" onClick={() => setOpenAdd(!openAdd)}>
               Cancelar
             </Button>
+            <Button type="submit">Salvar</Button>
           </div>
         </form>
       </ModalDoEma>

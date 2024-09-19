@@ -6,7 +6,9 @@ export const Input = styled.input`
   font-size: 1.2rem;
   border-radius: 8px;
   margin: 0 10px;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.backgroundColor};
+  color: ${({ theme }) => theme.textColor};
+  border: 1px solid ${(props) => props.theme.primaryColor};
 
   &:hover {
     box-shadow: 1px 8px 12px -5px rgba(49, 49, 49, 0.68);

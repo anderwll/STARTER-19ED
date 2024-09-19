@@ -27,7 +27,7 @@ export function ModalTransactions({
     const objectTransactions: Transactions = {
       id: Date.now().toString(),
       tipo: "",
-      valor: e.target.valor.value,
+      valor: e.currentTarget.valor.value,
       descricao: e.target.descricao.value,
       criadoEm: new Date().toISOString().replace("T", ""),
     };
@@ -43,7 +43,7 @@ export function ModalTransactions({
           <div>
             <Title>{tipo}</Title>
             <form onSubmit={criarTransacao}>
-              <SelectModal />
+              <SelectModal onChange={(e) => console.log(e.target.value)} />
               <Input
                 type="number"
                 name="valor"
@@ -57,10 +57,10 @@ export function ModalTransactions({
                 placeholder="descrição"
               />
               <div>
-                <Button type="submit">Adicionar</Button>
                 <Button onClick={onClose} variant="error">
                   Cancelar
                 </Button>
+                <Button type="submit">Adicionar</Button>
               </div>
             </form>
           </div>

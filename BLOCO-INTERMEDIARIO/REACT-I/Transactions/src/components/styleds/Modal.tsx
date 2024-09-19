@@ -10,7 +10,7 @@ export const Modal = styled.div`
 
   div,
   form {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.backgroundColor};
     padding: 20px;
     border-radius: 8px;
     display: flex;

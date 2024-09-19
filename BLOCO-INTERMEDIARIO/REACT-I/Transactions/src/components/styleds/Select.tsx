@@ -1,21 +1,27 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface SelectProps {
-	marginTop?: string;
-  padding?: string;
+  marginTop?: string;
   width?: string;
 }
 
 export const Select = styled.select<SelectProps>`
-	width: ${({ width }) => width};
-	border-radius: 8px;
-	padding: ${({ padding }) => padding || "10px 18px"};
+  padding: 15px 28px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  margin: 0 10px;
+  background-color: ${({ theme }) => theme.backgroundColor};
+  color: ${({ theme }) => theme.textColor};
+  width: ${({ width }) => width};
+  padding: 15px 28px;
+  border: 1px solid ${(props) => props.theme.primaryColor};
+  margin-top: ${(props) => props.marginTop};
 
-	font-size: 1rem;
+  &:hover {
+    box-shadow: 1px 8px 12px -5px rgba(49, 49, 49, 0.68);
+  }
 
-	border: 1px solid ${(props) => props.theme.primaryColor};
-	color: ${(props) => props.theme.textColor};
-	background-color: ${(props) => props.theme.backgroundColor};
-
-	margin-top: ${(props) => props.marginTop};
+  &:focus {
+    box-shadow: 1px 8px 14px -5px rgba(49, 49, 49, 0.68);
+  }
 `;

@@ -15,7 +15,6 @@ export function SelectModal({
   return (
     <Select
       width="95%"
-      padding="20px"
       marginTop="10px"
       value={value}
       name={name}
