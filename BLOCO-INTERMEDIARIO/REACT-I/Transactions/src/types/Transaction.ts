@@ -1,7 +1,7 @@
-export type Transactions = {
+export type Transaction = {
   id: string;
   tipo: string | undefined;
   valor: number;
   descricao: string;
-  criadoEm: string | Date;
+  criadoEm: Date;
 };

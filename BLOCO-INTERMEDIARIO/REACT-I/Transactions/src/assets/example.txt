@@ -1,0 +1,34 @@
+ <ModalDoEma
+        tipo="Criar"
+        isOpen={openAdd}
+        onClose={() => setOpenAdd(false)}
+      >
+        <form onSubmit={handleAdd}>
+          <SelectModal
+            value={transationObject?.tipo}
+            name="tipo"
+            requerid={true}
+            onChange={(e) => e.target.value}
+          />
+          <Input
+            name="descricao"
+            placeholder="Descrição"
+            required
+            value={transationObject?.descricao}
+            onChange={(e) => e.target.value}
+          />
+          <Input
+            name="valor"
+            placeholder="Valor"
+            required
+            value={transationObject?.valor}
+            onChange={(e) => e.target.value}
+          />
+          <div>
+            <Button variant="error" onClick={() => setOpenAdd(!openAdd)}>
+              Cancelar
+            </Button>
+            <Button type="submit">Salvar</Button>
+          </div>
+        </form>
+      </ModalDoEma>

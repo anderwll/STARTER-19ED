@@ -1,7 +1,7 @@
 import { Select } from "./styleds/Select";
 interface SelectModalProps {
   value?: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   name?: string;
   requerid?: boolean;
 }
@@ -24,8 +24,8 @@ export function SelectModal({
       <option value="" selected disabled>
         Selecione um tipo
       </option>
-      <option value="Entrada">Entrada</option>
-      <option value="Saída">Saída</option>
+      <option value="entrada">Entrada</option>
+      <option value="saida">Saída</option>
     </Select>
   );
 }

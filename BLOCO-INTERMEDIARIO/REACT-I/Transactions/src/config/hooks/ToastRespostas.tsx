@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { ToastService } from "./ToastStyled";
 
 interface ToastProps {
-  message?: string;
-  type?: "success" | "error";
+  message: string;
+  type: "success" | "error";
   duration?: number;
   onClose: () => void;
 }

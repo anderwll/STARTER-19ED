@@ -1,60 +1,66 @@
 import { useState } from "react";
-import { Transactions } from "../config/types";
+import { generateId, Transaction } from "../types";
 import { SelectModal } from "./SelectModal";
 import { Button } from "./styleds/Button";
 import { Input } from "./styleds/Input";
 import { Modal } from "./styleds/Modal";
 import { Title } from "./styleds/Title";
 
-type TTipoTransacao = "Criar" | "Editar";
-
 interface ModalTransactionsProps {
-  tipo: TTipoTransacao;
   isOpen: boolean;
   onClose: () => void;
+  onSave: (trans: Transaction) => void;
 }
 
 export function ModalTransactions({
-  tipo,
   isOpen,
   onClose,
+  onSave,
 }: ModalTransactionsProps) {
-  const [transaction, setTransaction] = useState<Transactions>();
-  const criarTransacao = (e: React.FormEvent<HTMLFormElement>) => {
+  const [transaction, setTransaction] = useState<Transaction>();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const objectTransactions: Transactions = {
-      id: Date.now().toString(),
-      tipo: "",
-      valor: e.currentTarget.valor.value,
-      descricao: e.target.descricao.value,
-      criadoEm: new Date().toISOString().replace("T", ""),
+    const tipo = e.currentTarget.tipo.value;
+    const valor = e.currentTarget.valor.value;
+    const descricao = e.currentTarget.descricao.value;
+
+    if (!tipo || !valor || !descricao) {
+      return;
+    }
+
+    const objectTransactions: Transaction = {
+      id: generateId(),
+      tipo,
+      descricao,
+      valor: Number(valor),
+      criadoEm: new Date(),
     };
 
-    console.log("Transação", objectTransactions);
-
-    return;
+    onSave(objectTransactions);
   };
+
   return (
     <>
       {isOpen && (
         <Modal>
           <div>
-            <Title>{tipo}</Title>
-            <form onSubmit={criarTransacao}>
-              <SelectModal onChange={(e) => console.log(e.target.value)} />
+            <Title>Criar</Title>
+            <form onSubmit={handleSubmit}>
+              <SelectModal name="tipo" />
               <Input
                 type="number"
                 name="valor"
-                value={transaction?.valor}
-                placeholder="valor"
+                // value={transaction?.valor}
+                placeholder="Valor"
               />
               <Input
                 type="text"
                 name="descricao"
-                value={transaction?.descricao}
-                placeholder="descrição"
+                // value={transaction?.descricao}
+                placeholder="Descrição"
               />
               <div>
                 <Button onClick={onClose} variant="error">
