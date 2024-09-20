@@ -4,6 +4,8 @@ interface SelectModalProps {
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   name?: string;
   requerid?: boolean;
+  width?: string;
+  disabledFirtsOption?: boolean;
 }
 
 export function SelectModal({
@@ -11,18 +13,20 @@ export function SelectModal({
   onChange,
   name,
   requerid,
+  width,
+  disabledFirtsOption,
 }: SelectModalProps) {
   return (
     <Select
-      width="95%"
+      width={width}
       marginTop="10px"
       value={value}
       name={name}
       required={requerid}
       onChange={onChange}
     >
-      <option value="" selected disabled>
-        Selecione um tipo
+      <option value="" selected disabled={disabledFirtsOption ?? true}>
+        Selecione um tipo...
       </option>
       <option value="entrada">Entrada</option>
       <option value="saida">Saída</option>

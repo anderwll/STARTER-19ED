@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Container } from "../components/styleds/Container";
 import { DefaultLayout } from "../config/layouts/DefaultLayout";
 import { FloatButton } from "../components/styleds/FloatButton";
@@ -8,6 +8,7 @@ import { ToastResposta } from "../config/hooks/ToastRespostas";
 import { ModalTransactions } from "../components/ModalTransactions";
 import { ListTransactions } from "../components/ListTransactions";
 import { BalanceDisplay } from "../components/BalanceDisplay";
+import { SelectModal } from "../components/SelectModal";
 
 const emptyToast: Toast = {
   type: "success",
@@ -19,15 +20,14 @@ export function Home() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [toastProps, setToastProps] = useState<Toast>(emptyToast);
-
-  const [transationObject, setTransactionObject] = useState<Transaction>();
-  const [selected, setSelected] = useState<string | number>();
   const [showToast, setShowToast] = useState(false);
 
-  const handleSelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(e.target.value);
-    console.log(selected);
-  };
+  // Esse estado controla o nosso valor do filter select
+  const [selected, setSelected] = useState<string>("");
+  // Responsavel por armazenar nossa lista filtrada.
+  const [transactionsFiltered, setTransactionsFiltered] = useState<
+    Transaction[]
+  >([]);
 
   const handleCloseToast = () => {
     setShowToast(false);
@@ -68,21 +68,56 @@ export function Home() {
     }, 0);
   }, [transactions]);
 
+  /**
+   *  1 - Componente filtro = entrada / saida OK
+   *  2 - Estado para controlar o tipo selecionado = selected OK
+   *  3 - Estado para aramazenar a listra filtrada. OK
+   *  4 - Observar a mudança de estrada e filtrar a nossa lista
+   *  5 - Ajustar para mostrar na DOM/HTML
+   */
+  useEffect(() => {
+    console.log("VALOR SELECIONADO =>", selected);
+
+    // se o meu selected for diferente de "" = entrada ou saida
+    if (selected) {
+      const listFiltrada = transactions.filter(
+        (trans) => trans.tipo === selected
+      );
+      setTransactionsFiltered(listFiltrada);
+      return;
+    }
+
+    setTransactionsFiltered(transactions);
+  }, [selected, transactions]);
+
+  const saldoFiltered = useMemo(() => {
+    if (!selected) {
+      return undefined;
+    }
+
+    return transactionsFiltered.reduce((acc, transaction) => {
+      if (transaction.tipo === "entrada") {
+        return acc + transaction.valor;
+      } else {
+        return acc - transaction.valor;
+      }
+    }, 0);
+  }, [transactionsFiltered, selected]);
+
   return (
     <DefaultLayout>
       <Container>
-        <BalanceDisplay saldo={saldo} />
-        <Select value={selected} onChange={handleSelection}>
-          <option value="" selected disabled>
-            Selecione um tipo
-          </option>
-          <option value="Entrada">Entrada</option>
-          <option value="Saída">Saída</option>
-        </Select>
-        <p>Tipo selecionado: {selected}</p>
+        <BalanceDisplay saldo={saldo} saldoFiltered={saldoFiltered} />
+
+        <SelectModal
+          width="30%"
+          disabledFirtsOption={false}
+          value={selected}
+          onChange={(e) => setSelected(e.target.value)}
+        />
 
         <ListTransactions
-          transactions={transactions}
+          transactions={transactionsFiltered} // Lista filtra
           onDelete={handleDelete}
           onUpdate={handleUpdate}
         />

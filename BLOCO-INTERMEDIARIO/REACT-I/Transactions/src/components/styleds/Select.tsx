@@ -12,7 +12,7 @@ export const Select = styled.select<SelectProps>`
   margin: 0 10px;
   background-color: ${({ theme }) => theme.backgroundColor};
   color: ${({ theme }) => theme.textColor};
-  width: ${({ width }) => width};
+  width: ${({ width }) => width ?? "95%"};
   padding: 15px 28px;
   border: 1px solid ${(props) => props.theme.primaryColor};
   margin-top: ${(props) => props.marginTop};
