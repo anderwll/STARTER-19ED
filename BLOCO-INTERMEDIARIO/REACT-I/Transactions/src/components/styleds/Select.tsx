@@ -9,7 +9,6 @@ export const Select = styled.select<SelectProps>`
   padding: 15px 28px;
   font-size: 1.2rem;
   border-radius: 8px;
-  margin: 0 10px;
   background-color: ${({ theme }) => theme.backgroundColor};
   color: ${({ theme }) => theme.textColor};
   width: ${({ width }) => width ?? "95%"};

@@ -9,6 +9,7 @@ import { ModalTransactions } from "../components/ModalTransactions";
 import { ListTransactions } from "../components/ListTransactions";
 import { BalanceDisplay } from "../components/BalanceDisplay";
 import { SelectModal } from "../components/SelectModal";
+import { Box } from "../components/styleds/Box";
 
 const emptyToast: Toast = {
   type: "success",
@@ -127,13 +128,15 @@ export function Home() {
   return (
     <DefaultLayout>
       <Container>
-        <BalanceDisplay saldo={saldo} saldoFiltered={saldoFiltered} />
-        <SelectModal
-          width="30%"
-          disabledFirtsOption={false}
-          value={selected}
-          onChange={(e) => setSelected(e.target.value)}
-        />
+        <Box>
+          <BalanceDisplay saldo={saldo} saldoFiltered={saldoFiltered} />
+          <SelectModal
+            width="25%"
+            disabledFirtsOption={false}
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+          />
+        </Box>
 
         <ListTransactions
           transactions={transactionsFiltered} // Lista filtrada
