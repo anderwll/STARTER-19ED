@@ -4,9 +4,15 @@ import { List } from "./styleds/List";
 
 interface ListTransactionsProps {
   transactions: Transaction[];
+  onDelete: (id: string) => void;
+  onUpdate: (id: string) => void;
 }
 
-export function ListTransactions({ transactions }: ListTransactionsProps) {
+export function ListTransactions({
+  transactions,
+  onDelete,
+  onUpdate,
+}: ListTransactionsProps) {
   function formatDate(date: Date) {
     return date.toLocaleDateString();
   }
@@ -30,16 +36,13 @@ export function ListTransactions({ transactions }: ListTransactionsProps) {
             <td>{transaction.descricao}</td>
             <td>{formatDate(transaction.criadoEm)}</td>
             <td className="acao">
-              <Button
-                size="medium"
-                onClick={() => alert(`Deletando transação ${transaction.id}`)}
-              >
+              <Button size="medium" onClick={() => onUpdate(transaction.id)}>
                 Editar
               </Button>
               <Button
                 size="medium"
                 variant="error"
-                onClick={() => alert(`Deletando transação ${transaction.id}`)}
+                onClick={() => onDelete(transaction.id)}
               >
                 Deletar
               </Button>

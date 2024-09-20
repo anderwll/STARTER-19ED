@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
-import { Button } from "../components/styleds/Button";
+import { useState } from "react";
 import { Container } from "../components/styleds/Container";
 import { DefaultLayout } from "../config/layouts/DefaultLayout";
-import { List } from "../components/styleds/List";
 import { FloatButton } from "../components/styleds/FloatButton";
 import { Select } from "../components/styleds/Select";
-import { generateId, Toast, Transaction } from "../types";
-import { ModalDoEma } from "../components/Modal";
-import { Input } from "../components/styleds/Input";
-import { SelectModal } from "../components/SelectModal";
+import { Toast, Transaction } from "../types";
 import { ToastResposta } from "../config/hooks/ToastRespostas";
 import { ModalTransactions } from "../components/ModalTransactions";
 import { ListTransactions } from "../components/ListTransactions";
@@ -54,6 +49,14 @@ export function Home() {
     handleModal();
   };
 
+  const handleDelete = (id: string) => {
+    console.log("DELETANDO....  =>", id);
+  };
+
+  const handleUpdate = (id: string) => {
+    console.log("ATUALIZANDO....  =>", id);
+  };
+
   return (
     <DefaultLayout>
       <Container>
@@ -66,7 +69,11 @@ export function Home() {
         </Select>
         <p>Tipo selecionado: {selected}</p>
 
-        <ListTransactions transactions={transactions} />
+        <ListTransactions
+          transactions={transactions}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
+        />
       </Container>
 
       <FloatButton onClick={handleModal}>+</FloatButton>
