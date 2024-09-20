@@ -57,6 +57,15 @@ export function Home() {
     console.log("ATUALIZANDO....  =>", id);
   };
 
+  /**
+   * 1 - Criar component para aprensentar o saldo - BalanceDisplay
+   *  - valor/saldo: number
+   *
+   * 2 - Criar a função no componente pai p/ calcular o saldo
+   *  OBS: useMemo**, com base na lista e no tipo (entrada/+ | saida/-)
+   *
+   */
+
   return (
     <DefaultLayout>
       <Container>
