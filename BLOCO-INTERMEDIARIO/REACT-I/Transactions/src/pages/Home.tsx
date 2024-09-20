@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Container } from "../components/styleds/Container";
 import { DefaultLayout } from "../config/layouts/DefaultLayout";
 import { FloatButton } from "../components/styleds/FloatButton";
@@ -7,6 +7,7 @@ import { Toast, Transaction } from "../types";
 import { ToastResposta } from "../config/hooks/ToastRespostas";
 import { ModalTransactions } from "../components/ModalTransactions";
 import { ListTransactions } from "../components/ListTransactions";
+import { BalanceDisplay } from "../components/BalanceDisplay";
 
 const emptyToast: Toast = {
   type: "success",
@@ -57,18 +58,20 @@ export function Home() {
     console.log("ATUALIZANDO....  =>", id);
   };
 
-  /**
-   * 1 - Criar component para aprensentar o saldo - BalanceDisplay
-   *  - valor/saldo: number
-   *
-   * 2 - Criar a função no componente pai p/ calcular o saldo
-   *  OBS: useMemo**, com base na lista e no tipo (entrada/+ | saida/-)
-   *
-   */
+  const saldo = useMemo(() => {
+    return transactions.reduce((acc, transaction) => {
+      if (transaction.tipo === "entrada") {
+        return acc + transaction.valor;
+      } else {
+        return acc - transaction.valor;
+      }
+    }, 0);
+  }, [transactions]);
 
   return (
     <DefaultLayout>
       <Container>
+        <BalanceDisplay saldo={saldo} />
         <Select value={selected} onChange={handleSelection}>
           <option value="" selected disabled>
             Selecione um tipo
