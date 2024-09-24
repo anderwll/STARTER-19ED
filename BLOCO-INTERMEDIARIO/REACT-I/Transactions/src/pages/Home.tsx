@@ -1,8 +1,7 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Container } from "../components/styleds/Container";
 import { DefaultLayout } from "../config/layouts/DefaultLayout";
 import { FloatButton } from "../components/styleds/FloatButton";
-import { Select } from "../components/styleds/Select";
 import { Toast, Transaction } from "../types";
 import { ToastResposta } from "../config/hooks/ToastRespostas";
 import { ModalTransactions } from "../components/ModalTransactions";
@@ -10,6 +9,7 @@ import { ListTransactions } from "../components/ListTransactions";
 import { BalanceDisplay } from "../components/BalanceDisplay";
 import { SelectModal } from "../components/SelectModal";
 import { Box } from "../components/styleds/Box";
+import { ModalDelete } from "../components/ModalDelete";
 
 const emptyToast: Toast = {
   type: "success",
@@ -36,6 +36,18 @@ export function Home() {
     Transaction[]
   >([]);
 
+  // Abre o modal para atualizar
+  const [updateModal, setUpdateModal] = useState(false);
+
+  //Estado para armazenar os valores do update que no nosso caso será um objeto
+  const [upated, setUpdated] = useState<Transaction>();
+
+  //Estado para armazenar o id do valor que vai ser deletado
+  const [transId, setTransId] = useState<string>("");
+
+  //Estado para abrir e fechar o modal de delete
+  const [openDelete, setOpenDelete] = useState(false);
+
   const handleCloseToast = () => {
     setShowToast(false);
   };
@@ -44,9 +56,14 @@ export function Home() {
     setOpenModal(!openModal);
   }
 
+  const handleCloseUpdate = () => {
+    setUpdateModal(false);
+    setUpdated(undefined);
+  };
+
   // ADICIONAR/CRIAÇÃO DE TRANSAÇÃO
   const handleAdd = (trans: Transaction) => {
-    setTransactions((prevState) => [...prevState, trans]);
+    setTransactions((prevState) => [...prevState, trans]); // Um hook do react
 
     setToastProps({
       message: "Transação criada com sucesso",
@@ -88,7 +105,7 @@ export function Home() {
    *  5 - Ajustar para mostrar na DOM/HTML OK
    */
   useEffect(() => {
-    console.log("VALOR SELECIONADO =>", selected);
+    // console.log("VALOR SELECIONADO =>", selected);
 
     // se o meu selected for diferente de "" = entrada ou saida
     if (selected) {
@@ -117,12 +134,71 @@ export function Home() {
   }, [transactionsFiltered, selected]);
 
   // UPDATE E DELETE
+
+  //Abre o modal o e armazena o id no estado transId
   const handleDelete = (id: string) => {
-    console.log("DELETANDO....  =>", id);
+    setTransId(id);
+    setOpenDelete(!openDelete);
   };
 
-  const handleUpdate = (id: string) => {
-    console.log("ATUALIZANDO....  =>", id);
+  // Fecha o modal de delete e limpa o id
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+    setTransId("");
+  };
+
+  // Confirmar a exclusão do item selecionado, onde o id esta armazenado no estado transId
+  const handleConfirm = () => {
+    const index = transactions.findIndex((t) => t.id === transId);
+
+    if (index === -1) {
+      setToastProps({
+        message: "Transação não encontrada",
+        duration: 3000,
+        type: "error",
+      });
+      setShowToast(true);
+    }
+
+    setTransactions((prevState) => [
+      ...prevState.slice(0, index),
+      ...prevState.slice(index + 1),
+    ]);
+
+    setToastProps({
+      message: "Transação excluida com sucesso",
+      duration: 3000,
+      type: "success",
+    });
+
+    setShowToast(true);
+    setOpenDelete(!openDelete);
+    setTransId("");
+  };
+
+  //Abre o modal de Update
+
+  const handleModalUpdate = (id: string) => {
+    const objeto = transactions.find((t) => t.id === id);
+
+    setUpdated(objeto);
+    setUpdateModal(!updateModal);
+  };
+
+  //Enviar o objeto que esta dentro do modal para atualizar no estado transactions
+  const handleUpdate = (trans: Transaction) => {
+    setTransactions((prevState) =>
+      prevState.map((t) => (t.id === trans.id ? trans : t))
+    );
+
+    setToastProps({
+      message: "Transação atualizada com sucesso",
+      duration: 3000,
+      type: "success",
+    });
+
+    setShowToast(true);
+    handleCloseUpdate();
   };
 
   return (
@@ -141,7 +217,7 @@ export function Home() {
         <ListTransactions
           transactions={transactionsFiltered} // Lista filtrada
           onDelete={handleDelete}
-          onUpdate={handleUpdate}
+          onUpdate={handleModalUpdate}
         />
       </Container>
 
@@ -151,6 +227,25 @@ export function Home() {
         isOpen={openModal}
         onClose={handleModal}
         onSave={handleAdd}
+      />
+
+      {/* Modal Update */}
+
+      <ModalTransactions
+        title="Atualizar"
+        titleButton="Salvar"
+        isOpen={updateModal}
+        onClose={handleCloseUpdate}
+        onEdit={handleUpdate}
+        updated={upated}
+      />
+
+      {/* Modal Delete */}
+
+      <ModalDelete
+        isOpen={openDelete}
+        onCancel={handleCloseDelete}
+        onConfirm={handleConfirm}
       />
 
       {showToast && (
