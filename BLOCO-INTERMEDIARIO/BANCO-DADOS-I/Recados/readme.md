@@ -44,6 +44,10 @@ O primeiro recado de cada usuário deve ser atualizado. Adicione o sufixo "(ATUA
 
 O quarto recado de cada usuário deve ser removido do sistema, garantindo que a aplicação continue funcionando corretamente após essa exclusão.
 
+### 6. Busca de Recados:
+
+Ao final de todas operações, busque todos os reacados do segundo usuário cadastrado.
+
 ## Observações para o Time de Desenvolvimento:
 
 - A adição da coluna `created_at` deve ser realizada sem remoção das tabelas existentes. Isso pode ser feito utilizando a funcionalidade de alteração de tabela (ALTER TABLE) no banco de dados.
