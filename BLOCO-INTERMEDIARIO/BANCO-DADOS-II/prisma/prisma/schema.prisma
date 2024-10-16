@@ -11,16 +11,6 @@ datasource db {
 // INT DECIMAL 
 // BOOLEAN
 
-// model Aluno {
-//   // nome   tipo  
-//   id String @id @default(uuid()) @db.Uuid // @id => PRIMARY KEY
-
-//   nomeDaMinhaColuna  String @map("nome_da_minha_coluna") @db.Text // string => TEXT nome_da_minha_coluna
-//   nomeDaMinhaColuna1 String @db.VarChar(150) // string => VARCHAR(150)
-
-//   @@map("alunos")
-// }
-
 model Aluno {
   id       String @id @default(uuid()) @db.Uuid
   nome     String @db.VarChar(60)
