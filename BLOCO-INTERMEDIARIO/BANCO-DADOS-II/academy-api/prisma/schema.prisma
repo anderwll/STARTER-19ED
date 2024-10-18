@@ -19,7 +19,7 @@ model Student {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  // 0 - N
+  // 1 - N (um estudante possui 0..N avaliações) 
   assessments Assessment[]
 
   @@map("students")
@@ -37,10 +37,9 @@ model Assessment {
   description String? @db.Text
   grade       Decimal @db.Decimal(4, 2)
 
-  // 1 -1 
+  // 1 -1 (uma avaliação pertence a 1 estudante) 
   studentId String  @map("student_id") @db.Uuid
   student   Student @relation(fields: [studentId], references: [id])
-  // nomeAtributo TipoDaOutraModel @relation(coluna dessa model, coluna da outra model) 
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @updatedAt @map("updated_at")
