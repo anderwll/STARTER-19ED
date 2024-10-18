@@ -6,7 +6,7 @@ Api de controle de estudantes e suas avaliações.
 
 **Estudantes**
 
-- Cadastro de estudante
+- Cadastro de estudante ✅ **(Adicionar try/catch no controller)**
 - Listagem de estudantes
 - Busca de um estudante pelo identificador
 - Atualização de um estudante
