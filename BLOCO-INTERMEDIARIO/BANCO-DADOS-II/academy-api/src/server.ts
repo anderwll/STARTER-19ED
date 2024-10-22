@@ -2,8 +2,6 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
-import { CreateStudentMiddleware } from "./middlewares/create-student.middleware";
-import { StudentController } from "./controllers/student.controller";
 import { StudentRoutes } from "./routes/student.routes";
 
 const app = express();
