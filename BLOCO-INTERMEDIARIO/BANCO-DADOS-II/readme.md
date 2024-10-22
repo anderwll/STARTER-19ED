@@ -24,9 +24,119 @@ O **PrismaORM** é um **Object-Relational Mapper (ORM)** moderno para Node.js e 
 
 ## 2. <a name='projeto-node-ts'></a>Iniciando um projeto NodeJS com Typescript
 
+**Passo 1:** Iniciar o arquivo `package.json`.
+
+```bash
+  npm init -y
+```
+
+**Passo 2:** Instalar as dependências de desenvolvimento.
+
+```bash
+  npm install -D typescript @types/node ts-node-dev
+```
+
+**Passo 3:** Iniciar o arquivo `tsconfig.json`.
+
+```bash
+  npx tsc --init
+```
+
+**Passo 4:** Alterar os diretórios dentro do arquivo `tsconfig.json`.
+
+```json
+  "compilerOptions": {
+    "target": "ES2022",
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "exclude": ["node_modules"]
+```
+
+**Passo 5:** Adicionar:
+
+- Pasta `src`, diretório principal.
+- Arquivo `server.ts`, ponto de entrada da aplicação, onde o servidor é configurado e iniciado.
+- Arquivo `.gitignore` conténdo o que **não deve subir** ao **GitHub**, ex: **node_modules, .env, dist**.
+
+```bash
+  /src
+  ├── server.ts
+  .gitignore
+```
+
+**Passo 6:** Dentro do arquivo `package.json` adicionar os seguintes scripts.
+
+```json
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "start": "node ./dist/server.js",
+    "build": "tsc"
+  },
+```
+
 ## 3. <a name='iniciando-api-express'></a>Iniciando uma Api com Express
 
+**Passo 1:** Instalar as dependências.
+
+**Produção:**
+
+```bash
+  npm install express cors
+```
+
+**Desenvovimento:**
+
+```bash
+  npm install -D @types/express @types/cors dotenv
+```
+
+**Passo 2:** Dentro do arquivo `server.ts`, configurar e inicar o servidor express.
+
+```ts
+// Imports
+import "dotenv/config";
+import cors from "cors";
+import express, { Request, Response } from "express";
+
+// Criando o servidor com express
+const app = express();
+const port = process.env.PORT;
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+// Rota padrão
+app.get("/", (request: Request, response: Response) => {
+  response.status(200).json({ mensagem: "Api Ok!" });
+});
+
+// Iniciando o servidor
+app.listen(port, () => {
+  console.log("Servidor rodando na porta", port, "🚀");
+});
+```
+
+**Passo 3:** Adicionar o arquivo `.env` na raiz do projeto, definindo a `PORT=3000`.
+
+**.env**
+
+```bash
+  PORT=3000
+```
+
+Adicionar também o arquivo `.env-example` definindo as váriaveis (sem valor, ex: `PORT=`) necessárias para rodar o projeto, facilitando a quem for clonar.
+
+**Passo 4:** Rodar a Api para verificar se tudo está Ok.
+
+```bash
+  npm run dev
+```
+
 ## 4. <a name='config-prisma'></a>Configurando o Prisma
+
+TODO: Implementar passo a passo da configuração inicial do prisma.
 
 ## 5. <a name='estrutura-projeto'></a>Estrutura do projeto
 
@@ -54,7 +164,9 @@ Considerado uma **arquitetura modular** ou **arquitetura em camadas**.
 
 - **src**: Diretório principal do código-fonte da aplicação.
 
-  - **controllers**: Contém a lógica de controle da aplicação, onde as funções que manipulam as requisições HTTP e interagem com os modelos de dados são definidas.
+  - **controllers**: É responsável por receber e processar as requisições HTTP e delegam a lógica de negócios a serviços.
+
+  - **services**: Armazena a lógica de negócios da aplicação e a interação com o banco de dados.
 
   - **middlewares**: Armazena funções intermediárias que podem modificar requisições e respostas antes que cheguem aos controladores, como autenticação e validação de dados.
 
