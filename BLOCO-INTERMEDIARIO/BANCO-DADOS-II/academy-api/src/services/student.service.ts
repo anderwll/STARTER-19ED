@@ -1,5 +1,6 @@
+import { Student as StudentPrisma } from "@prisma/client";
 import { prisma } from "../database/prisma.database";
-import { CreateStudentDto } from "../dtos";
+import { CreateStudentDto, StudentDto } from "../dtos";
 import { ResponseApi } from "../types";
 
 export class StudentService {
@@ -48,7 +49,7 @@ export class StudentService {
         ok: true,
         code: 201,
         message: "Estudante cadastrado com sucesso!",
-        data: studentCreated,
+        data: this.mapToDto(studentCreated),
       };
     } catch (error: any) {
       return {
@@ -57,5 +58,16 @@ export class StudentService {
         message: `Erro do servidor: ${error.message}`,
       };
     }
+  }
+
+  private mapToDto(student: StudentPrisma): StudentDto {
+    return {
+      id: student.id,
+      email: student.email,
+      name: student.name,
+      cpf: student.cpf,
+      type: student.type,
+      age: student.age,
+    };
   }
 }
