@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { CreateStudentMiddleware } from "../middlewares/create-student.middleware";
 import { StudentController } from "../controllers/student.controller";
+import { FindAllStudentMidlleware } from "../middlewares/find-all-student.middleware";
 
 export class StudentRoutes {
   public static execute(): Router {
@@ -18,9 +19,17 @@ export class StudentRoutes {
     );
 
     // FIND ALL - GET
+    router.get(
+      "/students",
+      [FindAllStudentMidlleware.validateTypes],
+      StudentController.findAll
+    );
 
     return router;
   }
 }
 
 // StudentRoutes.execute()
+
+// an
+// 112

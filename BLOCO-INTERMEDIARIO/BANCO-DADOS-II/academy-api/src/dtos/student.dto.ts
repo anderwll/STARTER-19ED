@@ -21,3 +21,8 @@ export interface StudentDto {
 
 // NULL
 // ? ou undefined
+
+export interface QueryFilterDto {
+  name?: string;
+  cpf?: string;
+}
