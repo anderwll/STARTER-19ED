@@ -25,6 +25,9 @@ export class StudentRoutes {
       StudentController.findAll
     );
 
+    // FIND ONE - GET
+    router.get("/students/:id", StudentController.findOneById);
+
     return router;
   }
 }

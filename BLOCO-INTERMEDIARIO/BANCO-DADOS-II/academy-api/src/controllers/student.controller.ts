@@ -66,4 +66,25 @@ export class StudentController {
       });
     }
   }
+
+  public static async findOneById(req: Request, res: Response): Promise<void> {
+    try {
+      // 1- Pegar o identificador
+      // /student/:id
+      const { id } = req.params;
+
+      // 2 - Chamar o responsável
+      const service = new StudentService();
+      const result = await service.findOneById(id);
+
+      // 3 - Responder ao cliente
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
 }

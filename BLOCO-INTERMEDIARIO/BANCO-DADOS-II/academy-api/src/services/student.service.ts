@@ -1,4 +1,8 @@
-import { Prisma, Student as StudentPrisma } from "@prisma/client";
+import {
+  Assessment as AssessmentPrisma,
+  Prisma,
+  Student as StudentPrisma,
+} from "@prisma/client";
 import { prisma } from "../database/prisma.database";
 import { CreateStudentDto, QueryFilterDto, StudentDto } from "../dtos";
 import { ResponseApi } from "../types";
@@ -52,7 +56,9 @@ export class StudentService {
     };
   }
 
-  public async findAll({ cpf, name }: QueryFilterDto): Promise<ResponseApi> {
+  // ?id=
+  // /:id
+  public async findAll({ name, cpf }: QueryFilterDto): Promise<ResponseApi> {
     const where: Prisma.StudentWhereInput = {};
 
     if (name) {
@@ -82,7 +88,36 @@ export class StudentService {
     };
   }
 
-  private mapToDto(student: StudentPrisma): StudentDto {
+  public async findOneById(id: string): Promise<ResponseApi> {
+    // 1 - Buscar => id é pk, id é unico
+    const student = await prisma.student.findUnique({
+      where: { id },
+      include: {
+        assessments: true,
+      },
+    });
+
+    // 2 - Validar se existe
+    if (!student) {
+      return {
+        ok: false,
+        code: 404, // Not Found
+        message: "Estudante não encontrado!",
+      };
+    }
+
+    // 3 - Retornar o dado
+    return {
+      ok: true,
+      code: 200,
+      message: "Estudante encontrado!",
+      data: this.mapToDto(student),
+    };
+  }
+
+  private mapToDto(
+    student: StudentPrisma & { assessments?: AssessmentPrisma[] }
+  ): StudentDto {
     return {
       id: student.id,
       email: student.email,
@@ -90,6 +125,12 @@ export class StudentService {
       cpf: student.cpf,
       type: student.type,
       age: student.age,
+      assessments: student.assessments?.map((assessment) => ({
+        id: assessment.id,
+        title: assessment.title,
+        grade: Number(assessment.grade), // Decima(4, 2) => number (Number())
+        description: assessment?.description,
+      })),
     };
   }
 }
