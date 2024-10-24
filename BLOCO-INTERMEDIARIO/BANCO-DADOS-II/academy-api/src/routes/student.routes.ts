@@ -2,6 +2,7 @@ import { Router } from "express";
 import { CreateStudentMiddleware } from "../middlewares/create-student.middleware";
 import { StudentController } from "../controllers/student.controller";
 import { FindAllStudentMidlleware } from "../middlewares/find-all-student.middleware";
+import { ValidateUuidMiddleware } from "../middlewares/validate-uuid.middleware";
 
 export class StudentRoutes {
   public static execute(): Router {
@@ -26,7 +27,11 @@ export class StudentRoutes {
     );
 
     // FIND ONE - GET
-    router.get("/students/:id", StudentController.findOneById);
+    router.get(
+      "/students/:id",
+      ValidateUuidMiddleware.validate,
+      StudentController.findOneById
+    );
 
     return router;
   }
