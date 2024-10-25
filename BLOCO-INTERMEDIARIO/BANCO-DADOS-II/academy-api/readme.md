@@ -10,7 +10,7 @@ Api de controle de estudantes e suas avaliações.
 - Listagem de estudantes com filtro pelo nome ou cpf ✅
 - Busca de um estudante pelo identificador ✅
 - Atualização de um estudante (name, password, type, age) ✅
-- Remover um estudante
+- Remover um estudante ✅
 
 - Adição de Bcrypt para o salvamento das senhar do estudante.
 - Ordenação da listagem pela data de criação

@@ -39,7 +39,7 @@ model Assessment {
 
   // 1 -1 (uma avaliação pertence a 1 estudante) 
   studentId String  @map("student_id") @db.Uuid
-  student   Student @relation(fields: [studentId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @updatedAt @map("updated_at")

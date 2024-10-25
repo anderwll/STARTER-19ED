@@ -45,6 +45,13 @@ export class StudentRoutes {
       StudentController.update
     );
 
+    // REMOVE - DELETE
+    router.delete(
+      "/students/:id",
+      ValidateUuidMiddleware.validate,
+      StudentController.remove
+    );
+
     return router;
   }
 }

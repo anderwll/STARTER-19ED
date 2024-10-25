@@ -108,4 +108,24 @@ export class StudentController {
       });
     }
   }
+
+  public static async remove(req: Request, res: Response): Promise<void> {
+    try {
+      // 1 - Pegar os dados (params id)
+      const { id } = req.params;
+
+      // 2 - Chamar o responsável (service)
+      const service = new StudentService();
+      const result = await service.remove(id);
+
+      // 3 - Retornar para o cliente
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
 }

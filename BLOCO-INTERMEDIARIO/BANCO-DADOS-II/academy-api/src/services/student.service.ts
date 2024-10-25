@@ -157,6 +157,49 @@ export class StudentService {
     };
   }
 
+  public async remove(id: string): Promise<ResponseApi> {
+    // 1 - Validar se o id informado é válido
+    const student = await prisma.student.findUnique({ where: { id } });
+
+    if (!student) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Estudante não encontrado!",
+      };
+    }
+
+    // DTL - TRANSAÇÃO
+    // const studentDeleted = await prisma.$transaction(async (transacao) => {
+    //   await transacao.assessment.deleteMany({
+    //     where: { studentId: id },
+    //   });
+
+    //   return await transacao.student.delete({
+    //     where: { id },
+    //   });
+    // });
+
+    // NÃO É NECESSÁRIO pois definimos uma exclusão em cascata
+    // await prisma.assessment.deleteMany({
+    //   where: { studentId: id },
+    // });
+
+    // 2 - Remover o dado
+    const studentDeleted = await prisma.student.delete({
+      where: { id },
+    });
+
+    // include => JOIN
+    // 3 - Retornar o dado/feeback
+    return {
+      ok: true,
+      code: 200,
+      message: "Estudante removido com sucesso!",
+      data: this.mapToDto(studentDeleted),
+    };
+  }
+
   private mapToDto(
     student: StudentPrisma & { assessments?: AssessmentPrisma[] }
   ): StudentDto {
