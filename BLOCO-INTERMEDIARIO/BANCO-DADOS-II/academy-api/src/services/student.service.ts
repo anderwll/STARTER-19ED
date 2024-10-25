@@ -4,7 +4,12 @@ import {
   Student as StudentPrisma,
 } from "@prisma/client";
 import { prisma } from "../database/prisma.database";
-import { CreateStudentDto, QueryFilterDto, StudentDto } from "../dtos";
+import {
+  CreateStudentDto,
+  QueryFilterDto,
+  StudentDto,
+  UpdateStudentDto,
+} from "../dtos";
 import { ResponseApi } from "../types";
 
 export class StudentService {
@@ -112,6 +117,43 @@ export class StudentService {
       code: 200,
       message: "Estudante encontrado!",
       data: this.mapToDto(student),
+    };
+  }
+
+  public async update(
+    id: string,
+    updateStudent: UpdateStudentDto
+  ): Promise<ResponseApi> {
+    // 1 - Verificar se o id informado existe
+    const student = await prisma.student.findUnique({
+      where: { id },
+    });
+
+    if (!student) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Estudante não encontrado!",
+      };
+    }
+
+    /**
+     *  update - atualiza um determinado => retorna um
+     *  udapteMany - Atualiza váriso e não retorna nada
+     *  upsert - Atualiza quando existir e cria quando não existir
+     */
+    // 2 - Atualizar (prisma)
+    const studentUpdated = await prisma.student.update({
+      where: { id },
+      data: { ...updateStudent }, // Espalha as propriedades
+    });
+
+    // 3 - Retornar o dado att.
+    return {
+      ok: true,
+      code: 200,
+      message: "Estudante atualizado com sucesso!",
+      data: this.mapToDto(studentUpdated),
     };
   }
 

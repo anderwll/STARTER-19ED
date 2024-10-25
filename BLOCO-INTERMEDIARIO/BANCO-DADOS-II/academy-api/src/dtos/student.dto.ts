@@ -34,3 +34,10 @@ export interface QueryFilterDto {
   name?: string;
   cpf?: string;
 }
+
+export interface UpdateStudentDto {
+  name?: string;
+  password?: string;
+  type?: StudentType;
+  age?: number;
+}
