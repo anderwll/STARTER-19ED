@@ -26,3 +26,4 @@ Api de controle de estudantes e suas avaliações.
 **Avaliações**
 
 - Cadastro de avaliações = studentId
+  ...
