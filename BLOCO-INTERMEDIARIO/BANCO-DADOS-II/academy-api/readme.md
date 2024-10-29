@@ -12,11 +12,17 @@ Api de controle de estudantes e suas avaliações.
 - Atualização de um estudante (name, password, type, age) ✅
 - Remover um estudante ✅
 
-- Adição de Bcrypt para o salvamento das senhar do estudante.
-- Ordenação da listagem pela data de criação
+**Autenticação**
+
+- Adição de Bcrypt para o salvamento das senha do estudante. (BCRYPT)
+- Login (email e senha)
+- Rotas autenticadas (S/ JWT):
+  - Listagem de estudantes
+  - Busca de um estudante
+  - Atualização de um estudante
+  - Remoção de um estudante
+  - Todas as rotas de avaliações
 
 **Avaliações**
 
 - Cadastro de avaliações = studentId
-
-**Autenticação**
