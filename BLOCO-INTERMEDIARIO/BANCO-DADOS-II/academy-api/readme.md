@@ -14,7 +14,7 @@ Api de controle de estudantes e suas avaliações.
 
 **Autenticação**
 
-- Adição de Bcrypt para o salvamento das senha do estudante. (BCRYPT)
+- Adição de Bcrypt para o salvamento das senha do estudante. (BCRYPT) ✅
 - Login (email e senha)
 - Rotas autenticadas (S/ JWT):
   - Listagem de estudantes
