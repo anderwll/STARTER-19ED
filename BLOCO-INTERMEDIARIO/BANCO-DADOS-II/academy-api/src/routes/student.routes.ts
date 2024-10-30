@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { CreateStudentMiddleware } from "../middlewares/create-student.middleware";
+import { CreateStudentMiddleware } from "../middlewares/students/create-student.middleware";
 import { StudentController } from "../controllers/student.controller";
-import { FindAllStudentMidlleware } from "../middlewares/find-all-student.middleware";
+import { FindAllStudentMidlleware } from "../middlewares/students/find-all-student.middleware";
 import { ValidateUuidMiddleware } from "../middlewares/validate-uuid.middleware";
-import { UpdateStudentMiddleware } from "../middlewares/update-student.middleware";
+import { UpdateStudentMiddleware } from "../middlewares/students/update-student.middleware";
 
 export class StudentRoutes {
   public static execute(): Router {

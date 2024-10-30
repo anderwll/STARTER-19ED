@@ -2,8 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
-import { StudentRoutes } from "./routes/student.routes";
-import { AuthRoutes } from "./routes/auth.routes";
+import { StudentRoutes, AuthRoutes } from "./routes";
 
 const app = express();
 const port = process.env.PORT;
