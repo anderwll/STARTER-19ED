@@ -49,6 +49,9 @@ export class StudentController {
       // 1- Pegar do query
       const { name, cpf } = req.query;
 
+      const { student } = req.body;
+      console.log("STUDENT NO CONTROLLER VINDO DO MIDDLEWARE", student);
+
       // 2 - Chamar o responsável
       const service = new StudentService();
       const result = await service.findAll({

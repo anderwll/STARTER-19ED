@@ -3,6 +3,7 @@ import { prisma } from "../database/prisma.database";
 import { LoginDto } from "../dtos";
 import { ResponseApi } from "../types";
 import { Bcrypt } from "../utils/bcrypt";
+import { Student } from "@prisma/client";
 
 export class AuthService {
   public async login(data: LoginDto): Promise<ResponseApi> {
@@ -52,5 +53,13 @@ export class AuthService {
       message: "Login efetuado com sucesso!",
       data: { token },
     };
+  }
+
+  public async validateToken(token: string): Promise<Student | null> {
+    const student = await prisma.student.findFirst({
+      where: { authToken: token },
+    });
+
+    return student;
   }
 }

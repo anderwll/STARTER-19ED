@@ -4,6 +4,7 @@ import { StudentController } from "../controllers/student.controller";
 import { FindAllStudentMidlleware } from "../middlewares/students/find-all-student.middleware";
 import { ValidateUuidMiddleware } from "../middlewares/validate-uuid.middleware";
 import { UpdateStudentMiddleware } from "../middlewares/students/update-student.middleware";
+import { AuthMiddleware } from "../middlewares/auth/auth.middleware";
 
 export class StudentRoutes {
   public static execute(): Router {
@@ -23,7 +24,7 @@ export class StudentRoutes {
     // FIND ALL - GET
     router.get(
       "/students",
-      [FindAllStudentMidlleware.validateTypes],
+      [AuthMiddleware.validate, FindAllStudentMidlleware.validateTypes],
       StudentController.findAll
     );
 
@@ -38,6 +39,7 @@ export class StudentRoutes {
     router.put(
       "/students/:id",
       [
+        AuthMiddleware.validate,
         ValidateUuidMiddleware.validate,
         UpdateStudentMiddleware.validateTypes,
         UpdateStudentMiddleware.validateData,
@@ -48,6 +50,7 @@ export class StudentRoutes {
     // REMOVE - DELETE
     router.delete(
       "/students/:id",
+      AuthMiddleware.validate,
       ValidateUuidMiddleware.validate,
       StudentController.remove
     );
