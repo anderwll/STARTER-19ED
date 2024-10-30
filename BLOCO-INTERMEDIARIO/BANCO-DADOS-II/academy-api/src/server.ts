@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 
 import { StudentRoutes } from "./routes/student.routes";
+import { AuthRoutes } from "./routes/auth.routes";
 
 const app = express();
 const port = process.env.PORT;
@@ -17,8 +18,9 @@ app.get("/", (req, res) => {
   });
 });
 
-// app.VERBO ( "rota", MIDDLEWARES[] ,CONTROLLER )
+// app.VERBO ("rota", MIDDLEWARES[] ,CONTROLLER )
 // ROTAS
+app.use(AuthRoutes.execute());
 app.use(StudentRoutes.execute());
 // app.use(AssessmentsRoutes.execute());
 
