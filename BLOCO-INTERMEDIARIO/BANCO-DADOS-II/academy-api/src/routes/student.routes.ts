@@ -31,6 +31,7 @@ export class StudentRoutes {
     // FIND ONE - GET
     router.get(
       "/students/:id",
+      AuthMiddleware.validate,
       ValidateUuidMiddleware.validate,
       StudentController.findOneById
     );
