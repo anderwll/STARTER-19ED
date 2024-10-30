@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 
 import { StudentRoutes, AuthRoutes } from "./routes";
+import { AssessmentRoutes } from "./routes/assessment.routes";
 
 const app = express();
 const port = process.env.PORT;
@@ -21,7 +22,7 @@ app.get("/", (req, res) => {
 // ROTAS
 app.use(AuthRoutes.execute());
 app.use(StudentRoutes.execute());
-// app.use(AssessmentsRoutes.execute());
+app.use(AssessmentRoutes.execute());
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}!`);

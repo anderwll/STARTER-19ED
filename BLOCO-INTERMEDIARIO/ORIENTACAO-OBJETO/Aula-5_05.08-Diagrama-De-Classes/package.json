@@ -13,5 +13,8 @@
   "devDependencies": {
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "aula-4_05.08-diagrama-de-classes": "file:"
   }
 }
