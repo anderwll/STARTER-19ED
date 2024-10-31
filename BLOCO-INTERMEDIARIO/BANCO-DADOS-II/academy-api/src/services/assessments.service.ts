@@ -48,14 +48,22 @@ export class AssessmentService {
     };
   }
 
-  public async findAll(id: string): Promise<ResponseApi> {
-    console.log(id);
+  public async findAll(
+    id: string,
+    query?: { page?: number; take?: number }
+  ): Promise<ResponseApi> {
+    // [0, 1, 2, 3]
+    // 1 - 2 - 3
+
+    // 1 => 0
+    // 2 => 1
 
     const assessmentList = await prisma.assessment.findMany({
+      skip: query?.page, // 1 page
+      take: query?.take, // quantidade
       where: { studentId: id },
+      orderBy: { createdAt: "asc" },
     });
-
-    console.log(assessmentList);
 
     if (!assessmentList) {
       return {

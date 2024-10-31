@@ -34,9 +34,13 @@ export class AssessmentController {
   public static async findAll(req: Request, res: Response): Promise<void> {
     try {
       const { student } = req.body; // TOKEN => { student: { id, type } } QUERY => ?studentId=
+      const { page, take } = req.query; // string
 
       const service = new AssessmentService();
-      const result = await service.findAll(student.id);
+      const result = await service.findAll(student.id, {
+        page: page ? Number(page) - 1 : undefined, // converter p/ number
+        take: take ? Number(take) : undefined,
+      });
 
       const { code, ...response } = result;
       res.status(code).json(response);
