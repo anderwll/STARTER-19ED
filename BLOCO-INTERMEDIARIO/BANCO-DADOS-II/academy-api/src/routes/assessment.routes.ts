@@ -1,22 +1,29 @@
-import { Router } from "express";
-import { AssessmentController } from "../controllers/assessment.controller";
-import { CreateAssessmentMiddleware } from "../middlewares/assessments/create-assessment-middleware";
+import { Router } from 'express';
+import { AssessmentController } from '../controllers/assessment.controller';
+import { CreateAssessmentMiddleware } from '../middlewares/assessments/create-assessment-middleware';
+import { AuthMiddleware } from '../middlewares/auth/auth.middleware';
 
 export class AssessmentRoutes {
-  public static execute(): Router {
-    const router = Router();
+	public static execute(): Router {
+		const router = Router();
 
-    //CREATE - POST
-    router.post(
-      "/assessments",
-      [
-        CreateAssessmentMiddleware.validateRequired,
-        CreateAssessmentMiddleware.validateTypes,
-        CreateAssessmentMiddleware.validateData,
-      ],
-      AssessmentController.create
-    );
+		//CREATE - POST
+		router.post(
+			'/assessments',
+			[
+				CreateAssessmentMiddleware.validateRequired,
+				CreateAssessmentMiddleware.validateTypes,
+				CreateAssessmentMiddleware.validateData,
+			],
+			AssessmentController.create
+		);
 
-    return router;
-  }
+		router.get(
+			'/assessments',
+			AuthMiddleware.validate,
+			AssessmentController.findAll
+		);
+
+		return router;
+	}
 }

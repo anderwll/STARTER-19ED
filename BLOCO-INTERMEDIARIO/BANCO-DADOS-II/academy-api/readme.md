@@ -30,7 +30,7 @@ Api de controle de estudantes e suas avaliações.
 
 **POST** `/assessments`
 
-Enpoint para o cadastro de avaliações.
+Enpoint para o cadastro de avaliações. 
 
 ```ts
 {

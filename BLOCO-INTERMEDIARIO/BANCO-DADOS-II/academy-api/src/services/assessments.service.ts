@@ -24,4 +24,26 @@ export class AssessmentService {
       data: assessmentCreated,
     };
   }
+
+  public async findAll(id: string): Promise<ResponseApi> {
+
+    const assessmentList = await prisma.assessment.findMany({
+      where: { studentId: id }
+    })
+
+    if (!assessmentList) {
+			return {
+				ok: false,
+				code: 404,
+				message: 'Avaliação do estudante não encontrada',
+			};
+		}
+
+    return {
+			ok: true,
+			code: 200,
+			message: 'Avaliações buscadas com sucesso !!!',
+			data: assessmentList,
+		};
+  }
 }
