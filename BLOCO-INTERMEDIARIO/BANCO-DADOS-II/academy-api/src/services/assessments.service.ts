@@ -1,3 +1,4 @@
+import { Assessment } from "@prisma/client";
 import { prisma } from "../database/prisma.database";
 import { CreateAssessmentDto } from "../dtos/assessment.dto";
 import { ResponseApi } from "../types";
@@ -66,4 +67,70 @@ export class AssessmentService {
       data: assessment,
     };
   }
+
+  public async update(
+    id: string,
+    updateAssessments: UpdateDTO
+  ): Promise<ResponseApi> {
+    const assessment = await prisma.assessment.findUnique({
+      where: { id },
+    });
+
+    if (!assessment) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Avaliação não encontrada!",
+      };
+    }
+
+    const updateAssessment = await prisma.assessment.update({
+      where: { id },
+      data: { ...updateAssessments },
+    });
+
+    return {
+      ok: true,
+      code: 200,
+      message: "Avaluação atualizada com sucesso!",
+      data: this.mapToDto(updateAssessment),
+    };
+  }
+
+  public async remove(id: string): Promise<ResponseApi> {
+    const assessment = await prisma.assessment.findUnique({
+      where: { id },
+    });
+
+    if (!assessment) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Avaliação não encontrada!",
+      };
+    }
+
+    const removeAssessment = await prisma.assessment.delete({
+      where: { id },
+    });
+    return {
+      ok: true,
+      code: 200,
+      message: "Avaliação excluída com sucesso!",
+      data: this.mapToDto(removeAssessment),
+    };
+  }
+
+  private mapToDto(assessment: Assessment) {
+    return {
+      title: assessment.title,
+      description: assessment.description,
+      grade: assessment.grade,
+    };
+  }
+}
+interface UpdateDTO {
+  title?: string;
+  description?: string;
+  grade?: number;
 }
