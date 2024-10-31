@@ -6,7 +6,9 @@ export class CreateAssessmentMiddleware {
     res: Response,
     next: NextFunction
   ) {
-    const { title, grade, studentId } = req.body;
+    const { title, grade, studentId, student } = req.body;
+
+    console.log("Middleware ->", student);
 
     if (!title) {
       res.status(400).json({
@@ -42,7 +44,7 @@ export class CreateAssessmentMiddleware {
       });
       return;
     }
-    if (typeof description !== "string") {
+    if (description && typeof description !== "string") {
       res.status(400).json({
         ok: false,
         message: "Descrição deve ser uma string.",

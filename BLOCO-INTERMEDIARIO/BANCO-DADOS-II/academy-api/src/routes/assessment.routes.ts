@@ -13,6 +13,7 @@ export class AssessmentRoutes {
     router.post(
       "/assessments",
       [
+        AuthMiddleware.validate,
         CreateAssessmentMiddleware.validateRequired,
         CreateAssessmentMiddleware.validateTypes,
         CreateAssessmentMiddleware.validateData,
@@ -22,7 +23,7 @@ export class AssessmentRoutes {
 
     router.get(
       "/assessments",
-      AuthMiddleware.validate,
+      AuthMiddleware.validate, // {student: { id, type }}
       AssessmentController.findAll
     );
 

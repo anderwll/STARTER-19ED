@@ -18,9 +18,9 @@ export class AuthMiddleware {
     }
 
     const service = new AuthService();
-    const isValidStudent = await service.validateToken(token);
+    const studentFound = await service.validateToken(token);
 
-    if (!isValidStudent) {
+    if (!studentFound) {
       res.status(401).json({
         ok: false,
         message: "Não autenticado!",
@@ -30,9 +30,11 @@ export class AuthMiddleware {
 
     // Repassa essa informação.
     req.body.student = {
-      id: isValidStudent.id,
-      type: isValidStudent.type,
+      id: studentFound.id,
+      type: studentFound.type,
     };
+
+    req.body.outro = "DEU BOM";
 
     next();
   }

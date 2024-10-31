@@ -7,7 +7,29 @@ export class AssessmentService {
   public async create(
     createAssessment: CreateAssessmentDto
   ): Promise<ResponseApi> {
-    const { title, description, grade, studentId } = createAssessment;
+    const { title, description, grade, studentId, studentLoggedId } =
+      createAssessment;
+
+    // studentId = Existe no banco
+    const student = await prisma.student.findUnique({
+      where: { id: studentId },
+    });
+
+    if (!student) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Estudante não encontrado!",
+      };
+    }
+
+    if (studentLoggedId !== studentId) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Id informado inválido!",
+      };
+    }
 
     const assessmentCreated = await prisma.assessment.create({
       data: {
@@ -22,14 +44,18 @@ export class AssessmentService {
       ok: true,
       code: 201,
       message: "Avaliação cadastrada com sucesso!",
-      data: assessmentCreated,
+      data: this.mapToDto(assessmentCreated),
     };
   }
 
   public async findAll(id: string): Promise<ResponseApi> {
+    console.log(id);
+
     const assessmentList = await prisma.assessment.findMany({
       where: { studentId: id },
     });
+
+    console.log(assessmentList);
 
     if (!assessmentList) {
       return {
@@ -43,7 +69,7 @@ export class AssessmentService {
       ok: true,
       code: 200,
       message: "Avaliações buscadas com sucesso !!!",
-      data: assessmentList,
+      data: assessmentList.map((ass) => this.mapToDto(ass)),
     };
   }
 

@@ -1,24 +1,27 @@
 import { Request, response, Response } from "express";
 import { CreateAssessmentDto } from "../dtos/assessment.dto";
 import { AssessmentService } from "../services/assessments.service";
+import { log } from "console";
 
 export class AssessmentController {
   public static async create(req: Request, res: Response): Promise<void> {
     try {
-      const { title, description, grade, studentId } = req.body;
+      const { title, description, grade, studentId, student } = req.body; // Validado
+
+      console.log(student);
 
       const data: CreateAssessmentDto = {
         title,
         description,
         grade,
         studentId,
+        studentLoggedId: student.id,
       };
 
       const service = new AssessmentService();
       const result = await service.create(data);
 
       const { code, ...response } = result;
-
       res.status(code).json(response);
     } catch (error: any) {
       res.status(500).json({
@@ -30,13 +33,12 @@ export class AssessmentController {
 
   public static async findAll(req: Request, res: Response): Promise<void> {
     try {
-      const { id } = req.body;
+      const { student } = req.body; // TOKEN => { student: { id, type } } QUERY => ?studentId=
 
       const service = new AssessmentService();
-      const result = await service.findAll(id);
+      const result = await service.findAll(student.id);
 
       const { code, ...response } = result;
-
       res.status(code).json(response);
     } catch (error: any) {
       res.status(500).json({

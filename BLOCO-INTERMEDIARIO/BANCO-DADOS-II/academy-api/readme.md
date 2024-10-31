@@ -26,11 +26,11 @@ Api de controle de estudantes e suas avaliações.
 
 ## Avaliações
 
-### Cadastro de avaliações
+### Cadastro de avaliações ✅
 
 **POST** `/assessments`
 
-Enpoint para o cadastro de avaliações. 
+Enpoint para o cadastro de avaliações.
 
 ```ts
 {
@@ -43,7 +43,7 @@ Enpoint para o cadastro de avaliações.
 
 ### Listagem de avaliações
 
-**GET** `/assessments`
+**GET** `/assessments` ✅
 
 Enpoint para a listagem de **todas as avaliações de um determinado estudante.** Utilizar o token para identificar qual o studente logado que está acessando o enpoint.
 

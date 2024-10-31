@@ -3,4 +3,5 @@ export interface CreateAssessmentDto {
   description?: string;
   grade: number;
   studentId: string;
+  studentLoggedId: string;
 }
