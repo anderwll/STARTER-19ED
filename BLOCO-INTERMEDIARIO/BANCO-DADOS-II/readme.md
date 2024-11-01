@@ -136,7 +136,45 @@ Adicionar também o arquivo `.env-example` definindo as váriaveis (sem valor, e
 
 ## 4. <a name='config-prisma'></a>Configurando o Prisma
 
-TODO: Implementar passo a passo da configuração inicial do prisma.
+**Passo 1:** Instalar as dependências.
+
+**Produção:**
+
+```bash
+ npm i @prisma/client
+```
+
+**Desenvovimento:**
+
+```bash
+  npm i -D prisma
+```
+
+**Passo 2:** Configura o provedor PostgressSQL com o comando da CLI do Prisma.
+
+```bash
+ npx prisma init --datasource-provider postgresql
+```
+
+**Passo 3:** Configurar/alterar no `.env` a url do banco de dados.
+
+```.env
+DATABASE_URL="postgresql:/<db_user>:<db_password>@<db_host>:<db_port>
+/<db_name>?schema=<db_schema>"
+```
+
+**OBS:** Seguir o [Exemplo da Documentação do Prisma](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-typescript-postgresql).
+
+**Comando úteis:**
+
+- `npx prisma init`: Configurar o Prisma em um projeto pela primeira vez.
+- `npx prisma generate`: Refletir as alterações do schema do Prisma no client.
+- `npx prisma migrate dev`: Criar uma nova migração para refletir essas mudanças no banco de dados.
+- `npx prisma migrate deploy`: Aplicar todas as migrações em ambientes de produção.
+- `npx prisma migrate reset`: Resetar o banco, apagando todos os dados e reaplicando as migrações.
+- `npx prisma studio`: Inicializar a interface gráfica para visualizar e editar dados no banco.
+
+Para mais informações acesse a [Documentação do Prisma](https://www.prisma.io/docs/orm/reference/prisma-cli-reference).
 
 ## 5. <a name='estrutura-projeto'></a>Estrutura do projeto
 
