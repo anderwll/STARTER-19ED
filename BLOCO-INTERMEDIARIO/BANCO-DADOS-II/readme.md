@@ -188,11 +188,13 @@ Considerado uma **arquitetura modular** ou **arquitetura em camadas**.
   └── schema.prisma
   /src
   ├── /controllers
+  ├── /services
   ├── /middlewares
   ├── /routes
   ├── /database
   ├── /utils
   ├── /types
+  ├── /dtos
   └── server.ts
 ```
 
@@ -215,5 +217,7 @@ Considerado uma **arquitetura modular** ou **arquitetura em camadas**.
   - **utils**: Um local para funções utilitárias e auxiliares que podem ser reutilizadas em diferentes partes da aplicação.
 
   - **types**: Armazena definições de tipos TypeScript personalizados, ajudando a manter a tipagem em todo o projeto.
+
+  - **dtos**: Armazena Data Transfer Objects (DTOs), que são tipos TypeScript utilizados para definir a estrutura dos dados transferidos entre diferentes camadas da aplicação.
 
   - **server.ts**: O ponto de entrada da aplicação, onde o servidor é configurado e iniciado, incluindo a configuração de middleware e rotas.
