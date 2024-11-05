@@ -1,5 +1,7 @@
+import { AppRoutes } from "./configs/routes/AppRoutes";
+
 function App() {
-  return <h1>Olá Mundo</h1>;
+  return <AppRoutes />;
 }
 
 export default App;
