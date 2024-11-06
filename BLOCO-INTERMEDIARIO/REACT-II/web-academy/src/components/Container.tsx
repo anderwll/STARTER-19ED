@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
-export const Container = styled.section`
-  width: 100%;
-  height: auto;
-  padding: 40px;
+interface ContainerProps {
+  $fullHeight?: boolean;
+}
 
+export const Container = styled.section<ContainerProps>`
+  height: ${({ $fullHeight }) => ($fullHeight ? "100vh" : "auto")};
+  width: 100%;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;

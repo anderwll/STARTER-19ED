@@ -30,4 +30,8 @@ export const Button = styled.button<ButtonProps>`
   &:hover {
     opacity: 85%;
   }
+
+  &:disabled {
+    background: #a1a1a1;
+  }
 `;
