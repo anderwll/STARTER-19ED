@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { Form } from "../components/Form";
 import { login } from "../configs/services/auth.service";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "../utils/getToken";
 
 export function Login() {
   const navigate = useNavigate();
+  const token = getToken();
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
 
@@ -38,6 +40,13 @@ export function Login() {
     alert(response.message);
     navigate("/home");
   }
+
+  useEffect(() => {
+    if (token) {
+      navigate("/home");
+      return;
+    }
+  }, [token, navigate]);
 
   return (
     <Container $fullHeight>

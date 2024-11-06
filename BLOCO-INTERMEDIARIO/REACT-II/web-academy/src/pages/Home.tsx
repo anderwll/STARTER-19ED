@@ -3,23 +3,33 @@ import { getAssessments } from "../configs/services/assessment.service";
 import { Assessment } from "../types/assessment.type";
 import { TableAssessments } from "../components/Table/Table";
 import { Container } from "../components/Container";
+import { useNavigate } from "react-router-dom";
+import { getToken } from "../utils/getToken";
 
 export function Home() {
+  const navigate = useNavigate();
+  const token = getToken();
+
   const [loading, setLoading] = useState(false);
   const [listAssessments, setListAssessments] = useState<Assessment[]>([]);
 
   // Busca as avaliações
   useEffect(() => {
     async function fetchAssessments() {
+      if (!token) {
+        navigate("/");
+        return;
+      }
+
       setLoading(true);
-      const response = await getAssessments(
-        "d8b78935-9b82-4c86-ac90-53a5f49693fe"
-      );
+      const response = await getAssessments(token);
+
+      console.log(response);
 
       setLoading(false);
       if (!response.ok) {
         alert(response.message);
-        // navegar p/ a tela de login
+        navigate("/");
         return;
       }
 
@@ -27,7 +37,7 @@ export function Home() {
     }
 
     fetchAssessments();
-  }, []);
+  }, [token, navigate]);
 
   return (
     <Container>

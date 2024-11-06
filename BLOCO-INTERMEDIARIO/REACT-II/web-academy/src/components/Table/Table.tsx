@@ -25,7 +25,7 @@ export function TableAssessments({ loading, rows }: TableAssessmentsProps) {
       </thead>
       <tbody>
         {rows.map((row, index) => (
-          <tr>
+          <tr key={index}>
             <td>{index + 1}</td>
             <td>{row.title}</td>
             <td>{row?.description}</td>
