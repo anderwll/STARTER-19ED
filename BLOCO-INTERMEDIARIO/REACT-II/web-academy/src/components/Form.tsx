@@ -13,4 +13,10 @@ export const Form = styled.form`
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 `;

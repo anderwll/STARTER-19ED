@@ -11,6 +11,7 @@ export function Login() {
   const [checked, setChecked] = useState(false);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    setLoading(true);
     event.preventDefault();
 
     const data = {
@@ -19,7 +20,6 @@ export function Login() {
     };
 
     // Requisita para o backend
-    setLoading(true);
     const response = await login(data);
 
     setLoading(false);

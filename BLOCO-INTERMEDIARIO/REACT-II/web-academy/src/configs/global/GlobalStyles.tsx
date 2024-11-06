@@ -7,5 +7,10 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
 }
 
+body {
+    font-family: "Poppins", sans-serif;
+  
+}
+
 // Outro estilos globais
 `;
