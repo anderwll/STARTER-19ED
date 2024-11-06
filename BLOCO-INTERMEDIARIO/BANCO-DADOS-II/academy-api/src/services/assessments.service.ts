@@ -1,14 +1,17 @@
 import { Assessment } from "@prisma/client";
 import { prisma } from "../database/prisma.database";
-import { CreateAssessmentDto } from "../dtos/assessment.dto";
+import {
+  AssessmentDto,
+  CreateAssessmentDto,
+  UpdateAssessmentDto,
+} from "../dtos/assessment.dto";
 import { ResponseApi } from "../types";
 
 export class AssessmentService {
   public async create(
     createAssessment: CreateAssessmentDto
   ): Promise<ResponseApi> {
-    const { title, description, grade, studentId, studentLoggedId } =
-      createAssessment;
+    const { title, description, grade, studentId } = createAssessment;
 
     // studentId = Existe no banco
     const student = await prisma.student.findUnique({
@@ -20,14 +23,6 @@ export class AssessmentService {
         ok: false,
         code: 404,
         message: "Estudante não encontrado!",
-      };
-    }
-
-    if (studentLoggedId !== studentId) {
-      return {
-        ok: false,
-        code: 404,
-        message: "Id informado inválido!",
       };
     }
 
@@ -104,7 +99,7 @@ export class AssessmentService {
 
   public async update(
     id: string,
-    updateAssessments: UpdateDTO
+    updateAssessments: UpdateAssessmentDto
   ): Promise<ResponseApi> {
     const assessment = await prisma.assessment.findUnique({
       where: { id },
@@ -155,16 +150,14 @@ export class AssessmentService {
     };
   }
 
-  private mapToDto(assessment: Assessment) {
+  private mapToDto(assessment: Assessment): AssessmentDto {
     return {
+      id: assessment.id,
       title: assessment.title,
       description: assessment.description,
-      grade: assessment.grade,
+      grade: Number(assessment.grade),
+      studentId: assessment.studentId,
+      createdAt: assessment.createdAt,
     };
   }
-}
-interface UpdateDTO {
-  title?: string;
-  description?: string;
-  grade?: number;
 }

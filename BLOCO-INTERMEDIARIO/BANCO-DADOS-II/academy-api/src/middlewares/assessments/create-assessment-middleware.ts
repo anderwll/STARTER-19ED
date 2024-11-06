@@ -6,7 +6,7 @@ export class CreateAssessmentMiddleware {
     res: Response,
     next: NextFunction
   ) {
-    const { title, grade, studentId, student } = req.body;
+    const { title, grade, student } = req.body;
 
     console.log("Middleware ->", student);
 
@@ -17,6 +17,7 @@ export class CreateAssessmentMiddleware {
       });
       return;
     }
+
     if (!grade) {
       res.status(400).json({
         ok: false,
@@ -24,18 +25,12 @@ export class CreateAssessmentMiddleware {
       });
       return;
     }
-    if (!studentId) {
-      res.status(400).json({
-        ok: false,
-        message: "ID do estudante é obrigatório.",
-      });
-      return;
-    }
+
     return next();
   }
 
   public static validateTypes(req: Request, res: Response, next: NextFunction) {
-    const { title, description, grade, studentId } = req.body;
+    const { title, description, grade } = req.body;
 
     if (typeof title !== "string") {
       res.status(400).json({
@@ -44,6 +39,7 @@ export class CreateAssessmentMiddleware {
       });
       return;
     }
+
     if (description && typeof description !== "string") {
       res.status(400).json({
         ok: false,
@@ -51,6 +47,7 @@ export class CreateAssessmentMiddleware {
       });
       return;
     }
+
     if (typeof grade !== "number") {
       res.status(400).json({
         ok: false,
@@ -58,22 +55,7 @@ export class CreateAssessmentMiddleware {
       });
       return;
     }
-    if (typeof studentId !== "string") {
-      res.status(400).json({
-        ok: false,
-        message: "ID do estudante deve ser uma string.",
-      });
-      return;
-    }
-    const regexUuid =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-    if (!regexUuid.test(studentId)) {
-      res.status(400).json({
-        ok: false,
-        message: "Identificador precisa ser um UUID.",
-      });
-    }
     return next();
   }
 
@@ -86,12 +68,14 @@ export class CreateAssessmentMiddleware {
         message: "Título deve conter no mínimo 4 caracteres.",
       });
     }
+
     if (description && description.length < 5) {
       res.status(400).json({
         ok: false,
         message: "Descrição deve conter no minimo 6 caracteres.",
       });
     }
+
     return next();
   }
 }

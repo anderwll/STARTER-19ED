@@ -6,16 +6,13 @@ import { log } from "console";
 export class AssessmentController {
   public static async create(req: Request, res: Response): Promise<void> {
     try {
-      const { title, description, grade, studentId, student } = req.body; // Validado
-
-      console.log(student);
+      const { title, description, grade, student } = req.body; // Validado
 
       const data: CreateAssessmentDto = {
         title,
         description,
         grade,
-        studentId,
-        studentLoggedId: student.id,
+        studentId: student.id,
       };
 
       const service = new AssessmentService();
