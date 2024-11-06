@@ -5,6 +5,7 @@ import { TableAssessments } from "../components/Table/Table";
 import { Container } from "../components/Container";
 import { useNavigate } from "react-router-dom";
 import { getToken } from "../utils/getToken";
+import { Button } from "../components/Button";
 
 export function Home() {
   const navigate = useNavigate();
@@ -39,10 +40,24 @@ export function Home() {
     fetchAssessments();
   }, [token, navigate]);
 
+  function logout() {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+
+    navigate("/");
+  }
+
   return (
-    <Container>
-      <h1>Minhas Avaliações</h1>
-      <TableAssessments loading={loading} rows={listAssessments} />
-    </Container>
+    <>
+      <header>
+        <Button $color="error" onClick={logout}>
+          Sair
+        </Button>
+      </header>
+      <Container>
+        <h1>Minhas Avaliações</h1>
+        <TableAssessments loading={loading} rows={listAssessments} />
+      </Container>
+    </>
   );
 }
