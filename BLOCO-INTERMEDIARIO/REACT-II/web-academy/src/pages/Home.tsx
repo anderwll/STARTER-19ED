@@ -8,8 +8,8 @@ import { getToken } from "../utils/getToken";
 import { Button } from "../components/Button";
 
 export function Home() {
-  const navigate = useNavigate();
   const token = getToken();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [listAssessments, setListAssessments] = useState<Assessment[]>([]);
@@ -25,12 +25,16 @@ export function Home() {
       setLoading(true);
       const response = await getAssessments(token);
 
-      console.log(response);
-
       setLoading(false);
       if (!response.ok) {
+        if (response.message === "Erro: Não autenticado!") {
+          localStorage.removeItem("token");
+
+          setTimeout(() => {
+            navigate("/");
+          }, 500);
+        }
         alert(response.message);
-        navigate("/");
         return;
       }
 
