@@ -6,6 +6,7 @@ import { Container } from "../components/Container";
 import { useNavigate } from "react-router-dom";
 import { getToken } from "../utils/getToken";
 import { Button } from "../components/Button";
+import { UpsertModal } from "../components/UpsertModal";
 
 export function Home() {
   const token = getToken();
@@ -13,6 +14,8 @@ export function Home() {
 
   const [loading, setLoading] = useState(false);
   const [listAssessments, setListAssessments] = useState<Assessment[]>([]);
+
+  const [openModal, setOpenModal] = useState(false);
 
   // Busca as avaliações
   useEffect(() => {
@@ -51,17 +54,26 @@ export function Home() {
     navigate("/");
   }
 
+  function handleToggleUpsertModal() {
+    setOpenModal(!openModal);
+  }
+
   return (
     <>
       <header>
         <Button $color="error" onClick={logout}>
           Sair
         </Button>
+        <Button $color="info" onClick={handleToggleUpsertModal}>
+          Nova Avaliação
+        </Button>
       </header>
       <Container>
         <h1>Minhas Avaliações</h1>
         <TableAssessments loading={loading} rows={listAssessments} />
       </Container>
+
+      <UpsertModal isOpen={openModal} onClose={handleToggleUpsertModal} />
     </>
   );
 }
