@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "../../pages/Home";
 import { Login } from "../../pages/Login";
+import { SignUp } from "../../pages/SignUp";
 
 const router = createBrowserRouter([
   //  Rotas
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <Home />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />
   },
   {
     path: "*", // Tudo menos o que está ali em cima

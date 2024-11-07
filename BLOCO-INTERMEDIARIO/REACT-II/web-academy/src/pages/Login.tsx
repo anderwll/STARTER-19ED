@@ -3,7 +3,7 @@ import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { Form } from "../components/Form";
 import { login } from "../configs/services/auth.service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../utils/getToken";
 
 export function Login() {
@@ -49,24 +49,37 @@ export function Login() {
   }, [token, navigate]);
 
   return (
-    <Container $fullHeight>
-      <Form onSubmit={onSubmit}>
-        <h1>Login</h1>
-        <input type="email" placeholder="E-mail" name="email" />
-        <input type="password" placeholder="Senha" name="password" />
-        <div>
-          <input
-            type="checkbox"
-            value={String(checked)}
-            onChange={() => setChecked(!checked)}
-          />
-          <label>Deseja permanecer logado?</label>
-        </div>
+		<Container $fullHeight>
+			<Form onSubmit={onSubmit}>
+				<h1>Login</h1>
+				<input
+					type='email'
+					placeholder='E-mail'
+					name='email'
+				/>
+				<input
+					type='password'
+					placeholder='Senha'
+					name='password'
+				/>
+				<div>
+					<input
+						type='checkbox'
+						value={String(checked)}
+						onChange={() => setChecked(!checked)}
+					/>
+					<label>Deseja permanecer logado?</label>
+				</div>
+				<small>
+					Ainda não tem conta? <Link to="/signup">Criar conta</Link>
+				</small>
 
-        <Button type="submit" disabled={loading}>
-          Entrar
-        </Button>
-      </Form>
-    </Container>
-  );
+				<Button
+					type='submit'
+					disabled={loading}>
+					Entrar
+				</Button>
+			</Form>
+		</Container>
+	);
 }
