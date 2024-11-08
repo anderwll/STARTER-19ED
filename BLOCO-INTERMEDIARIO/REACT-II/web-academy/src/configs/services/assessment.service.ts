@@ -1,6 +1,7 @@
 import {
   Assessment,
   CreateAssessmentRequest,
+  UpdateAssessmentRequest,
 } from "../../types/assessment.type";
 import { api, ResponseApi } from "./api.service";
 
@@ -33,6 +34,34 @@ export async function createAssessment(
   try {
     const response = await api.post<ResponseApi<Assessment>>(
       "/assessments",
+      dataBody,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return {
+      ok: response.data.ok,
+      message: response.data.message,
+      data: response.data.data,
+    };
+  } catch (error: any) {
+    return {
+      ok: error.response.data.ok,
+      message: `Erro: ${error.response.data.message}`,
+    };
+  }
+}
+
+export async function updateAssessment(
+  token: string,
+  { id, ...dataBody }: UpdateAssessmentRequest
+) {
+  try {
+    const response = await api.put<ResponseApi<Assessment>>(
+      `/assessments/${id}`,
       dataBody,
       {
         headers: {

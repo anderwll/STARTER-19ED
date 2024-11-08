@@ -7,9 +7,14 @@ const columns = ["Id", "Titulo", "Descrição", "Nota", "Criado Em", "Ações"];
 interface TableAssessmentsProps {
   loading?: boolean;
   rows: Assessment[];
+  onEdit: (row: Assessment) => void;
 }
 
-export function TableAssessments({ loading, rows }: TableAssessmentsProps) {
+export function TableAssessments({
+  loading,
+  rows,
+  onEdit,
+}: TableAssessmentsProps) {
   if (loading) {
     return <p>Buscando avaliações...</p>;
   }
@@ -30,9 +35,11 @@ export function TableAssessments({ loading, rows }: TableAssessmentsProps) {
             <td>{row.title}</td>
             <td>{row?.description}</td>
             <td>{row.grade}</td>
-            <td>{new Date().toLocaleDateString("pt-br")}</td>
+            <td>{new Date(row.createdAt).toLocaleDateString("pt-br")}</td>
             <td>
-              <Button $color="info">Editar</Button>
+              <Button $color="info" onClick={() => onEdit(row)}>
+                Editar
+              </Button>
               <Button $color="error">Excluir</Button>
             </td>
           </tr>

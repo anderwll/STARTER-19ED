@@ -1,21 +1,38 @@
 // Update
 // Insert
 
-import { useState } from "react";
-import { createAssessment } from "../configs/services/assessment.service";
+import { useEffect, useRef, useState } from "react";
+import {
+  createAssessment,
+  updateAssessment,
+} from "../configs/services/assessment.service";
 import { getToken } from "../utils/getToken";
 import { Button } from "./Button";
 import { Form } from "./Form";
 import { Modal } from "./Modal";
+import { Assessment } from "../types/assessment.type";
+import { ResponseApi } from "../configs/services/api.service";
+
+const initialResponse: ResponseApi<Assessment> = {
+  ok: false,
+  message: "",
+};
 
 interface UpsertModalProps {
   isOpen: boolean;
   onClose: () => void;
   onFetch: () => void;
+  assessment: Assessment | null; //
 }
 
-export function UpsertModal({ isOpen, onClose, onFetch }: UpsertModalProps) {
+export function UpsertModal({
+  isOpen,
+  assessment,
+  onClose,
+  onFetch,
+}: UpsertModalProps) {
   const token = getToken();
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -32,22 +49,42 @@ export function UpsertModal({ isOpen, onClose, onFetch }: UpsertModalProps) {
     };
 
     setLoading(true);
-    const respose = await createAssessment(token, data);
+
+    let response: ResponseApi<Assessment> = initialResponse;
+
+    if (assessment) {
+      response = await updateAssessment(token, { id: assessment.id, ...data });
+    } else {
+      response = await createAssessment(token, data);
+    }
+
     setLoading(false);
 
-    if (!respose.ok) {
-      alert(respose.message);
+    if (!response.ok) {
+      alert(response.message);
       return;
     }
 
-    alert(respose.message);
+    alert(response.message);
     onFetch();
     onClose();
   }
 
+  useEffect(() => {
+    if (formRef.current && assessment) {
+      formRef.current["title-ass"].value = assessment.title;
+      formRef.current["description-ass"].value = assessment.description;
+      formRef.current["grade-ass"].value = assessment.grade;
+    }
+  }, [assessment]);
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Cadastrar Avaliação">
-      <Form onSubmit={onSubmit}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={assessment ? "Editar Avaliação" : "Cadastrar Avaliação"}
+    >
+      <Form ref={formRef} onSubmit={onSubmit}>
         <input
           type="text"
           placeholder="Titulo"
@@ -75,8 +112,12 @@ export function UpsertModal({ isOpen, onClose, onFetch }: UpsertModalProps) {
           <Button type="button" $color="error" onClick={onClose}>
             Cancelar
           </Button>
-          <Button type="submit" $color="success" disabled={loading}>
-            Criar
+          <Button
+            type="submit"
+            $color={assessment ? "info" : "success"}
+            disabled={loading}
+          >
+            {assessment ? "Editar" : "Criar"}
           </Button>
         </div>
       </Form>

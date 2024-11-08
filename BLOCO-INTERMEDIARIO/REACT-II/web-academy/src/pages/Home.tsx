@@ -16,6 +16,8 @@ export function Home() {
   const [listAssessments, setListAssessments] = useState<Assessment[]>([]);
 
   const [openModal, setOpenModal] = useState(false);
+  // Quando edição, tem avaliação, quando não, não tem
+  const [assessmentEdit, setAssessmentEdit] = useState<Assessment | null>(null);
 
   function logout() {
     localStorage.removeItem("token");
@@ -25,7 +27,18 @@ export function Home() {
   }
 
   function handleToggleUpsertModal() {
+    if (!openModal) {
+      setAssessmentEdit(null);
+    }
+
     setOpenModal(!openModal);
+  }
+
+  function handlePrepareEdtion(assessment: Assessment) {
+    // Abrir o modal
+    setOpenModal(true);
+    // Passar essa info p/ o modal
+    setAssessmentEdit(assessment);
   }
 
   // Busca avaliação
@@ -60,25 +73,35 @@ export function Home() {
   }, [fetchAssessments, navigate, token]);
 
   return (
-    <>
-      <header>
-        <Button $color="error" onClick={logout}>
-          Sair
-        </Button>
-        <Button $color="info" onClick={handleToggleUpsertModal}>
-          Nova Avaliação
-        </Button>
-      </header>
-      <Container>
-        <h1>Minhas Avaliações</h1>
-        <TableAssessments loading={loading} rows={listAssessments} />
+    <Container>
+      <Container $flexDirection="row" $noPadding>
+        <h1>Nome do estudante - Avaliações</h1>
+        <div>
+          <Button
+            $color="info"
+            onClick={handleToggleUpsertModal}
+            style={{ marginRight: "8px" }}
+          >
+            Nova Avaliação
+          </Button>
+          <Button $color="error" onClick={logout}>
+            Sair
+          </Button>
+        </div>
       </Container>
+
+      <TableAssessments
+        loading={loading}
+        rows={listAssessments}
+        onEdit={handlePrepareEdtion}
+      />
 
       <UpsertModal
         isOpen={openModal}
+        assessment={assessmentEdit}
         onClose={handleToggleUpsertModal}
         onFetch={fetchAssessments}
       />
-    </>
+    </Container>
   );
 }
