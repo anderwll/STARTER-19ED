@@ -12,6 +12,7 @@ import { Form } from "./Form";
 import { Modal } from "./Modal";
 import { Assessment } from "../types/assessment.type";
 import { ResponseApi } from "../configs/services/api.service";
+import { ModalActions } from "./Modal/styled";
 
 const initialResponse: ResponseApi<Assessment> = {
   ok: false,
@@ -108,7 +109,7 @@ export function UpsertModal({
           required
         />
 
-        <div>
+        <ModalActions>
           <Button type="button" $color="error" onClick={onClose}>
             Cancelar
           </Button>
@@ -119,7 +120,7 @@ export function UpsertModal({
           >
             {assessment ? "Editar" : "Criar"}
           </Button>
-        </div>
+        </ModalActions>
       </Form>
     </Modal>
   );

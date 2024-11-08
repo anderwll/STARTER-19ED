@@ -12,7 +12,7 @@ export const ModalRoot = styled.div`
 
 export const ModalContent = styled.div`
   background-color: white;
-  padding: 16px;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   min-width: 300px;
@@ -24,4 +24,11 @@ export const ModalHeader = styled.div`
   align-items: center;
   border-bottom: 1px solid #ccc;
   margin-bottom: 16px;
+`;
+
+export const ModalActions = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 8px;
 `;
