@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getAssessments } from "../configs/services/assessment.service";
 import { Assessment } from "../types/assessment.type";
 import { TableAssessments } from "../components/Table/Table";
@@ -17,36 +17,6 @@ export function Home() {
 
   const [openModal, setOpenModal] = useState(false);
 
-  // Busca as avaliações
-  useEffect(() => {
-    async function fetchAssessments() {
-      if (!token) {
-        navigate("/");
-        return;
-      }
-
-      setLoading(true);
-      const response = await getAssessments(token);
-
-      setLoading(false);
-      if (!response.ok) {
-        if (response.message === "Erro: Não autenticado!") {
-          localStorage.removeItem("token");
-
-          setTimeout(() => {
-            navigate("/");
-          }, 500);
-        }
-        alert(response.message);
-        return;
-      }
-
-      setListAssessments(response.data || []);
-    }
-
-    fetchAssessments();
-  }, [token, navigate]);
-
   function logout() {
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");
@@ -57,6 +27,37 @@ export function Home() {
   function handleToggleUpsertModal() {
     setOpenModal(!openModal);
   }
+
+  // Busca avaliação
+  const fetchAssessments = useCallback(async () => {
+    console.log("Busca de avaliações");
+
+    setLoading(true);
+    const response = await getAssessments(token!);
+    setLoading(false);
+
+    if (!response.ok) {
+      if (response.message === "Erro: Não autenticado!") {
+        localStorage.removeItem("token");
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+      }
+      alert(response.message);
+      return;
+    }
+
+    setListAssessments(response.data || []);
+  }, [navigate, token]);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+      return;
+    }
+
+    fetchAssessments();
+  }, [fetchAssessments, navigate, token]);
 
   return (
     <>
@@ -73,7 +74,11 @@ export function Home() {
         <TableAssessments loading={loading} rows={listAssessments} />
       </Container>
 
-      <UpsertModal isOpen={openModal} onClose={handleToggleUpsertModal} />
+      <UpsertModal
+        isOpen={openModal}
+        onClose={handleToggleUpsertModal}
+        onFetch={fetchAssessments}
+      />
     </>
   );
 }
