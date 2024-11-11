@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getToken } from "../utils/getToken";
 import { Button } from "../components/Button";
 import { UpsertModal } from "../components/UpsertModal";
+import { DeleteModal } from "../components/DeleteModal";
 
 export function Home() {
   const token = getToken();
@@ -17,7 +18,9 @@ export function Home() {
 
   const [openModal, setOpenModal] = useState(false);
   // Quando edição, tem avaliação, quando não, não tem
+  const [openModalDelete, setOpenModalDelete] = useState(false);
   const [assessmentEdit, setAssessmentEdit] = useState<Assessment | null>(null);
+  const [idToDelete, setIdToDelete] = useState("");
 
   function logout() {
     localStorage.removeItem("token");
@@ -30,8 +33,14 @@ export function Home() {
     if (!openModal) {
       setAssessmentEdit(null);
     }
-
     setOpenModal(!openModal);
+  }
+
+  function handleToggleDeleteModal() {
+    if (!openModalDelete) {
+      setIdToDelete("");
+    }
+    setOpenModalDelete(!openModalDelete);
   }
 
   function handlePrepareEdtion(assessment: Assessment) {
@@ -39,6 +48,11 @@ export function Home() {
     setOpenModal(true);
     // Passar essa info p/ o modal
     setAssessmentEdit(assessment);
+  }
+
+  function handlePrepareDelete(id: string) {
+    setOpenModalDelete(true);
+    setIdToDelete(id);
   }
 
   // Busca avaliação
@@ -94,6 +108,7 @@ export function Home() {
         loading={loading}
         rows={listAssessments}
         onEdit={handlePrepareEdtion}
+        onDelete={handlePrepareDelete}
       />
 
       <UpsertModal
@@ -101,6 +116,12 @@ export function Home() {
         assessment={assessmentEdit}
         onClose={handleToggleUpsertModal}
         onFetch={fetchAssessments}
+      />
+      <DeleteModal
+        isOpen={openModalDelete}
+        id={idToDelete}
+        onFetch={fetchAssessments}
+        onClose={handleToggleDeleteModal}
       />
     </Container>
   );
