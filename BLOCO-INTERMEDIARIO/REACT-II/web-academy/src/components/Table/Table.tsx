@@ -8,12 +8,14 @@ interface TableAssessmentsProps {
   loading?: boolean;
   rows: Assessment[];
   onEdit: (row: Assessment) => void;
+  onDelete: (id: string) => void;
 }
 
 export function TableAssessments({
   loading,
   rows,
   onEdit,
+  onDelete,
 }: TableAssessmentsProps) {
   if (loading) {
     return <p>Buscando avaliações...</p>;
@@ -40,7 +42,9 @@ export function TableAssessments({
               <Button $color="info" onClick={() => onEdit(row)}>
                 Editar
               </Button>
-              <Button $color="error">Excluir</Button>
+              <Button $color="error" onClick={() => onDelete(row.id)}>
+                Excluir
+              </Button>
             </td>
           </tr>
         ))}
