@@ -10,6 +10,10 @@ const styles: Record<string, CSSObject> = {
     padding: 0,
     fontFamily: "Poppins, sans-serif",
   },
+  a: {
+    textDecoration: "none",
+    color: "black",
+  },
 
   // Outros estilos compartilhados...
 };
