@@ -41,7 +41,7 @@ export function Header() {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" color="info">
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Avatar
