@@ -23,7 +23,7 @@ export function SectionChips() {
       alignItems="center"
       gap={2}
     >
-      <Box display="flex" gap={{ xs: 0, md: 2 }}>
+      <Box display="flex" gap={{ xs: 0.5, md: 2 }}>
         {categories.map((cat) => (
           <Chip
             label={cat}
