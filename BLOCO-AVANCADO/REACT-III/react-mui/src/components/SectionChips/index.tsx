@@ -32,7 +32,6 @@ export function SectionChips() {
           />
         ))}
       </Box>
-
       <Box>
         <TextField
           placeholder="Search..."
