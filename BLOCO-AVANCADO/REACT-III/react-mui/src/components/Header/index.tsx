@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks";
 
 const pages = [
   { label: "Home", to: "/" },
@@ -20,6 +21,8 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export function Header() {
   const { pathname } = useLocation();
+
+  const counterRedux = useAppSelector((st) => st.counter);
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -94,6 +97,10 @@ export function Header() {
               ))}
             </Menu>
           </Box>
+
+          <Typography variant="h6" sx={{ mr: 2 }}>
+            {counterRedux.value}
+          </Typography>
 
           <Box
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, gap: 2 }}

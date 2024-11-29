@@ -1,9 +1,60 @@
 import { Box, Button, TextField, Typography, Grid2 } from "@mui/material";
 import { Fingerprint as FingerprintIcon } from "@mui/icons-material";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { decrementar, incrementar, reset } from "../store/modules/counterSlice";
 
 export function Home() {
+  // useAppSelector = Pegar o valor da store
+  const counterRedux = useAppSelector((state) => state.counter);
+
+  // useAppDispatch = Disparar as funções (incre...)
+  const dispatch = useAppDispatch();
+
+  function handleIncrementar() {
+    dispatch(incrementar());
+  }
+
+  function handleDecrementar() {
+    dispatch(decrementar());
+  }
+
+  function handleReset() {
+    dispatch(reset());
+  }
+
   return (
     <>
+      <Grid2 container spacing={2} sx={{ textAlign: "center" }}>
+        <Grid2 size={12}>
+          <Typography variant="h6">Counter: {counterRedux.value}</Typography>
+        </Grid2>
+        <Grid2 size={4}>
+          <Button variant="contained" fullWidth onClick={handleIncrementar}>
+            Incrementar
+          </Button>
+        </Grid2>
+        <Grid2 size={4}>
+          <Button
+            variant="contained"
+            color="secondary"
+            fullWidth
+            onClick={handleDecrementar}
+          >
+            Decrementar
+          </Button>
+        </Grid2>
+        <Grid2 size={4}>
+          <Button
+            variant="contained"
+            color="warning"
+            fullWidth
+            onClick={handleReset}
+          >
+            Zerar
+          </Button>
+        </Grid2>
+      </Grid2>
+
       <Box
         component="section"
         sx={{
