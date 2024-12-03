@@ -44,7 +44,7 @@ export function Login() {
 
             <Grid2 size={12} textAlign="center">
               <Link to="#" onClick={handleImplements}>
-                Forfot your password?
+                Forgot your password?
               </Link>
             </Grid2>
 
