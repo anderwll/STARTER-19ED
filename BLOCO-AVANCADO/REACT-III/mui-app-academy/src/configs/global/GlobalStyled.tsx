@@ -5,8 +5,7 @@ const styles: Record<string, CSSObject> = {
     fontFamily: "Open Sans, sans-serif",
   },
   a: {
-    textDecoration: "none",
-    background: "#0000",
+    color: "#000000",
   },
 };
 
