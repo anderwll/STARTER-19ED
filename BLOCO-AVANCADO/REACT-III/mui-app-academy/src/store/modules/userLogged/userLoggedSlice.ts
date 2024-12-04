@@ -49,6 +49,7 @@ const userLoggedSlice = createSlice({
       state.email = userFound.email;
       state.remember = remember;
       state.errors = "";
+
       return state;
     },
     // Logout
