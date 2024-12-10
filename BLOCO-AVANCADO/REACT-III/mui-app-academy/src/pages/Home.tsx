@@ -1,12 +1,16 @@
 import { Divider, Grid2, Typography } from "@mui/material";
 import { useAppSelector } from "../store/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FloatButton } from "../components/FloatButton";
+import { UpsertModal } from "../components/UpsertModal";
 
 export function Home() {
   const navigate = useNavigate();
 
   const userLoggedRedux = useAppSelector((state) => state.userLogged);
+
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (!userLoggedRedux.id) {
@@ -28,6 +32,9 @@ export function Home() {
       <Grid2 size={12}>
         <Divider />
       </Grid2>
+
+      <FloatButton onClick={() => setOpenModal(true)} />
+      <UpsertModal open={openModal} handleClose={() => setOpenModal(false)} />
     </Grid2>
   );
 }
