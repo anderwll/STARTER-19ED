@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router";
 import { Login } from "../../pages/Login";
 import { RouterProvider } from "react-router-dom";
 import { Home } from "../../pages/Home";
+import { DefaultLayout } from "../layout/DefaultLayout";
 
 // Definição das rotas
 const router = createBrowserRouter([
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />,
+    element: <DefaultLayout children={<Home />} />,
   },
 
   {
