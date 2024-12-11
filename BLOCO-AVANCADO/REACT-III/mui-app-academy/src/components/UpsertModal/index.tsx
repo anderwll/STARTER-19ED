@@ -9,11 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import { style } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FieldsErrors,
   validateFormAssessment,
 } from "../../utils/validators/assessment.validator";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { createAssessment } from "../../store/modules/assessments/assessmentsSlice";
 
 // UP => Update
 // SERT => Insert
@@ -32,6 +34,9 @@ interface UpsertModalProps {
 }
 
 export function UpsertModal({ open, handleClose }: UpsertModalProps) {
+  const dispatch = useAppDispatch();
+  const assessmentsRedux = useAppSelector((state) => state.assessments);
+
   const [fieldsErrors, setFieldsErrors] = useState<FieldsErrors>({
     title: "",
     description: "",
@@ -56,10 +61,19 @@ export function UpsertModal({ open, handleClose }: UpsertModalProps) {
     // Se passar, limpar os errors
     setFieldsErrors({} as FieldsErrors);
 
-    console.log({ title, grade, description });
-
     // dispatch => estado avaliações
+    const data = { title, grade, description };
+    dispatch(createAssessment(data));
   }
+
+  useEffect(() => {
+    if (!assessmentsRedux.errors) {
+      alert("Assessments created!");
+      setTimeout(() => {
+        handleClose();
+      }, 200);
+    }
+  }, [assessmentsRedux]);
 
   return (
     <Modal
