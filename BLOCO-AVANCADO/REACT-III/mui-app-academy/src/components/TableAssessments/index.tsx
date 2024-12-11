@@ -7,14 +7,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Assessment } from "../../utils/types/assessment";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setEditAssessment } from "../../store/modules/assessments/assessmentsSlice";
 
 export function TableAssessments() {
+  const dispatch = useAppDispatch();
+
   // assessments => data ([])
   const { data } = useAppSelector((state) => state.assessments);
 
   function handleEdit(asssessment: Assessment) {
-    console.log(asssessment);
+    dispatch(setEditAssessment(asssessment));
   }
 
   function handleDelete(id: string, title: string) {

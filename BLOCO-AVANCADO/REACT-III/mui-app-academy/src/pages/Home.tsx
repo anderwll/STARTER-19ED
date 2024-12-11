@@ -10,6 +10,7 @@ export function Home() {
   const navigate = useNavigate();
 
   const userLoggedRedux = useAppSelector((state) => state.userLogged);
+  const { editAssessment } = useAppSelector((state) => state.assessments);
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -19,6 +20,10 @@ export function Home() {
       navigate("/login");
     }
   }, [userLoggedRedux, navigate]);
+
+  useEffect(() => {
+    setOpenModal(!!editAssessment.id);
+  }, [editAssessment]);
 
   return (
     <Grid2 container spacing={2}>
@@ -38,7 +43,8 @@ export function Home() {
       </Grid2>
 
       <FloatButton onClick={() => setOpenModal(true)} />
-      <UpsertModal open={openModal} handleClose={() => setOpenModal(false)} />
+
+      <UpsertModal open={openModal} onClose={() => setOpenModal(false)} />
     </Grid2>
   );
 }

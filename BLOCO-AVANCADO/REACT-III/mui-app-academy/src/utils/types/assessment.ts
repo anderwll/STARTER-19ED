@@ -11,3 +11,5 @@ export type CreateAssessment = Pick<
   Assessment,
   "title" | "description" | "grade"
 >;
+
+export type UpdateAssessment = Partial<CreateAssessment> & { id: string };
