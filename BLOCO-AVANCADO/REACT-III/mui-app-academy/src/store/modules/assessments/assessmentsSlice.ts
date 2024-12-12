@@ -75,7 +75,6 @@ const assessmentsSlice = createSlice({
     deleteAssessment(state, action: PayloadAction<string>) {
       // Acha index => splice
       // filter !=
-
       state.errors = "";
       state.success = false;
 
@@ -89,6 +88,23 @@ const assessmentsSlice = createSlice({
 
       state.data.splice(index, 1);
       // state.data.filter((ass) => ass.id !== action.payload);
+
+      /**
+       *  [1, 2, 3, 4]
+       *
+       *  filtrar(ass => ass != 3)
+       *
+       *  [1, 2, 4]
+       *
+       *
+       * [1, 2, 3, 4]
+       *
+       * procurar(ass => ass = 3)
+       *
+       * splice(2, 1)
+       *
+       * [1, 2, 4]
+       */
 
       state.errors = "";
       state.success = true;
