@@ -8,16 +8,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Assessment } from "../../utils/types/assessment";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setEditAssessment } from "../../store/modules/assessments/assessmentsSlice";
+import { setAssessentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
 
 export function TableAssessments() {
   const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
 
   // assessments => data ([])
   const { data } = useAppSelector((state) => state.assessments);
 
   function handleEdit(asssessment: Assessment) {
-    dispatch(setEditAssessment(asssessment));
+    dispatch(setAssessentDetail(asssessment));
+
+    // setTimeout(() => {
+    //   navigate("/detail");
+    // }, 500);
   }
 
   function handleDelete(id: string, title: string) {

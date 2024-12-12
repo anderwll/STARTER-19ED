@@ -13,26 +13,18 @@ interface InitialState {
   data: Array<Assessment>;
   errors: string;
   success: boolean;
-  editAssessment: Assessment;
 }
 
 const initialState: InitialState = {
   data: [], // lista de avaliações
   errors: "", // algum error que eu quero exibir
   success: false, // indicador de sucesso
-  editAssessment: {} as Assessment, // avaliação que está sendo editada
 };
 
 const assessmentsSlice = createSlice({
   name: "assessments",
   initialState,
   reducers: {
-    setEditAssessment(state, action: PayloadAction<Assessment>) {
-      console.log(action.payload);
-
-      state.editAssessment = action.payload;
-      return state;
-    },
     createAssessment(state, action: PayloadAction<CreateAssessment>) {
       state.errors = "";
       state.success = false;
@@ -77,7 +69,6 @@ const assessmentsSlice = createSlice({
 
       state.errors = "";
       state.success = true;
-      state.editAssessment = {} as Assessment;
 
       return state;
     },
@@ -87,6 +78,5 @@ const assessmentsSlice = createSlice({
 // setListAssessments({ ...listAssessments, data: [] });
 // setListAssessments({ ...listAssessments, errors: "meu aeurnauin" });
 
-export const { setEditAssessment, createAssessment, updateAssessment } =
-  assessmentsSlice.actions;
+export const { createAssessment, updateAssessment } = assessmentsSlice.actions;
 export const assessmentsReduce = assessmentsSlice.reducer;

@@ -17,10 +17,9 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   createAssessment,
-  setEditAssessment,
   updateAssessment,
 } from "../../store/modules/assessments/assessmentsSlice";
-import { Assessment } from "../../utils/types/assessment";
+import { resetAssessmentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
 
 // UP => Update
 // SERT => Insert
@@ -40,11 +39,10 @@ interface UpsertModalProps {
 
 export function UpsertModal({ open, onClose }: UpsertModalProps) {
   const dispatch = useAppDispatch();
-  const { editAssessment, errors, success } = useAppSelector(
-    (state) => state.assessments
+  const { errors, success } = useAppSelector((state) => state.assessments);
+  const assessmentDetaiLRedux = useAppSelector(
+    ({ assessmentDetail }) => assessmentDetail
   );
-
-  const [assessment, setAssessment] = useState<Assessment>({} as Assessment);
 
   const [fieldsErrors, setFieldsErrors] = useState<FieldsErrors>({
     title: "",
@@ -73,9 +71,9 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
     // dispatch => estado avaliações
     const data = { title, grade, description };
 
-    if (editAssessment.id) {
+    if (assessmentDetaiLRedux.id) {
       // MODO EDIT
-      dispatch(updateAssessment({ id: editAssessment.id, ...data }));
+      dispatch(updateAssessment({ id: assessmentDetaiLRedux.id, ...data }));
     } else {
       // MODO CREATE
       dispatch(createAssessment(data));
@@ -84,8 +82,7 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
 
   function handleClose() {
     console.log("Closed");
-    dispatch(setEditAssessment({} as Assessment));
-    setAssessment({} as Assessment);
+    dispatch(resetAssessmentDetail());
     onClose();
   }
 
@@ -95,12 +92,6 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors, success]);
-
-  useEffect(() => {
-    if (editAssessment.id) {
-      setAssessment(editAssessment);
-    }
-  }, [editAssessment]);
 
   return (
     <Modal
@@ -114,7 +105,7 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
           <Grid2 container spacing={1}>
             <Grid2 size={12}>
               <Typography variant="h6">
-                {editAssessment.id ? "Edit" : "New"} Assessment
+                {assessmentDetaiLRedux.id ? "Edit" : "New"} Assessment
               </Typography>
             </Grid2>
 
@@ -132,13 +123,15 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
                   required
                   error={!!fieldsErrors.title}
                   helperText={fieldsErrors.title}
-                  value={assessment.title}
-                  onChange={(e) =>
-                    setAssessment((prev) => ({
-                      ...prev,
-                      title: e.target.value,
-                    }))
-                  }
+                  defaultValue={assessmentDetaiLRedux.title}
+                  // value={"Olá Mundo"}
+                  // value={assessment.title} //
+                  // onChange={(e) =>
+                  //   setAssessment((prev) => ({
+                  //     ...prev,
+                  //     title: e.target.value,
+                  //   }))
+                  // }
                 />
               </FormControl>
             </Grid2>
@@ -157,13 +150,14 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
                   required
                   error={!!fieldsErrors.grade}
                   helperText={fieldsErrors.grade}
-                  value={assessment.grade}
-                  onChange={(e) =>
-                    setAssessment((prev) => ({
-                      ...prev,
-                      grade: Number(e.target.value),
-                    }))
-                  }
+                  defaultValue={assessmentDetaiLRedux.grade}
+                  // value={assessment.grade}
+                  // onChange={(e) =>
+                  //   setAssessment((prev) => ({
+                  //     ...prev,
+                  //     grade: Number(e.target.value),
+                  //   }))
+                  // }
                 />
               </FormControl>
             </Grid2>
@@ -184,13 +178,14 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
                   required
                   error={!!fieldsErrors.description}
                   helperText={fieldsErrors.description}
-                  value={assessment.description}
-                  onChange={(e) =>
-                    setAssessment((prev) => ({
-                      ...prev,
-                      description: e.target.value,
-                    }))
-                  }
+                  defaultValue={assessmentDetaiLRedux.description}
+                  // value={assessment.description}
+                  // onChange={(e) =>
+                  //   setAssessment((prev) => ({
+                  //     ...prev,
+                  //     description: e.target.value,
+                  //   }))
+                  // }
                 />
               </FormControl>
             </Grid2>

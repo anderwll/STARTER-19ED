@@ -10,7 +10,9 @@ export function Home() {
   const navigate = useNavigate();
 
   const userLoggedRedux = useAppSelector((state) => state.userLogged);
-  const { editAssessment } = useAppSelector((state) => state.assessments);
+  const assessmentDetailRedux = useAppSelector(
+    (state) => state.assessmentDetail
+  );
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -22,8 +24,9 @@ export function Home() {
   }, [userLoggedRedux, navigate]);
 
   useEffect(() => {
-    setOpenModal(!!editAssessment.id);
-  }, [editAssessment]);
+    // "" => false | "aisdjmasijd" => true
+    setOpenModal(!!assessmentDetailRedux.id); //  {} = undefined undefined.id
+  }, [assessmentDetailRedux]);
 
   return (
     <Grid2 container spacing={2}>
