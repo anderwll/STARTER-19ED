@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import { Assessment } from "../../utils/types/assessment";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setAssessentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
+import { deleteAssessment } from "../../store/modules/assessments/assessmentsSlice";
 
 export function TableAssessments() {
   const dispatch = useAppDispatch();
@@ -25,8 +26,10 @@ export function TableAssessments() {
     // }, 500);
   }
 
-  function handleDelete(id: string, title: string) {
-    console.log({ id, title });
+  function handleDelete(id: string) {
+    console.log({ id });
+    // Disparar uma ação para remover da minha lista (estado global)
+    dispatch(deleteAssessment(id));
   }
 
   return (
@@ -71,10 +74,7 @@ export function TableAssessments() {
                 <IconButton color="info" onClick={() => handleEdit(row)}>
                   <Edit />
                 </IconButton>
-                <IconButton
-                  onClick={() => handleDelete(row.id, row.title)}
-                  color="error"
-                >
+                <IconButton onClick={() => handleDelete(row.id)} color="error">
                   <Delete />
                 </IconButton>
               </TableCell>

@@ -72,11 +72,35 @@ const assessmentsSlice = createSlice({
 
       return state;
     },
+    deleteAssessment(state, action: PayloadAction<string>) {
+      // Acha index => splice
+      // filter !=
+
+      state.errors = "";
+      state.success = false;
+
+      const index = state.data.findIndex((ass) => ass.id === action.payload); // "120asmdioasmdias1-023S"
+
+      if (index === -1) {
+        state.errors = "Not found";
+        state.success = false;
+        return state;
+      }
+
+      state.data.splice(index, 1);
+      // state.data.filter((ass) => ass.id !== action.payload);
+
+      state.errors = "";
+      state.success = true;
+
+      return state;
+    },
   },
 });
 
 // setListAssessments({ ...listAssessments, data: [] });
 // setListAssessments({ ...listAssessments, errors: "meu aeurnauin" });
 
-export const { createAssessment, updateAssessment } = assessmentsSlice.actions;
+export const { createAssessment, updateAssessment, deleteAssessment } =
+  assessmentsSlice.actions;
 export const assessmentsReduce = assessmentsSlice.reducer;
