@@ -17,7 +17,7 @@ export function Home() {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    if (!userLoggedRedux.id) {
+    if (!userLoggedRedux.token) {
       // navego para login
       navigate("/login");
     }
@@ -34,7 +34,7 @@ export function Home() {
         <Typography variant="h6">
           Wellcome,{" "}
           <Typography component="span" variant="h6" sx={{ fontWeight: "bold" }}>
-            {userLoggedRedux.name}
+            {userLoggedRedux.student.name}
           </Typography>
         </Typography>
       </Grid2>

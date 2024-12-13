@@ -13,10 +13,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  login,
-  loginAsyncThunk,
-} from "../../store/modules/userLogged/userLoggedSlice";
+import { loginAsyncThunk } from "../../store/modules/userLogged/userLoggedSlice";
 import { useNavigate } from "react-router-dom";
 
 interface ErrorFields {
@@ -64,8 +61,7 @@ export function FormLogin() {
 
   useEffect(() => {
     // Se existir as infos do userLogged eu navego
-
-    if (userLoggedRedux.id && !userLoggedRedux.errors) {
+    if (userLoggedRedux.ok && userLoggedRedux.token) {
       setTimeout(() => {
         navigate("/home");
       }, 1000);
@@ -88,8 +84,8 @@ export function FormLogin() {
             placeholder="your@email.com"
             variant="outlined"
             fullWidth
-            error={!!errors.email || !!userLoggedRedux.errors}
-            helperText={errors.email || userLoggedRedux.errors}
+            error={!!errors.email}
+            helperText={errors.email}
             onChange={(e) => {
               if (e.target.value) {
                 setErrors({ ...errors, email: "" });
@@ -109,8 +105,8 @@ export function FormLogin() {
             placeholder="******"
             variant="outlined"
             fullWidth
-            error={!!errors.password || !!userLoggedRedux.errors}
-            helperText={errors.password || userLoggedRedux.errors}
+            error={!!errors.password}
+            helperText={errors.password}
             onChange={(e) => {
               if (e.target.value) {
                 setErrors({ ...errors, password: "" });

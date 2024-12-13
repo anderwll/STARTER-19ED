@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { users } from "../../../mock/users";
-import { api, ResponseAPI } from "../../../configs/services/api.service";
+import { ResponseAPI } from "../../../configs/services/api.service";
 import { LoginRequest } from "../../../utils/types/auth";
+import { loginService } from "../../../configs/services/auth.service";
+
+// Nome OK
+// Valor inicial OK
+// Ações (functions/reducer)
 
 /**
  *  createAsyncThunk(nome, callback): Promise
@@ -17,35 +21,53 @@ import { LoginRequest } from "../../../utils/types/auth";
 export const loginAsyncThunk = createAsyncThunk(
   "userLogged/loginAsyncThunk",
   async (data: LoginRequest) => {
-    const { email, password } = data;
+    const { email, password, remember } = data;
 
     // Logica para fazer login na nossa api (chamar a api): Promise
-    const response = await api.post("/login", { email, password });
+    const response = await loginService({ email, password });
 
-    // console.log(response);
+    if (!response.ok) {
+      console.log("Deu ruim");
+      // dispatch(showMessage(response.message));
+    }
 
-    return response.data; // Data da requisição { ok, message, data }
+    const responseWithRemenber = {
+      ...response, // { ok, message }
+      data: {
+        ...response.data, //  { token }
+        student: {
+          ...response.data.student, // { id, name....}
+          remember,
+        },
+      },
+    };
+
+    return responseWithRemenber; // Data da requisição { ok, message, data }
   }
 );
 
-// Nome OK
-// Valor inicial OK
-// Ações (functions/reducer)
-
 interface InitialState {
-  id: string;
-  name: string;
-  email: string;
-  remember: boolean;
-  errors: string;
+  ok: boolean;
+  message: string;
+  token: string;
+  student: {
+    id: string;
+    name: string;
+    email: string;
+    remember: boolean;
+  };
 }
 
 const initialState: InitialState = {
-  id: "",
-  name: "",
-  email: "",
-  remember: false,
-  errors: "",
+  ok: false,
+  message: "",
+  token: "",
+  student: {
+    email: "",
+    id: "",
+    name: "",
+    remember: false,
+  },
 };
 
 const userLoggedSlice = createSlice({
@@ -53,26 +75,26 @@ const userLoggedSlice = createSlice({
   initialState: initialState,
   reducers: {
     // login(estadoAtual, action => type e o payload) {},
-    login(state, action: PayloadAction<LoginRequest>) {
-      const { email, password, remember } = action.payload;
+    // login(state, action: PayloadAction<LoginRequest>) {
+    //   const { email, password, remember } = action.payload;
 
-      const userFound = users.find(
-        (user) => user.email === email && user.senha === password
-      );
+    //   const userFound = users.find(
+    //     (user) => user.email === email && user.senha === password
+    //   );
 
-      if (!userFound) {
-        state.errors = "Invalid email or password!!";
-        return state;
-      }
+    //   if (!userFound) {
+    //     state.errors = "Invalid email or password!!";
+    //     return state;
+    //   }
 
-      state.id = userFound.id;
-      state.name = userFound.name;
-      state.email = userFound.email;
-      state.remember = remember;
-      state.errors = "";
+    //   state.id = userFound.id;
+    //   state.name = userFound.name;
+    //   state.email = userFound.email;
+    //   state.remember = remember;
+    //   state.errors = "";
 
-      return state;
-    },
+    //   return state;
+    // },
     // Logout
     logout() {
       return initialState;
@@ -99,16 +121,23 @@ const userLoggedSlice = createSlice({
           console.log("Estou em estado de fulfilled na função loginAsyncThunk");
           console.log({ state, payload: action.payload });
 
-          state.id = action.payload.data.student.id;
-          state.name = action.payload.data.student.name;
-          state.email = action.payload.data.student.email;
+          state.ok = action.payload.ok;
+          state.message = action.payload.message;
+
+          // Só posso atribuir token e student quando o ok for true
+          if (action.payload.ok) {
+            state.token = action.payload.data.token;
+            state.student = action.payload.data.student;
+          }
         }
       )
-      .addCase(loginAsyncThunk.rejected, () => {
+      .addCase(loginAsyncThunk.rejected, (state) => {
         console.log("Estou em estado de rejected na função loginAsyncThunk");
+        state.ok = false;
+        state.message = "Error login";
       });
   },
 });
 
-export const { login, logout } = userLoggedSlice.actions;
+export const { logout } = userLoggedSlice.actions;
 export const userLoggedReducer = userLoggedSlice.reducer;

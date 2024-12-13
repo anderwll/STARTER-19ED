@@ -32,7 +32,7 @@ const menuItems = [
 
 export default function AppBar() {
   const dispatch = useAppDispatch();
-  const { name } = useAppSelector((state) => state.userLogged);
+  const { student } = useAppSelector((state) => state.userLogged);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -66,7 +66,7 @@ export default function AppBar() {
                   color="white"
                   mr={1}
                 >
-                  {name}
+                  {student.name}
                 </Typography>
                 <Avatar
                   alt="Remy Sharp"
