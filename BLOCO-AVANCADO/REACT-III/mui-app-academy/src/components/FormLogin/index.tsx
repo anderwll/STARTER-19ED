@@ -13,7 +13,10 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { login } from "../../store/modules/userLogged/userLoggedSlice";
+import {
+  login,
+  loginAsyncThunk,
+} from "../../store/modules/userLogged/userLoggedSlice";
 import { useNavigate } from "react-router-dom";
 
 interface ErrorFields {
@@ -55,7 +58,8 @@ export function FormLogin() {
 
     validate(email, password);
 
-    dispatch(login({ email, password, remember }));
+    dispatch(loginAsyncThunk({ email, password, remember }));
+    // dispatch(login({ email, password, remember }));
   }
 
   useEffect(() => {
