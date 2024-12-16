@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FloatButton } from "../components/FloatButton";
 import { UpsertModal } from "../components/UpsertModal";
 import { TableAssessments } from "../components/TableAssessments";
+import SnackbarAlert from "../components/SnackbarAlert";
 
 export function Home() {
   const navigate = useNavigate();
@@ -48,6 +49,8 @@ export function Home() {
       <FloatButton onClick={() => setOpenModal(true)} />
 
       <UpsertModal open={openModal} onClose={() => setOpenModal(false)} />
+
+      <SnackbarAlert />
     </Grid2>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FormLogin } from "../components/FormLogin";
+import SnackbarAlert from "../components/SnackbarAlert";
 
 export function Login() {
   function handleImplements() {
@@ -85,6 +86,8 @@ export function Login() {
           </Grid2>
         </Card>
       </Container>
+
+      <SnackbarAlert />
     </Box>
   );
 }

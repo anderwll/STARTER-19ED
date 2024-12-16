@@ -83,6 +83,7 @@ export function FormLogin() {
             type="email"
             placeholder="your@email.com"
             variant="outlined"
+            size="small"
             fullWidth
             error={!!errors.email}
             helperText={errors.email}
@@ -104,6 +105,7 @@ export function FormLogin() {
             type={showPassword ? "text" : "password"}
             placeholder="******"
             variant="outlined"
+            size="small"
             fullWidth
             error={!!errors.password}
             helperText={errors.password}

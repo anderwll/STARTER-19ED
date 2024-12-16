@@ -28,7 +28,7 @@ export const loginAsyncThunk = createAsyncThunk(
 
     if (!response.ok) {
       console.log("Deu ruim");
-      // dispatch(showMessage(response.message));
+      // TODO: Add show Alert
     }
 
     const responseWithRemenber = {
@@ -42,6 +42,7 @@ export const loginAsyncThunk = createAsyncThunk(
       },
     };
 
+    // TODO: Add show Alert
     return responseWithRemenber; // Data da requisição { ok, message, data }
   }
 );
@@ -108,7 +109,7 @@ const userLoggedSlice = createSlice({
      * reducer: callback = Tenho acesso ao meu state
      */
 
-    // Caso para pendente
+    // LOGIN USER
     builder
       .addCase(loginAsyncThunk.pending, () => {
         // state => estado atual { id, name.... }
