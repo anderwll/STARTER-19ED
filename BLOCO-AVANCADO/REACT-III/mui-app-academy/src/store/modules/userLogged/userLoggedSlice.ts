@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ResponseAPI } from "../../../configs/services/api.service";
 import { LoginRequest } from "../../../utils/types/auth";
 import { loginService } from "../../../configs/services/auth.service";
+import { showAlert } from "../alert/alertSlice";
 
 // Nome OK
 // Valor inicial OK
@@ -20,15 +21,19 @@ import { loginService } from "../../../configs/services/auth.service";
 
 export const loginAsyncThunk = createAsyncThunk(
   "userLogged/loginAsyncThunk",
-  async (data: LoginRequest) => {
+  async (data: LoginRequest, { dispatch }) => {
     const { email, password, remember } = data;
 
     // Logica para fazer login na nossa api (chamar a api): Promise
     const response = await loginService({ email, password });
 
     if (!response.ok) {
-      console.log("Deu ruim");
-      // TODO: Add show Alert
+      dispatch(
+        showAlert({
+          message: response.message,
+          type: "error",
+        })
+      );
     }
 
     const responseWithRemenber = {
@@ -42,7 +47,14 @@ export const loginAsyncThunk = createAsyncThunk(
       },
     };
 
-    // TODO: Add show Alert
+    dispatch(
+      showAlert({
+        message: response.message,
+        type: "success",
+      })
+    );
+
+    // Vai virar o paylod lá no builder
     return responseWithRemenber; // Data da requisição { ok, message, data }
   }
 );

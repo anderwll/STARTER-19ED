@@ -69,7 +69,12 @@ export function FormLogin() {
   }, [userLoggedRedux, navigate]);
 
   return (
-    <Grid2 container spacing={2} component="form" onSubmit={handleLogin}>
+    <Grid2
+      container
+      spacing={2}
+      component="form"
+      onSubmit={(e) => handleLogin(e)}
+    >
       <Grid2 size={12}>
         <Typography variant="h4">Sign in</Typography>
       </Grid2>

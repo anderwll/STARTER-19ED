@@ -11,10 +11,19 @@ import {
 import { Link } from "react-router-dom";
 import { FormLogin } from "../components/FormLogin";
 import SnackbarAlert from "../components/SnackbarAlert";
+import { useAppDispatch } from "../store/hooks";
+import { showAlert } from "../store/modules/alert/alertSlice";
 
 export function Login() {
+  const dispatch = useAppDispatch();
+
   function handleImplements() {
-    alert("Not implementeds!!");
+    dispatch(
+      showAlert({
+        message: "Not implemented!",
+        type: "warning",
+      })
+    );
   }
 
   return (

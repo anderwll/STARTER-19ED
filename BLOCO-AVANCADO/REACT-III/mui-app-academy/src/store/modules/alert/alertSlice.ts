@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Alert = {
   open: boolean;
-  type: "success" | "error";
+  type: "success" | "error" | "warning";
   message: string;
 };
 
