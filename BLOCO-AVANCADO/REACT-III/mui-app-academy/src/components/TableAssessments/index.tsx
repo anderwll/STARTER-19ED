@@ -9,6 +9,8 @@ import TableRow from "@mui/material/TableRow";
 import { Assessment } from "../../utils/types/assessment";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setAssessentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
+import { useEffect } from "react";
+import { findAllAssessmentsAsyncThunk } from "../../store/modules/assessments/assessments.action";
 
 export function TableAssessments() {
   const dispatch = useAppDispatch();
@@ -30,6 +32,11 @@ export function TableAssessments() {
     // Disparar uma ação para remover da minha lista (estado global)
     // dispatch(deleteAssessment(id));
   }
+
+  // Toda vez que esse componente renderizar, preciso buscar as avaliações
+  useEffect(() => {
+    dispatch(findAllAssessmentsAsyncThunk());
+  }, [dispatch]);
 
   return (
     <TableContainer>

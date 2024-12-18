@@ -25,3 +25,26 @@ export async function createAssessmentService(
     };
   }
 }
+
+export async function findAllAssessmentsService(
+  token: string
+): Promise<ResponseAPI> {
+  try {
+    const response = await api.get("/assessments", {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return {
+      ok: response.data.ok,
+      message: response.data.message,
+      data: response.data.data,
+    };
+  } catch (error: any) {
+    return {
+      ok: error.response.data.ok,
+      message: error.response.data.message,
+    };
+  }
+}

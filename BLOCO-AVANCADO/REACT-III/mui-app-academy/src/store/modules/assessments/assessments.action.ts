@@ -1,6 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../..";
-import { createAssessmentService } from "../../../configs/services/assessment.service";
+import {
+  createAssessmentService,
+  findAllAssessmentsService,
+} from "../../../configs/services/assessment.service";
 import { CreateAssessmentRequest } from "../../../utils/types/assessment";
 import { showAlert } from "../alert/alertSlice";
 
@@ -37,6 +40,28 @@ export const createAssessmentAsyncThunk = createAsyncThunk(
 
     // dispatch(getAssessments)
     // retornar os dados (payload)
+    return response;
+  }
+);
+
+export const findAllAssessmentsAsyncThunk = createAsyncThunk(
+  "assessments/findAll",
+  async (_, { dispatch, getState }) => {
+    const { userLogged } = getState() as RootState;
+    const { token } = userLogged;
+
+    const response = await findAllAssessmentsService(token);
+
+    if (!response.ok) {
+      dispatch(
+        showAlert({
+          message: response.message,
+          type: "error",
+        })
+      );
+    }
+
+    // Retornar (payload)
     return response;
   }
 );

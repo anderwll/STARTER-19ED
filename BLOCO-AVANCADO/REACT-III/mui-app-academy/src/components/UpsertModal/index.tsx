@@ -16,7 +16,7 @@ import {
 } from "../../utils/validators/assessment.validator";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { resetAssessmentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
-import { createAssessmentAsyncThunk } from "../../store/modules/assessments/assessmentsSlice";
+import { createAssessmentAsyncThunk } from "../../store/modules/assessments/assessments.action";
 
 // UP => Update
 // SERT => Insert

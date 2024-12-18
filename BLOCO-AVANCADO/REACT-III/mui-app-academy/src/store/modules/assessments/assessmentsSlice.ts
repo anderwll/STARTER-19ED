@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Assessment } from "../../../utils/types/assessment";
-import { createAssessmentAsyncThunk } from "./assessments.action";
+import {
+  createAssessmentAsyncThunk,
+  findAllAssessmentsAsyncThunk,
+} from "./assessments.action";
 
 interface InitialState {
   count: number; // Total de registro (paginação)
@@ -108,6 +111,27 @@ const assessmentsSlice = createSlice({
         state.message = action.payload.message;
       })
       .addCase(createAssessmentAsyncThunk.rejected, (state) => {
+        state.loading = false;
+        state.ok = false;
+      });
+
+    // FIND ALL
+    builder
+      .addCase(findAllAssessmentsAsyncThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(findAllAssessmentsAsyncThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+        state.ok = action.payload.ok;
+
+        if (action.payload.ok) {
+          // data => { count, assessments }
+          state.assessments = action.payload.data.assessments;
+          state.count = action.payload.data.count;
+        }
+      })
+      .addCase(findAllAssessmentsAsyncThunk.rejected, (state) => {
         state.loading = false;
         state.ok = false;
       });
