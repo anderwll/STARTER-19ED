@@ -9,14 +9,13 @@ import TableRow from "@mui/material/TableRow";
 import { Assessment } from "../../utils/types/assessment";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setAssessentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
-import { deleteAssessment } from "../../store/modules/assessments/assessmentsSlice";
 
 export function TableAssessments() {
   const dispatch = useAppDispatch();
   // const navigate = useNavigate();
-
   // assessments => data ([])
-  const { data } = useAppSelector((state) => state.assessments);
+
+  const { assessments } = useAppSelector((state) => state.assessments);
 
   function handleEdit(asssessment: Assessment) {
     dispatch(setAssessentDetail(asssessment));
@@ -29,7 +28,7 @@ export function TableAssessments() {
   function handleDelete(id: string) {
     console.log({ id });
     // Disparar uma ação para remover da minha lista (estado global)
-    dispatch(deleteAssessment(id));
+    // dispatch(deleteAssessment(id));
   }
 
   return (
@@ -56,7 +55,7 @@ export function TableAssessments() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row, index) => (
+          {assessments.map((row, index) => (
             <TableRow
               key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

@@ -4,12 +4,14 @@ export interface Assessment {
   description: string;
   grade: number;
   createdAt: Date;
-  // studentId: string;
+  studentId: string;
 }
 
-export type CreateAssessment = Pick<
+export type CreateAssessmentRequest = Pick<
   Assessment,
-  "title" | "description" | "grade"
+  "title" | "description" | "grade" | "studentId"
 >;
 
-export type UpdateAssessment = Partial<CreateAssessment> & { id: string };
+export type UpdateAssessment = Partial<CreateAssessmentRequest> & {
+  id: string;
+};
