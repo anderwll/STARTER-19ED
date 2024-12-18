@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Delete, Edit } from "@mui/icons-material";
-import { CircularProgress, IconButton, Pagination } from "@mui/material";
+import { Box, CircularProgress, IconButton, Pagination } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -77,12 +76,18 @@ export function TableAssessments() {
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row" colSpan={6} align="center">
+              <TableCell
+                component="th"
+                scope="row"
+                colSpan={6}
+                rowSpan={LIMIT}
+                align="center"
+              >
                 <CircularProgress />
               </TableCell>
             </TableRow>
           ) : (
-            assessments.map((row, index) => (
+            assessments.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -113,7 +118,14 @@ export function TableAssessments() {
         </TableBody>
       </Table>
 
-      <Pagination count={numberPages} page={page} onChange={handleChange} />
+      <Box sx={{ display: "flex", justifyContent: "end" }}>
+        <Pagination
+          color="primary"
+          count={numberPages}
+          page={page}
+          onChange={handleChange}
+        />
+      </Box>
     </TableContainer>
   );
 }
