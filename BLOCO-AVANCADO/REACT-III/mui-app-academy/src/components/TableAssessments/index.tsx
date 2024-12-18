@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Delete, Edit } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { CircularProgress, IconButton, Pagination } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,15 +10,25 @@ import TableRow from "@mui/material/TableRow";
 import { Assessment } from "../../utils/types/assessment";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setAssessentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { findAllAssessmentsAsyncThunk } from "../../store/modules/assessments/assessments.action";
+
+const LIMIT = 4; // Variavel de ambiente
 
 export function TableAssessments() {
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
-  // assessments => data ([])
+  const { assessments, count, loading } = useAppSelector(
+    (state) => state.assessments
+  );
+  const [page, setPage] = useState(1); // URL
 
-  const { assessments } = useAppSelector((state) => state.assessments);
+  const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
+  const numberPages = useMemo(() => {
+    return Math.ceil(count / LIMIT);
+  }, [count]);
 
   function handleEdit(asssessment: Assessment) {
     dispatch(setAssessentDetail(asssessment));
@@ -35,8 +46,8 @@ export function TableAssessments() {
 
   // Toda vez que esse componente renderizar, preciso buscar as avaliações
   useEffect(() => {
-    dispatch(findAllAssessmentsAsyncThunk());
-  }, [dispatch]);
+    dispatch(findAllAssessmentsAsyncThunk({ page: page, take: LIMIT }));
+  }, [page]);
 
   return (
     <TableContainer>
@@ -62,32 +73,47 @@ export function TableAssessments() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {assessments.map((row, index) => (
+          {loading ? (
             <TableRow
-              key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {index + 1}
-              </TableCell>
-              <TableCell align="right">{row.title}</TableCell>
-              <TableCell align="right">{row.description}</TableCell>
-              <TableCell align="right">{row.grade}</TableCell>
-              <TableCell align="right">
-                {new Date(row.createdAt).toLocaleDateString("pt-BR")}
-              </TableCell>
-              <TableCell align="right">
-                <IconButton color="info" onClick={() => handleEdit(row)}>
-                  <Edit />
-                </IconButton>
-                <IconButton onClick={() => handleDelete(row.id)} color="error">
-                  <Delete />
-                </IconButton>
+              <TableCell component="th" scope="row" colSpan={6} align="center">
+                <CircularProgress />
               </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            assessments.map((row, index) => (
+              <TableRow
+                key={row.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell align="right">{row.title}</TableCell>
+                <TableCell align="right">{row.description}</TableCell>
+                <TableCell align="right">{row.grade}</TableCell>
+                <TableCell align="right">
+                  {new Date(row.createdAt).toLocaleDateString("pt-BR")}
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton color="info" onClick={() => handleEdit(row)}>
+                    <Edit />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => handleDelete(row.id)}
+                    color="error"
+                  >
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
+
+      <Pagination count={numberPages} page={page} onChange={handleChange} />
     </TableContainer>
   );
 }

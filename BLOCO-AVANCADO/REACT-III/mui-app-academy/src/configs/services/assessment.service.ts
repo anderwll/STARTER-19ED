@@ -1,4 +1,7 @@
-import { CreateAssessmentRequest } from "../../utils/types/assessment";
+import {
+  CreateAssessmentRequest,
+  QueryAssessmentRequest,
+} from "../../utils/types/assessment";
 import { api, ResponseAPI } from "./api.service";
 
 export async function createAssessmentService(
@@ -27,13 +30,26 @@ export async function createAssessmentService(
 }
 
 export async function findAllAssessmentsService(
-  token: string
+  query: QueryAssessmentRequest & { token: string }
 ): Promise<ResponseAPI> {
+  const { token } = query;
+  const params = new URLSearchParams();
+
+  if (query.page) {
+    params.set("page", String(query.page));
+  }
+
+  if (query.take) {
+    params.set("take", String(query.take));
+  }
+
+  // `/assessments?page=${query.page}&take=${query.take}
   try {
     const response = await api.get("/assessments", {
       headers: {
         Authorization: token,
       },
+      params,
     });
 
     return {

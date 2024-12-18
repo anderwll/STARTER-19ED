@@ -4,7 +4,10 @@ import {
   createAssessmentService,
   findAllAssessmentsService,
 } from "../../../configs/services/assessment.service";
-import { CreateAssessmentRequest } from "../../../utils/types/assessment";
+import {
+  CreateAssessmentRequest,
+  QueryAssessmentRequest,
+} from "../../../utils/types/assessment";
 import { showAlert } from "../alert/alertSlice";
 
 export const createAssessmentAsyncThunk = createAsyncThunk(
@@ -46,11 +49,11 @@ export const createAssessmentAsyncThunk = createAsyncThunk(
 
 export const findAllAssessmentsAsyncThunk = createAsyncThunk(
   "assessments/findAll",
-  async (_, { dispatch, getState }) => {
+  async (query: QueryAssessmentRequest, { dispatch, getState }) => {
     const { userLogged } = getState() as RootState;
     const { token } = userLogged;
 
-    const response = await findAllAssessmentsService(token);
+    const response = await findAllAssessmentsService({ ...query, token });
 
     if (!response.ok) {
       dispatch(

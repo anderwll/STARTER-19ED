@@ -15,3 +15,8 @@ export type CreateAssessmentRequest = Pick<
 export type UpdateAssessment = Partial<CreateAssessmentRequest> & {
   id: string;
 };
+
+export type QueryAssessmentRequest = {
+  page?: number;
+  take?: number;
+};
