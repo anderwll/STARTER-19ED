@@ -16,7 +16,10 @@ import {
 } from "../../utils/validators/assessment.validator";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { resetAssessmentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
-import { createAssessmentAsyncThunk } from "../../store/modules/assessments/assessments.action";
+import {
+  createAssessmentAsyncThunk,
+  updateAssessmentAsyncThunk,
+} from "../../store/modules/assessments/assessments.action";
 
 // UP => Update
 // SERT => Insert
@@ -39,7 +42,7 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
 
   const userLoggedRedux = useAppSelector((state) => state.userLogged);
   const assessmentsRedux = useAppSelector((state) => state.assessments);
-  const assessmentDetaiLRedux = useAppSelector(
+  const assessmentDetailRedux = useAppSelector(
     ({ assessmentDetail }) => assessmentDetail
   );
 
@@ -75,9 +78,17 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
       studentId: userLoggedRedux.student.id,
     };
 
-    if (assessmentDetaiLRedux.id) {
+    if (assessmentDetailRedux.id) {
       // MODO EDIT
       // dispatch(updateAssessment({ id: assessmentDetaiLRedux.id, ...data }));
+      dispatch(
+        updateAssessmentAsyncThunk({
+          id: assessmentDetailRedux.id,
+          description,
+          grade,
+          title,
+        })
+      );
     } else {
       // MODO CREATE
       // dispatch(createAssessment(data));
@@ -97,7 +108,6 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
         onClose();
       }, 1000);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assessmentsRedux]);
 
   return (
@@ -112,7 +122,7 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
           <Grid2 container spacing={1}>
             <Grid2 size={12}>
               <Typography variant="h6">
-                {assessmentDetaiLRedux.id ? "Edit" : "New"} Assessment
+                {assessmentDetailRedux.id ? "Edit" : "New"} Assessment
               </Typography>
             </Grid2>
 
@@ -130,7 +140,7 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
                   required
                   error={!!fieldsErrors.title}
                   helperText={fieldsErrors.title}
-                  defaultValue={assessmentDetaiLRedux.title}
+                  defaultValue={assessmentDetailRedux.title}
                   // value={"Olá Mundo"}
                   // value={assessment.title} //
                   // onChange={(e) =>
@@ -157,7 +167,7 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
                   required
                   error={!!fieldsErrors.grade}
                   helperText={fieldsErrors.grade}
-                  defaultValue={assessmentDetaiLRedux.grade}
+                  defaultValue={assessmentDetailRedux.grade}
                   // value={assessment.grade}
                   // onChange={(e) =>
                   //   setAssessment((prev) => ({
@@ -185,7 +195,7 @@ export function UpsertModal({ open, onClose }: UpsertModalProps) {
                   required
                   error={!!fieldsErrors.description}
                   helperText={fieldsErrors.description}
-                  defaultValue={assessmentDetaiLRedux.description}
+                  defaultValue={assessmentDetailRedux.description}
                   // value={assessment.description}
                   // onChange={(e) =>
                   //   setAssessment((prev) => ({

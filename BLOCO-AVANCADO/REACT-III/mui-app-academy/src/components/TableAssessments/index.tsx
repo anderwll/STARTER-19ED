@@ -16,7 +16,7 @@ const LIMIT = 4; // Variavel de ambiente
 
 export function TableAssessments() {
   const dispatch = useAppDispatch();
-  const { assessments, count, loading } = useAppSelector(
+  const { assessments, count, loadingList } = useAppSelector(
     (state) => state.assessments
   );
   const [page, setPage] = useState(1); // URL
@@ -72,7 +72,7 @@ export function TableAssessments() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {loading ? (
+          {loadingList ? (
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >

@@ -3,10 +3,12 @@ import { RootState } from "../..";
 import {
   createAssessmentService,
   findAllAssessmentsService,
+  updateAssessmentService,
 } from "../../../configs/services/assessment.service";
 import {
   CreateAssessmentRequest,
   QueryAssessmentRequest,
+  UpdateAssessmentRequest,
 } from "../../../utils/types/assessment";
 import { showAlert } from "../alert/alertSlice";
 
@@ -41,7 +43,7 @@ export const createAssessmentAsyncThunk = createAsyncThunk(
       })
     );
 
-    // dispatch(getAssessments)
+    // dispatch(findAllAssessmentsAsyncThunk({}));
     // retornar os dados (payload)
     return response;
   }
@@ -65,6 +67,36 @@ export const findAllAssessmentsAsyncThunk = createAsyncThunk(
     }
 
     // Retornar (payload)
+    return response;
+  }
+);
+
+export const updateAssessmentAsyncThunk = createAsyncThunk(
+  "assessments/update",
+  async (data: UpdateAssessmentRequest, { dispatch, getState }) => {
+    // userLogged
+    const { userLogged } = getState() as RootState;
+    const { token } = userLogged;
+
+    const response = await updateAssessmentService({ ...data, token });
+
+    if (!response.ok) {
+      dispatch(
+        showAlert({
+          type: "error",
+          message: response.message,
+        })
+      );
+      return response;
+    }
+
+    dispatch(
+      showAlert({
+        type: "success",
+        message: response.message,
+      })
+    );
+
     return response;
   }
 );

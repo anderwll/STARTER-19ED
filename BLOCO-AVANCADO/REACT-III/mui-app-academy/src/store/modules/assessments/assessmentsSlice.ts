@@ -3,6 +3,7 @@ import { Assessment } from "../../../utils/types/assessment";
 import {
   createAssessmentAsyncThunk,
   findAllAssessmentsAsyncThunk,
+  updateAssessmentAsyncThunk,
 } from "./assessments.action";
 
 interface InitialState {
@@ -11,12 +12,14 @@ interface InitialState {
   message: string;
   ok: boolean;
   loading: boolean;
+  loadingList: boolean;
 }
 
 const initialState: InitialState = {
   assessments: [],
   count: 0,
   loading: false,
+  loadingList: false,
   message: "",
   ok: false,
 };
@@ -109,6 +112,10 @@ const assessmentsSlice = createSlice({
         state.loading = false;
         state.ok = action.payload.ok;
         state.message = action.payload.message;
+
+        if (action.payload.ok) {
+          state.assessments.push(action.payload.data);
+        }
       })
       .addCase(createAssessmentAsyncThunk.rejected, (state) => {
         state.loading = false;
@@ -118,10 +125,10 @@ const assessmentsSlice = createSlice({
     // FIND ALL
     builder
       .addCase(findAllAssessmentsAsyncThunk.pending, (state) => {
-        state.loading = true;
+        state.loadingList = true;
       })
       .addCase(findAllAssessmentsAsyncThunk.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loadingList = false;
         state.message = action.payload.message;
         state.ok = action.payload.ok;
 
@@ -132,6 +139,37 @@ const assessmentsSlice = createSlice({
         }
       })
       .addCase(findAllAssessmentsAsyncThunk.rejected, (state) => {
+        state.loadingList = false;
+        state.ok = false;
+      });
+
+    // UPDATE
+    builder
+      .addCase(updateAssessmentAsyncThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateAssessmentAsyncThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.ok = action.payload.ok;
+        state.message = action.payload.message;
+
+        // Evitar um req, encontrar a avaliação na lista, e vamos sub pelo o que a api retornar
+        if (action.payload.ok) {
+          const index = state.assessments.findIndex(
+            (ass) => ass.id === action.payload.data.id
+          );
+
+          if (index !== -1) {
+            state.assessments[index] = {
+              ...state.assessments[index],
+              ...action.payload.data,
+            };
+
+            console.log(action.payload.data); // { ... }
+          }
+        }
+      })
+      .addCase(updateAssessmentAsyncThunk.rejected, (state) => {
         state.loading = false;
         state.ok = false;
       });

@@ -12,7 +12,9 @@ export type CreateAssessmentRequest = Pick<
   "title" | "description" | "grade" | "studentId"
 >;
 
-export type UpdateAssessment = Partial<CreateAssessmentRequest> & {
+export type UpdateAssessmentRequest = Partial<
+  Omit<CreateAssessmentRequest, "studentId">
+> & {
   id: string;
 };
 
