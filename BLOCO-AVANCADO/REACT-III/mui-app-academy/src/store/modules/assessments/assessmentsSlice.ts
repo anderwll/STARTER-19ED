@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Assessment } from "../../../utils/types/assessment";
 import {
   createAssessmentAsyncThunk,
+  deleteAssessmentAsyncThunk,
   findAllAssessmentsAsyncThunk,
   updateAssessmentAsyncThunk,
 } from "./assessments.action";
@@ -170,6 +171,32 @@ const assessmentsSlice = createSlice({
         }
       })
       .addCase(updateAssessmentAsyncThunk.rejected, (state) => {
+        state.loading = false;
+        state.ok = false;
+      });
+
+    // DELTE
+    builder
+      .addCase(deleteAssessmentAsyncThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteAssessmentAsyncThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.ok = action.payload.ok;
+        state.message = action.payload.message;
+
+        if (action.payload.ok) {
+          console.log(action.payload);
+          const index = state.assessments.findIndex(
+            (ass) => ass.id === action.payload.data.id
+          );
+
+          if (index !== -1) {
+            state.assessments.splice(index, 1);
+          }
+        }
+      })
+      .addCase(deleteAssessmentAsyncThunk.rejected, (state) => {
         state.loading = false;
         state.ok = false;
       });

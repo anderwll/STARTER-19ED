@@ -2,11 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../..";
 import {
   createAssessmentService,
+  deleteAssessmentService,
   findAllAssessmentsService,
   updateAssessmentService,
 } from "../../../configs/services/assessment.service";
 import {
   CreateAssessmentRequest,
+  DeleteAssessmentRequest,
   QueryAssessmentRequest,
   UpdateAssessmentRequest,
 } from "../../../utils/types/assessment";
@@ -97,6 +99,37 @@ export const updateAssessmentAsyncThunk = createAsyncThunk(
       })
     );
 
+    return response;
+  }
+);
+
+export const deleteAssessmentAsyncThunk = createAsyncThunk(
+  "assessments/delete",
+  async (data: DeleteAssessmentRequest, { dispatch, getState }) => {
+    const { userLogged } = getState() as RootState;
+    const { token } = userLogged;
+
+    const response = await deleteAssessmentService({ ...data, token });
+
+    if (!response.ok) {
+      dispatch(
+        showAlert({
+          type: "error",
+          message: response.message,
+        })
+      );
+
+      return response;
+    }
+
+    dispatch(
+      showAlert({
+        type: "success",
+        message: response.message,
+      })
+    );
+
+    // return algumaCoisa
     return response;
   }
 );

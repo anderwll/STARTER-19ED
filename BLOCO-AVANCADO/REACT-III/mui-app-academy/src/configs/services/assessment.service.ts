@@ -1,5 +1,6 @@
 import {
   CreateAssessmentRequest,
+  DeleteAssessmentRequest,
   QueryAssessmentRequest,
   UpdateAssessmentRequest,
 } from "../../utils/types/assessment";
@@ -73,6 +74,31 @@ export async function updateAssessmentService(
     const { id, token, ...restData } = data;
 
     const response = await api.put(`/assessments/${id}`, restData, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return {
+      ok: response.data.ok,
+      message: response.data.message,
+      data: response.data.data,
+    };
+  } catch (error: any) {
+    return {
+      ok: error.response.data.ok,
+      message: error.response.data.message,
+    };
+  }
+}
+
+export async function deleteAssessmentService(
+  data: DeleteAssessmentRequest & { token: string }
+): Promise<ResponseAPI> {
+  const { id, token } = data;
+
+  try {
+    const response = await api.delete(`/assessments/${id}`, {
       headers: {
         Authorization: token,
       },

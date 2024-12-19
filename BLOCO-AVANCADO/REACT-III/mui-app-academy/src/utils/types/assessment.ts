@@ -18,6 +18,10 @@ export type UpdateAssessmentRequest = Partial<
   id: string;
 };
 
+export type DeleteAssessmentRequest = {
+  id: string;
+};
+
 export type QueryAssessmentRequest = {
   page?: number;
   take?: number;

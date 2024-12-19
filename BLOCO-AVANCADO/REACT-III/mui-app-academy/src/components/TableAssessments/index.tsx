@@ -10,13 +10,16 @@ import { Assessment } from "../../utils/types/assessment";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setAssessentDetail } from "../../store/modules/assessmentDetail/assessmentDetailSlice";
 import { useEffect, useMemo, useState } from "react";
-import { findAllAssessmentsAsyncThunk } from "../../store/modules/assessments/assessments.action";
+import {
+  deleteAssessmentAsyncThunk,
+  findAllAssessmentsAsyncThunk,
+} from "../../store/modules/assessments/assessments.action";
 
 const LIMIT = 4; // Variavel de ambiente
 
 export function TableAssessments() {
   const dispatch = useAppDispatch();
-  const { assessments, count, loadingList } = useAppSelector(
+  const { assessments, count, loadingList, loading } = useAppSelector(
     (state) => state.assessments
   );
   const [page, setPage] = useState(1); // URL
@@ -38,9 +41,9 @@ export function TableAssessments() {
   }
 
   function handleDelete(id: string) {
-    console.log({ id });
     // Disparar uma ação para remover da minha lista (estado global)
     // dispatch(deleteAssessment(id));
+    dispatch(deleteAssessmentAsyncThunk({ id }));
   }
 
   // Toda vez que esse componente renderizar, preciso buscar as avaliações
@@ -106,6 +109,7 @@ export function TableAssessments() {
                     <Edit />
                   </IconButton>
                   <IconButton
+                    disabled={loading}
                     onClick={() => handleDelete(row.id)}
                     color="error"
                   >
