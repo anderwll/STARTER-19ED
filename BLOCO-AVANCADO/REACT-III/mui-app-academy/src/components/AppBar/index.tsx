@@ -11,28 +11,20 @@ import {
   Toolbar,
   Button,
 } from "@mui/material";
-import { AccountCircle, Logout, DarkMode } from "@mui/icons-material";
+import {
+  AccountCircle,
+  Logout,
+  DarkMode,
+  LightMode,
+} from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logout } from "../../store/modules/userLogged/userLoggedSlice";
-
-const menuItems = [
-  {
-    label: "Profile",
-    icon: <AccountCircle />,
-  },
-  {
-    label: "Dark mode",
-    icon: <DarkMode />,
-  },
-  {
-    label: "Logout",
-    icon: <Logout />,
-  },
-];
+import { toggleTheme } from "../../store/modules/settings/settingsSlice";
 
 export default function AppBar() {
   const dispatch = useAppDispatch();
   const { student } = useAppSelector((state) => state.userLogged);
+  const { mode } = useAppSelector((state) => state.settings);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -90,32 +82,42 @@ export default function AppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {menuItems.map((item, index) => (
-                <MenuItem
-                  onClick={() => {
-                    switch (item.label) {
-                      case "Logout":
-                        dispatch(logout());
-                        break;
-                      default:
-                        handleCloseUserMenu();
-                        break;
-                    }
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
                   }}
-                  key={index}
                 >
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 2,
-                    }}
-                  >
-                    {item.icon}
-                    {item.label}
-                  </Typography>
-                </MenuItem>
-              ))}
+                  <AccountCircle />
+                  Profile
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={() => dispatch(toggleTheme())}>
+                <Typography
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                  }}
+                >
+                  {mode === "light" ? <DarkMode /> : <LightMode />}
+                  {mode === "light" ? "Dark mode" : "Light mode"}
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={() => dispatch(logout())}>
+                <Typography
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                  }}
+                >
+                  <Logout />
+                  Logout
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
