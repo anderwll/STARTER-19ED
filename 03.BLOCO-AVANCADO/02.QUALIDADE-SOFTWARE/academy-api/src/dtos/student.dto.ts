@@ -1,4 +1,5 @@
 import { StudentType } from "@prisma/client";
+import { AssessmentDto } from "./assessment.dto";
 
 // DTO - Data Transfer Object
 export interface CreateStudentDto {
@@ -10,13 +11,6 @@ export interface CreateStudentDto {
   age?: number;
 }
 
-interface AssessmentsDto {
-  id: string;
-  title: string;
-  description?: string | null;
-  grade: number;
-}
-
 export interface StudentDto {
   id: string;
   name: string;
@@ -24,7 +18,7 @@ export interface StudentDto {
   type: StudentType;
   cpf: string;
   age?: number | null;
-  assessments?: Array<AssessmentsDto>;
+  assessments?: Array<AssessmentDto>;
 }
 
 // NULL

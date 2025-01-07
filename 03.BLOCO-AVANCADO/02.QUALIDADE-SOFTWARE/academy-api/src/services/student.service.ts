@@ -1,6 +1,7 @@
 import {
   Assessment as AssessmentPrisma,
   Prisma,
+  PrismaClient,
   Student as StudentPrisma,
 } from "@prisma/client";
 import { prisma } from "../database/prisma.database";
@@ -220,6 +221,8 @@ export class StudentService {
         title: assessment.title,
         grade: Number(assessment.grade), // Decima(4, 2) => number (Number())
         description: assessment?.description,
+        createdAt: assessment.createdAt,
+        studentId: assessment.studentId,
       })),
     };
   }
