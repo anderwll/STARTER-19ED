@@ -1,5 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { AuthService } from "../../services";
+import { JWT } from "../../utils/jwt";
+
+// Bearer => Portador
+// headers: {
+//   Authorizathion: `Bearer ${token}`
+// }
 
 export class AuthMiddleware {
   public static async validate(
@@ -7,9 +12,9 @@ export class AuthMiddleware {
     res: Response,
     next: NextFunction
   ) {
-    const token = req.headers.authorization; // token
+    const authorization = req.headers.authorization; // token
 
-    if (!token) {
+    if (!authorization) {
       res.status(401).json({
         ok: false,
         message: "Não autenticado!",
@@ -17,10 +22,14 @@ export class AuthMiddleware {
       return;
     }
 
-    const service = new AuthService();
-    const studentFound = await service.validateToken(token);
+    // Bearer aisjdmasopikdasokdp
+    const [_, token] = authorization.split(" "); // => ["Bearer", "aspodkasopkdasopk"]
+    // const token = authorization.split(" ")[1]
 
-    if (!studentFound) {
+    const jwt = new JWT();
+    const studentDecoded = jwt.verifyToken(token);
+
+    if (!studentDecoded) {
       res.status(401).json({
         ok: false,
         message: "Não autenticado!",
@@ -30,11 +39,11 @@ export class AuthMiddleware {
 
     // Repassa essa informação.
     req.body.student = {
-      id: studentFound.id,
-      type: studentFound.type,
+      id: studentDecoded.id,
+      name: studentDecoded.name,
+      email: studentDecoded.email,
+      type: studentDecoded.type,
     };
-
-    req.body.outro = "DEU BOM";
 
     next();
   }

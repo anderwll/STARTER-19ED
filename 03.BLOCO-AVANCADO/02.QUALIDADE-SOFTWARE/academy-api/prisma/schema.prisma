@@ -8,14 +8,13 @@ datasource db {
 }
 
 model Student {
-  id        String      @id @default(uuid()) @db.Uuid
-  name      String      @db.VarChar(250)
-  email     String      @unique @db.VarChar(250)
-  password  String      @db.Text
-  type      StudentType @default(M)
-  age       Int?        @db.Integer
-  cpf       String      @unique @db.Char(11)
-  authToken String?     @map("auth_token") @db.Text
+  id       String      @id @default(uuid()) @db.Uuid
+  name     String      @db.VarChar(250)
+  email    String      @unique @db.VarChar(250)
+  password String      @db.Text
+  type     StudentType @default(M)
+  age      Int?        @db.Integer
+  cpf      String      @unique @db.Char(11)
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @updatedAt @map("updated_at")

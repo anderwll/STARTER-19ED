@@ -4,6 +4,8 @@ import { LoginDto } from "../dtos";
 import { ResponseApi } from "../types";
 import { Bcrypt } from "../utils/bcrypt";
 import { Student } from "@prisma/client";
+import { JWT } from "../utils/jwt";
+import { AuthStudent } from "../types/student.type";
 
 export class AuthService {
   public async login(data: LoginDto): Promise<ResponseApi> {
@@ -36,30 +38,26 @@ export class AuthService {
     }
 
     // 3 - Gerar o token (uid)
-    const token = randomUUID();
+    const jwt = new JWT();
 
-    // 4 - Atualizar a coluna authToken
-    await prisma.student.update({
-      where: { id: student.id },
-      data: {
-        authToken: token,
-      },
-    });
+    const payload: AuthStudent = {
+      id: student.id,
+      name: student.name,
+      email: student.email,
+      type: student.type,
+    };
 
-    // 5 - Feed de sucesso retornando o token (uid)
+    const token = jwt.generateToken(payload);
+
+    // 4 - Feed de sucesso retornando o token (uid)
     return {
       ok: true,
       code: 200,
       message: "Login efetuado com sucesso!",
-      data: { token },
+      data: {
+        student: payload,
+        token,
+      },
     };
-  }
-
-  public async validateToken(token: string): Promise<Student | null> {
-    const student = await prisma.student.findFirst({
-      where: { authToken: token },
-    });
-
-    return student;
   }
 }
