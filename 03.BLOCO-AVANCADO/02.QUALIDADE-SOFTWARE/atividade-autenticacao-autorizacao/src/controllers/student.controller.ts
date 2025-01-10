@@ -33,9 +33,6 @@ export class StudentController {
     try {
       const { name, cpf } = req.query;
 
-      const { student } = req.body;
-      console.log("STUDENT NO CONTROLLER VINDO DO MIDDLEWARE", student);
-
       const service = new StudentService();
       const result = await service.findAll({
         name: name as string,

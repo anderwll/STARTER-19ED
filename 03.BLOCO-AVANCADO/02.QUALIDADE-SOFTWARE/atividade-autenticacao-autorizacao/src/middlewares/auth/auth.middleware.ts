@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { AuthService } from "../../services";
 import { Jwt } from "../../utils/jwt";
 
 export class AuthMiddleware {
@@ -41,7 +40,7 @@ export class AuthMiddleware {
     }
 
     // Repassa essa informação.
-    req.body.student = {
+    req.authStudent = {
       id: studentValidated.id,
       name: studentValidated.name,
       email: studentValidated.email,
