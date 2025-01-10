@@ -5,18 +5,18 @@ import { AssessmentService } from "../services/assessments.service";
 export class AssessmentController {
   public static async create(req: Request, res: Response): Promise<void> {
     try {
-      const student = req.authStudent;
-      const { title, description, grade } = req.body;
+      const studentLogged = req.authStudent;
+      const { title, description, grade, studentId } = req.body;
 
       const data: CreateAssessmentDto = {
         title,
         description,
         grade,
-        studentId: student.id,
+        studentId,
       };
 
       const service = new AssessmentService();
-      const result = await service.create(data);
+      const result = await service.create(data, studentLogged);
 
       const { code, ...response } = result;
       res.status(code).json(response);
@@ -30,10 +30,10 @@ export class AssessmentController {
 
   public static async findAll(req: Request, res: Response): Promise<void> {
     try {
-      const student = req.authStudent;
+      const studentLogged = req.authStudent;
 
       const service = new AssessmentService();
-      const result = await service.findAll(student.id);
+      const result = await service.findAll(studentLogged);
 
       const { code, ...response } = result;
       res.status(code).json(response);

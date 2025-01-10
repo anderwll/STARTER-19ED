@@ -8,7 +8,7 @@ export class Jwt {
     }
     const token = jwt.sign(student, process.env.JWT_SECRET, {
       algorithm: "HS256",
-      expiresIn: "1h",
+      expiresIn: process.env.JWT_EXPIRES_IN,
     });
 
     return token;

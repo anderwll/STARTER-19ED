@@ -1,4 +1,4 @@
-import { Assessment } from "@prisma/client";
+import { Assessment, StudentType } from "@prisma/client";
 import { prisma } from "../database/prisma.database";
 import {
   AssessmentDto,
@@ -6,12 +6,17 @@ import {
   UpdateAssessmentDto,
 } from "../dtos/assessment.dto";
 import { ResponseApi } from "../types";
+import { StudentToken } from "../types/student.types";
 
 export class AssessmentService {
   public async create(
-    createAssessment: CreateAssessmentDto
+    createAssessment: CreateAssessmentDto,
+    studentLogged: StudentToken
   ): Promise<ResponseApi> {
     const { title, description, grade, studentId } = createAssessment;
+
+    const studentIdValidate =
+      studentLogged.type === StudentType.M ? studentLogged.id : studentId;
 
     const student = await prisma.student.findUnique({
       where: { id: studentId },
@@ -30,7 +35,7 @@ export class AssessmentService {
         title: title,
         description: description,
         grade: grade,
-        studentId: studentId,
+        studentId: studentIdValidate,
       },
     });
 
@@ -42,9 +47,12 @@ export class AssessmentService {
     };
   }
 
-  public async findAll(id: string): Promise<ResponseApi> {
+  public async findAll(studentLogged: StudentToken): Promise<ResponseApi> {
+    const studentId =
+      studentLogged.type !== StudentType.T ? undefined : studentLogged.id;
+
     const assessmentList = await prisma.assessment.findMany({
-      where: { studentId: id },
+      where: { studentId },
       orderBy: { createdAt: "asc" },
     });
 
