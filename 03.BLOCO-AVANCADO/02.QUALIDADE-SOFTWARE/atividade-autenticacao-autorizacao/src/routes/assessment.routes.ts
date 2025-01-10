@@ -4,6 +4,8 @@ import { CreateAssessmentMiddleware } from "../middlewares/assessments/create-as
 import { AuthMiddleware } from "../middlewares/auth/auth.middleware";
 import { ValidateUuidMiddleware } from "../middlewares/validate-uuid.middleware";
 import { UpdateAssessmentMiddleware } from "../middlewares/assessments/update-assessment.middleaware";
+import { TypeMiddleware } from "../middlewares/type.middleware";
+import { StudentType } from "@prisma/client";
 
 export class AssessmentRoutes {
   public static execute(): Router {
@@ -14,6 +16,7 @@ export class AssessmentRoutes {
       "/assessments",
       [
         AuthMiddleware.validate,
+        TypeMiddleware.validate([StudentType.M, StudentType.T]),
         CreateAssessmentMiddleware.validateRequired,
         CreateAssessmentMiddleware.validateTypes,
         CreateAssessmentMiddleware.validateData,
@@ -23,7 +26,8 @@ export class AssessmentRoutes {
 
     router.get(
       "/assessments",
-      AuthMiddleware.validate, // {student: { id, type }}
+      AuthMiddleware.validate,
+      TypeMiddleware.validate(),
       AssessmentController.findAll
     );
 
@@ -37,6 +41,7 @@ export class AssessmentRoutes {
       "/assessments/:id",
       [
         AuthMiddleware.validate,
+        TypeMiddleware.validate([StudentType.T]),
         ValidateUuidMiddleware.validate,
         UpdateAssessmentMiddleware.validateTypes,
         UpdateAssessmentMiddleware.validateData,
@@ -46,7 +51,11 @@ export class AssessmentRoutes {
 
     router.delete(
       "/assessments/:id",
-      [AuthMiddleware.validate, ValidateUuidMiddleware.validate],
+      [
+        AuthMiddleware.validate,
+        TypeMiddleware.validate([StudentType.T]),
+        ValidateUuidMiddleware.validate,
+      ],
       AssessmentController.remove
     );
 
