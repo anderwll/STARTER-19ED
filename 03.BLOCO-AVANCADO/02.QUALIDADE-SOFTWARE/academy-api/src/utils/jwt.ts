@@ -2,13 +2,23 @@ import jwt from "jsonwebtoken";
 import { AuthStudent } from "../types/student.type";
 
 /**
- *  jwt.sign(dados, palavraSecreta, configs) // Gerar um token
- *  jwt.decode() // Decodificar o token
- *  jwt.verify() // Verificarmos e decodificarmos o token
+ * @class JWT - Adaptação da biblioteca jwt
+ * @see Documentação {@link https://jwt.io/}
  */
-
 export class JWT {
-  // Gerar o token
+  /**
+   * Método para gerar um token a partir de um estudante fornecido
+   * @param data Objeto no formato *AuthStudent*
+   * @see {@link AuthStudent}
+   * @returns Token assinado no formato jwt
+   *
+   * @example
+   * import { JWT } from "../utils/jwt";
+   *
+   * const jwt = new JWT()
+   * const token = jwt.generateToken(payload);
+   */
+
   public generateToken(data: AuthStudent): string {
     if (!process.env.JWT_SECRET) {
       throw new Error("Secret not defined");
@@ -22,7 +32,18 @@ export class JWT {
     return token;
   }
 
-  // Verificar o token
+  /**
+   * Método para verificação e decodificação do token recebido
+   * @param token - string recibida para verificação
+   * @returns Estudante em caso de sucesso
+   * @returns null em caso de erro
+   *
+   * @example
+   * import { JWT } from "../../utils/jwt";
+   *
+   * const jwt = new JWT();
+   * const studentDecoded = jwt.verifyToken(token);
+   */
   public verifyToken(token: string): AuthStudent | null {
     try {
       if (!process.env.JWT_SECRET) {
