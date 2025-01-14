@@ -1,9 +1,7 @@
-import { randomUUID } from "crypto";
 import { prisma } from "../database/prisma.database";
 import { LoginDto } from "../dtos";
 import { ResponseApi } from "../types";
 import { Bcrypt } from "../utils/bcrypt";
-import { Student } from "@prisma/client";
 import { JWT } from "../utils/jwt";
 import { AuthStudent } from "../types/student.type";
 
