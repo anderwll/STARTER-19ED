@@ -1,0 +1,201 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Academy Api",
+    "description": "Api de controle acadêmico de alunos e suas avaliações.",
+    "contact": {
+      "email": "dev@growdev.com.br"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Api Localhost"
+    },
+    {
+      "url": "https://api-prod.com.br",
+      "description": "Api Produção"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Autenticação",
+      "description": "Todas as funcionalidades de auteticação do estudante."
+    },
+    {
+      "name": "Estudantes",
+      "description": "Todas as funcionalidades de estudantes."
+    },
+    {
+      "name": "Avaliações",
+      "description": "Todas as funcionalidades de avaliações."
+    }
+  ],
+  "paths": {
+    "/students": {
+      "post": {
+        "tags": ["Estudantes"],
+        "summary": "Cadastro de estudantes.",
+        "description": "Enpoint para o cadastro de estudantes.",
+        "requestBody": {
+          "required": true,
+          "description": "Objeto contendo as informações do estudante a ser criado.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "examples": ["João Pereira"]
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "examples": ["joao@email.com.br"]
+                  },
+                  "password": {
+                    "type": "string",
+                    "examples": ["senha123"]
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["T", "F", "M"]
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "examples": ["055.291.490-81"]
+                  },
+                  "age": {
+                    "type": "number",
+                    "examples": [18]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponse"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/Student"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de dados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/:id": {
+      "get": {
+        "tags": ["Estudantes"],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Student": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "examples": ["João Pereira"]
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "examples": ["joao@email.com.br"]
+          },
+          "password": {
+            "type": "string",
+            "examples": ["senha123"]
+          },
+          "type": {
+            "type": "string",
+            "enum": ["T", "F", "M"]
+          },
+          "cpf": {
+            "type": "string",
+            "examples": ["055.291.490-81"]
+          },
+          "age": {
+            "type": "number",
+            "examples": [18]
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "examples": [false]
+          },
+          "message": {
+            "type": "string",
+            "examples": ["Uma mensagem indicando o erro"]
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "examples": [true]
+          },
+          "message": {
+            "type": "string",
+            "examples": ["Uma mensagem indicando o sucesso"]
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
