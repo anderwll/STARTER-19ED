@@ -13,7 +13,8 @@
     "test": "jest --silent --noStackTrace --runInBand",
     "test:verbose": "jest --verbose --runInBand --detectOpenHandles",
     "test:coverage": "jest --runInBand --coverage",
-    "test:watch": "jest --silent --noStackTrace --runInBand --watchAll"
+    "test:watch": "jest --silent --noStackTrace --runInBand --watchAll",
+    "test:unit": "jest -c jest.unit.config.ts --verbose  --noStackTrace"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +40,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "jest": "^29.7.0",
+    "jest-mock-extended": "^4.0.0-beta1",
     "jsonwebtoken": "^9.0.2",
     "swagger-ui-express": "^5.0.1"
   }
