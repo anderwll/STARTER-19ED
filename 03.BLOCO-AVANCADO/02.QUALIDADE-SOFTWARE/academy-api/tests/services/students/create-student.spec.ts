@@ -67,12 +67,8 @@ describe("Create Student Service", () => {
     prismaMock.student.findFirst.mockResolvedValue(null);
 
     // Mock do Bcrypt
-    /**
-     *
-     */
-
+    // jest.espião(Classe, "método").mockResolvedValue(valor_mock)
     jest.spyOn(Bcrypt.prototype, "generateHash").mockResolvedValue("any_hash");
-
     prismaMock.student.create.mockResolvedValue(studentMock);
 
     const response = await sut.create(dto);
