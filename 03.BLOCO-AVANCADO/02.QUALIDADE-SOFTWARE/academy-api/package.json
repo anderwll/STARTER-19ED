@@ -14,7 +14,8 @@
     "test:verbose": "jest --verbose --runInBand --detectOpenHandles",
     "test:coverage": "jest --runInBand --coverage",
     "test:watch": "jest --silent --noStackTrace --runInBand --watchAll",
-    "test:unit": "jest -c jest.unit.config.ts --verbose  --noStackTrace"
+    "test:unit": "jest -c jest.unit.config.ts --verbose  --noStackTrace",
+    "test:api": "jest -c jest.api.config.ts --verbose  --noStackTrace"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,7 @@
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.6",
+    "@types/supertest": "^6.0.2",
     "@types/swagger-ui-express": "^4.1.7",
     "dotenv": "^16.4.5",
     "prisma": "^5.21.1",
@@ -42,6 +44,7 @@
     "jest": "^29.7.0",
     "jest-mock-extended": "^4.0.0-beta1",
     "jsonwebtoken": "^9.0.2",
+    "supertest": "^7.0.0",
     "swagger-ui-express": "^5.0.1"
   }
 }
