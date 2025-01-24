@@ -31,7 +31,7 @@ describe("GET /assesments", () => {
     });
   });
 
-  it("Deve retornar 200 quando informado o token", async () => {
+  it("Deve retornar 200 quando informado o token válido", async () => {
     const token = makeToken({ type: StudentType.M });
     const mockService = {
       ok: true,
