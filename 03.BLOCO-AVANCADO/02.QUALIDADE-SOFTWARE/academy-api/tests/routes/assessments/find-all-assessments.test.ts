@@ -40,6 +40,8 @@ describe("GET /assesments", () => {
       data: [],
     };
 
+    const { code, ...respondeBody } = mockService;
+
     jest
       .spyOn(AssessmentService.prototype, "findAll")
       .mockResolvedValue(mockService);
@@ -49,5 +51,6 @@ describe("GET /assesments", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(response).toHaveProperty("statusCode", 200);
+    expect(response.body).toEqual(respondeBody);
   });
 });
